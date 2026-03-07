@@ -16,7 +16,7 @@ This repository is a collection of my practical tasks and projects as I learn Py
     * Created a **Rocket Launch** countdown using reverse `range()` with steps.
     * Developed a **Square Calculator** with conditional filtering (`if` statements).
 * **March 6:** Git Integration
-    * Started uploading tasks from Skillbox.
+    * Started uploading tasks.
 * **February:** Getting Started
     * Initial Python environment setup and basic syntax.
 
