@@ -26,4 +26,19 @@ else:
             print(i, end=' ')
             for l in range(1):
                 print('-=-', end=' ')
+
+# --- PROGRAM 3: Chessboard Wall ---
+print('--- Task 3: Chessboard Pattern ---')
+rows = int(input('Enter the number of floors: '))
+cols = int(input('Enter the number of sections in width: '))
+
+for r in range(rows):
+    for c in range(cols):
+        # Using brackets to ensure the sum is calculated before the modulo
+        if (r + c) % 2 == 0:
+            print('#0#', end=' ')
+        else:
+            print('# #', end=' ')
+    print()  # Jump to the next floor
+print('-' * 10)
     print() # To move to a new line at the end
