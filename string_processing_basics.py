@@ -41,3 +41,15 @@ for char in raw_data:
         clean_text = clean_text + char
 
 print(f'Cleaned output: {clean_text}')
+print('-' * 25)
+
+# TASK 4. IDENTITY MATRIX GENERATOR (AI Foundation)
+# Outputting '1' only when row index equals column index.
+number = int(input('Enter the number: '))
+for col in range(number):
+    for row in range(number):
+        if row == col:
+            print('1', end='\t')
+        else:
+            print('0', end='\t')
+    print()
