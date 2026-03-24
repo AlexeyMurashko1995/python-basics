@@ -48,4 +48,15 @@ else:
     print(f'Correction: {correction}')
     print('*' * 20)
 
+# --- PROGRAM 4: DEFECT CONVEYOR ---
+print('--- Task 4: Defect Conveyor ---')
+ideal_weight = 0.5
+current_weight = float(input('Enter the weight: '))
+dif = round(current_weight - ideal_weight,2)
+if abs(dif) > 0.05:
+    print('Status: Reject')
+else:
+    print('Status: OK')
+print('*' * 20)
+
 
