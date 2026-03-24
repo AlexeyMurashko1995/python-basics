@@ -1,4 +1,4 @@
-# #--- TASK 1: SPACE RANGERS ---
+#--- TASK 1: SPACE RANGERS ---
 print('--- Task 1: Space ---')
 money = int(input('Enter the amount of chattles: '))
 
@@ -32,6 +32,20 @@ else:
     print(f'Adjust the piece position to ({dif_x}, {dif_y})')
 print('*' * 20)
 
+# --- PROGRAM 3: SMART PARKING ---
+print('--- Task 3: Smart Parking ---')
+distance = float(input('Enter the distance from the start of the parking lot: '))
+if distance < 0 or distance > 25:
+    print('Parking error: Out of bounds ')
+else:
 
+    sector = int(distance / 2.5)
+    ideal_distance = (sector * 2.5) + 1.25
+    correction = round(ideal_distance - distance, 2)
+
+    print(f'Sector: {sector}')
+    print(f'The centre of the sector {sector}: {ideal_distance}')
+    print(f'Correction: {correction}')
+    print('*' * 20)
 
 
