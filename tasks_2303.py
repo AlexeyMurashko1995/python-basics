@@ -59,4 +59,24 @@ else:
     print('Status: OK')
 print('*' * 20)
 
+# --- PROGRAM 5: SMART SHELV ---
+print('--- Task 5: Smart Shelv ---')
+positions = [150, 480, 720, 1000, 1500, 2400]
+boxes_out = 0
+boxes_ok = 0
+for num in positions:
+    if num > 2000:
+        boxes_out += 1
+        continue
+    boxes_ok += 1
+    id_sector = num // 200
+    ideal_position = id_sector * 200 + 100
+    correction = ideal_position - num
+    print(f'Position: {num}')
+    print(f'Sector: {id_sector}')
+    print(f'Ideal position: {ideal_position}')
+    print(f'Correction: {correction}')
+print(f'Boxes in the range: {boxes_ok}')    
+print(f'Boxes out of range: {boxes_out}')
+
 
