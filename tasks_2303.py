@@ -59,8 +59,8 @@ else:
     print('Status: OK')
 print('*' * 20)
 
-# --- PROGRAM 5: SMART SHELV ---
-print('--- Task 5: Smart Shelv ---')
+# --- PROGRAM 5: SMART SHELF ---
+print('--- Task 5: Smart Shelf ---')
 positions = [150, 480, 720, 1000, 1500, 2400]
 boxes_out = 0
 boxes_ok = 0
