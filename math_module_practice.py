@@ -16,3 +16,18 @@ area_rounded = round(area, 1)
 
 print(f'Triangle area is: {area_rounded}')
 print('*' * 30)
+
+# --- PROGRAM 2: THE GAME ---
+print('--- Task 2: The Game ---')
+
+distance = float(input('Enter the distance travelled: '))
+angle = int(input('Enter the angle: '))
+x = 0
+y = 0
+
+angle_rad = math.radians(angle)
+x = round(distance * math.cos(angle_rad), 1)
+y = round(distance * math.sin(angle_rad), 1)
+
+print(f'Current location: {x}, {y}')
+print('*' * 30)
