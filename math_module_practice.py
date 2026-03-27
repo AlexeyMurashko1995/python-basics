@@ -61,3 +61,20 @@ if user_number >= 0 and user_number.is_integer():
 else:
     print("11. Factorial: Input is not a natural number")
 print('*' * 30)
+
+# --- PROGRAM 4: WAREHOUSE INVENTORY ---
+print('--- Task 4: Warehouse Inventory ---')
+
+name = input('Enter product name: ')
+price = float(input('Enter the price: '))
+quantity = input('Enter the quantity: ')
+
+total_cost = price * int(quantity)
+first_string = 'Item: '+ name + ' | ' + 'Total cost: ' + str(total_cost)
+print(first_string)
+second_string = 'Integer part for accounting: ' + str(int(total_cost))
+print(second_string)
+print('*' * 30)
+
+      
+
