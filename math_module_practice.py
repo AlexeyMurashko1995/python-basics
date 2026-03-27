@@ -76,5 +76,6 @@ second_string = 'Integer part for accounting: ' + str(int(total_cost))
 print(second_string)
 print('*' * 30)
 
-      
+
+
 
