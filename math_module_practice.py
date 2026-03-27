@@ -97,3 +97,34 @@ surface = 4 * math.pi * (radius ** 2)
 print(f'The volume: {volume:.2f}\nThe surface: {surface:.2f}')
 print('*' * 30)
 
+# --- PROGRAM 7: A KNIGHT'S MOVE ---
+print("--- Task 7: A Knight's Move ---")
+
+print("Enter the knight's position: ")
+x = float(input(''))
+y = float(input(''))
+
+x_square = int(x * 10)
+y_square = int(y * 10) 
+
+print("Enter the target point's position: ")
+x1 = float(input(''))
+y1 = float(input(''))
+
+x1_square = int(x1 * 10)
+y1_square = int(y1 * 10)
+
+if x_square > 7 or y_square > 7 or x1_square > 7 or y1_square > 7:
+    print('Error: The coordinates are out of bounds (0-7).')
+else:
+    dx = abs(x_square - x1_square)
+    dy = abs(y_square - y1_square) 
+
+    print(f'Knight position: ({x_square}, {y_square})\nTarget position: ({x1_square}, {y1_square})')
+
+    if (dx == 2 and dy == 1) or (dx == 1 and dy == 2):
+        print('Yes, the knight can move to this point.')
+    else:
+        print('No, the knight cannot move to this point.')
+print('*' * 30)
+
