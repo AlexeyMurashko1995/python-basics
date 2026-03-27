@@ -76,6 +76,18 @@ second_string = 'Integer part for accounting: ' + str(int(total_cost))
 print(second_string)
 print('*' * 30)
 
+# --- PROGRAM 5: THE FIRST DIGIT ---
+print('--- Task 5: The First Digit ---')
 
+number = float(input('Enter the number: '))
 
+first_digit = (number * 10) % 10 
+
+print(f'The first digit: {int(first_digit)}')
+print('*' * 30)
+
+# --- PROGRAM 6: VOLUME OF A PLANET ---
+print('--- Task 6: Volume of a Planet ---')
+
+radius = float(input('Enter the '))
 
