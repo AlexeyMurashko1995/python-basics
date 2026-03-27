@@ -89,5 +89,11 @@ print('*' * 30)
 # --- PROGRAM 6: VOLUME OF A PLANET ---
 print('--- Task 6: Volume of a Planet ---')
 
-radius = float(input('Enter the '))
+radius = float(input('Enter the radius: '))
+
+volume = 4 / 3 * math.pi * (radius ** 3)
+surface = 4 * math.pi * (radius ** 2)
+
+print(f'The volume: {volume:.2f}\nThe surface: {surface:.2f}')
+print('*' * 30)
 
