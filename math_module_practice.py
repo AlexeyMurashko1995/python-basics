@@ -32,7 +32,7 @@ y = round(distance * math.sin(angle_rad), 1)
 print(f'Current location: {x}, {y}')
 print('*' * 30)
 
-# --- PROGRAM 3: MEGA-CALCULATOR ---
+# --- PROGRAM 3: CALCULATOR ---
 print('--- Task 3: Mega-Calculator ---')
 
 user_number = float(input("Enter a number: "))
