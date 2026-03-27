@@ -34,5 +34,4 @@ The projects are organized by complexity and module:
 ## 🌍 About Me
 I am currently based in **Poland**, focusing on combining Python development with AI automation. I believe in clean code, descriptive naming, and constant self-improvement.
 
----
 *Last updated: March 2026*
