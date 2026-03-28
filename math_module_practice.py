@@ -128,3 +128,16 @@ else:
         print('No, the knight cannot move to this point.')
 print('*' * 30)
 
+# --- PROGRAM 8: THE MAXIMUM OF TWO ---
+print('--- Task 8: The Maximum Of Two ---')
+
+num_1 = int(input('Enter the first number: '))
+num_2 = int(input('Enter the second number: '))
+
+plus = num_1 + num_2
+dif = abs(num_1 - num_2)
+total = plus + dif
+result = total // 2
+
+print(result)
+print('*' * 30)
