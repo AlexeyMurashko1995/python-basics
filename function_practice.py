@@ -27,3 +27,17 @@ else:
     print('Invalid input')
     
 print('*' * 30) 
+
+# --- PROGRAM 2: WATER PRICE ---
+print('--- Task 2: Water Price ---')
+
+def about_water(price):
+    print('The name: ClearWater')
+    print('Producer: Poland')
+    print(f'Price: {price}')
+    print()
+
+
+about_water(25)
+about_water(30)
+about_water(40)
