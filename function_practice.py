@@ -79,14 +79,16 @@ def is_prime(n):
             if divisors > 2:
                 break
     if divisors == 2:
-        print(f'The number {n} is prime.')
+        return True 
     else:
-        print(f'The number {n} is not prime.')
+        return False
 
 amount = int(input('Enter the amount of numbers: '))
 
 for i in range(1, amount + 1):
     current_number = int(input(f'Enter #{i} number: '))
-    is_prime(current_number)
+    if is_prime(current_number):
+        print('This number is a match. ')
+    
 print('*' * 30)
 
