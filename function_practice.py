@@ -1,3 +1,5 @@
+import math
+
 # --- PROGRAM 1: DRAWING ---
 print('--- Task 1: Drawing ---')
 
@@ -41,3 +43,27 @@ def about_water(price):
 about_water(25)
 about_water(30)
 about_water(40)
+print('*' * 30)
+
+def calculate_sphere_area(r):
+    area = 4 * math.pi * (r ** 2)
+    print(f'The surface area: {area:.2f}')
+
+def calculate_sphere_volume(r):
+    volume = 4 / 3 * math.pi * (r ** 3)
+    print(f'The volume: {volume:.2f}')
+
+# --- PROGRAM 3: PLANETARY CALCULATION ---
+print('--- Task 3: Planetary Calculation ---')
+
+radius = float(input('Enter the radius: '))
+
+choice = int(input('1 - The Surface Area; 2 - The Volume: '))
+
+if choice == 1:
+    calculate_sphere_area(radius)
+elif choice == 2:
+    calculate_sphere_volume(radius)
+else: 
+    print('Invalid Input')
+print('*' * 30)
