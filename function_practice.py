@@ -1,108 +1,108 @@
 import math
 
-# # --- PROGRAM 1: DRAWING ---
-# print('--- Task 1: Drawing ---')
+# --- PROGRAM 1: DRAWING ---
+print('--- Task 1: Drawing ---')
 
-# def triangle():
-#     for row in range(5):
-#         for space in range(5-row-1):
-#             print(' ', end='')
-#         for star in range(2 * row + 1):
-#             print('*', end='')
-#         print()
+def triangle():
+    for row in range(5):
+        for space in range(5-row-1):
+            print(' ', end='')
+        for star in range(2 * row + 1):
+            print('*', end='')
+        print()
 
-# def rectangle():
-#     for row in range(5):
-#         for col in range(5):
-#             if row == 0 or col == 0 or col == 4 or row == 4:
-#                 print('*', end='')
-#             else:
-#                 print(' ', end='')
-#         print()
+def rectangle():
+    for row in range(5):
+        for col in range(5):
+            if row == 0 or col == 0 or col == 4 or row == 4:
+                print('*', end='')
+            else:
+                print(' ', end='')
+        print()
 
-# choice = int(input('What would you like to draw? 1 - triangle; 2 - rectangle: '))
-# if choice == 1:
-#     triangle()
-# elif choice == 2:
-#     rectangle()
-# else:
-#     print('Invalid input')
+choice = int(input('What would you like to draw? 1 - triangle; 2 - rectangle: '))
+if choice == 1:
+    triangle()
+elif choice == 2:
+    rectangle()
+else:
+    print('Invalid input')
     
-# print('*' * 30) 
+print('*' * 30) 
 
-# # --- PROGRAM 2: WATER PRICE ---
-# print('--- Task 2: Water Price ---')
+# --- PROGRAM 2: WATER PRICE ---
+print('--- Task 2: Water Price ---')
 
-# def about_water(price):
-#     print('The name: ClearWater')
-#     print('Producer: Poland')
-#     print(f'Price: {price}')
-#     print()
+def about_water(price):
+    print('The name: ClearWater')
+    print('Producer: Poland')
+    print(f'Price: {price}')
+    print()
 
 
-# about_water(25)
-# about_water(30)
-# about_water(40)
-# print('*' * 30)
+about_water(25)
+about_water(30)
+about_water(40)
+print('*' * 30)
 
-# def calculate_sphere_area(r):
-#     area = 4 * math.pi * (r ** 2)
-#     print(f'The surface area: {area:.2f}')
+def calculate_sphere_area(r):
+    area = 4 * math.pi * (r ** 2)
+    print(f'The surface area: {area:.2f}')
 
-# def calculate_sphere_volume(r):
-#     volume = 4 / 3 * math.pi * (r ** 3)
-#     print(f'The volume: {volume:.2f}')
+def calculate_sphere_volume(r):
+    volume = 4 / 3 * math.pi * (r ** 3)
+    print(f'The volume: {volume:.2f}')
 
-# # --- PROGRAM 3: PLANETARY CALCULATION ---
-# print('--- Task 3: Planetary Calculation ---')
+# --- PROGRAM 3: PLANETARY CALCULATION ---
+print('--- Task 3: Planetary Calculation ---')
 
-# radius = float(input('Enter the radius: '))
+radius = float(input('Enter the radius: '))
 
-# choice = int(input('1 - The Surface Area; 2 - The Volume: '))
+choice = int(input('1 - The Surface Area; 2 - The Volume: '))
 
-# if choice == 1:
-#     calculate_sphere_area(radius)
-# elif choice == 2:
-#     calculate_sphere_volume(radius)
-# else: 
-#     print('Invalid Input')
-# print('*' * 30)
+if choice == 1:
+    calculate_sphere_area(radius)
+elif choice == 2:
+    calculate_sphere_volume(radius)
+else: 
+    print('Invalid Input')
+print('*' * 30)
 
-# # --- PROGRAM 4: PRIME NUMBER ---
-# print('--- Task 4: Prime Number ---')
+# --- PROGRAM 4: PRIME NUMBER ---
+print('--- Task 4: Prime Number ---')
 
-# def is_prime(n):
-#     divisors = 0
-#     for i in range(1, n + 1):
-#         if n % i == 0:
-#             divisors += 1
-#             if divisors > 2:
-#                 break
-#     if divisors == 2:
-#         return True 
-#     else:
-#         return False
+def is_prime(n):
+    divisors = 0
+    for i in range(1, n + 1):
+        if n % i == 0:
+            divisors += 1
+            if divisors > 2:
+                break
+    if divisors == 2:
+        return True 
+    else:
+        return False
 
-# amount = int(input('Enter the amount of numbers: '))
+amount = int(input('Enter the amount of numbers: '))
 
-# for i in range(1, amount + 1):
-#     current_number = int(input(f'Enter #{i} number: '))
-#     if is_prime(current_number):
-#         print('This number is a match. ')
+for i in range(1, amount + 1):
+    current_number = int(input(f'Enter #{i} number: '))
+    if is_prime(current_number):
+        print('This number is a match. ')
     
-# print('*' * 30)
+print('*' * 30)
 
-# # --- PROGRAM 5: VAT CALCULATOR ---
-# print('--- Task 5: VAT Calculator ---')
+# --- PROGRAM 5: VAT CALCULATOR ---
+print('--- Task 5: VAT Calculator ---')
 
-# def get_total_price(net_price):
-#     gross_price = net_price + (net_price * 0.23)
-#     return gross_price
+def get_total_price(net_price):
+    gross_price = net_price + (net_price * 0.23)
+    return gross_price
 
-# netto = float(input('Enter net price: '))
-# total = get_total_price(netto)
+netto = float(input('Enter net price: '))
+total = get_total_price(netto)
 
-# print(f'Total price (Gross): {total:.2f}')
+print(f'Total price (Gross): {total:.2f}')
 
 # --- PROGRAM 6: MAXIMUM FINDER ---
 print('--- Task 6: Maximum Finder ---')
@@ -119,3 +119,20 @@ print(f'Comparing {a} and {b}...')
 win = get_max(a,b)
 
 print(f'The maximum is: {win}')
+print('*' * 30)
+
+# --- PROGRAM 7: FORMATTER FUNCTION ---
+print('--- Task 7: Formatter Function ---')
+
+def get_prepare_string(text):
+    clean_text = text.strip()
+    final_text = clean_text.capitalize()
+
+    return final_text
+
+user_text = input('Enter your text: ')
+
+print(f'Result: {get_prepare_string(user_text)}')
+print('*' * 30)
+        
+        
