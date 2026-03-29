@@ -92,3 +92,14 @@ for i in range(1, amount + 1):
     
 print('*' * 30)
 
+# --- PROGRAM 5: VAT CALCULATOR ---
+print('--- Task 5: VAT Calculator ---')
+
+def get_total_price(net_price):
+    gross_price = net_price + (net_price * 0.23)
+    return gross_price
+
+netto = float(input('Enter net price: '))
+total = get_total_price(netto)
+
+print(f'Total price (Gross): {total:.2f}')
