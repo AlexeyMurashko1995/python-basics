@@ -67,3 +67,26 @@ elif choice == 2:
 else: 
     print('Invalid Input')
 print('*' * 30)
+
+# --- PROGRAM 4: PRIME NUMBER ---
+print('--- Task 4: Prime Number ---')
+
+def is_prime(n):
+    divisors = 0
+    for i in range(1, n + 1):
+        if n % i == 0:
+            divisors += 1
+            if divisors > 2:
+                break
+    if divisors == 2:
+        print(f'The number {n} is prime.')
+    else:
+        print(f'The number {n} is not prime.')
+
+amount = int(input('Enter the amount of numbers: '))
+
+for i in range(1, amount + 1):
+    current_number = int(input(f'Enter #{i} number: '))
+    is_prime(current_number)
+print('*' * 30)
+
