@@ -167,4 +167,27 @@ if is_adult(customer_age):
     print('Access granted')
 else:
     print('Access denied')
-        
+print('*' * 30)
+
+# --- PROGRAM 10: THE AVERAGE ---
+print('--- Task 10: The Average ---')
+
+def get_average(a,b):
+    if a > b:
+        return None
+    return (a + b) / 2
+
+a_1 = int(input('Enter the first number: '))
+b_1 = int(input('Enter the second number: '))
+
+result = get_average(a_1, b_1)
+if result is None:
+    print('Invalid Input')
+else:
+    print(f'Result: {result}')
+
+print('*' * 30)
+
+
+
+
