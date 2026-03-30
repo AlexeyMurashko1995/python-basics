@@ -150,5 +150,21 @@ user_discount = int(input('Enter the discount percent: '))
 total = get_discounted_price(user_price, user_discount)
 
 print(f'Final price: {total:.2f}')
-        
+print('*' * 30)
+
+# --- PROGRAM 9: THE ACCESS GUARD ---
+print('--- Task 9: The Access Guard ---')
+
+def is_adult(age):
+    if age >= 18:
+        return True
+    else:
+        return False 
+
+customer_age = int(input('Enter your age: '))
+
+if is_adult(customer_age):
+    print('Access granted')
+else:
+    print('Access denied')
         
