@@ -119,6 +119,7 @@ print(f'Comparing {a} and {b}...')
 win = get_max(a,b)
 
 print(f'The maximum is: {win}')
+
 print('*' * 30)
 
 # --- PROGRAM 7: FORMATTER FUNCTION ---
@@ -150,6 +151,7 @@ user_discount = int(input('Enter the discount percent: '))
 total = get_discounted_price(user_price, user_discount)
 
 print(f'Final price: {total:.2f}')
+
 print('*' * 30)
 
 # --- PROGRAM 9: THE ACCESS GUARD ---
@@ -167,6 +169,7 @@ if is_adult(customer_age):
     print('Access granted')
 else:
     print('Access denied')
+
 print('*' * 30)
 
 # --- PROGRAM 10: THE AVERAGE ---
@@ -217,6 +220,7 @@ elif choice == 2:
 
 else:
     print('Invalid Input')
+
 print('*' * 30)
 
 # --- PROGRAM 12: THE SUM OF NUMBERS ---
@@ -238,6 +242,7 @@ if total_sum is None:
     print('The number must be higher than 0')
 else:
     print(f'The sum of numbers from 1 to {number}: {total_sum}')
+
 print('*' * 30)
 
 # --- PROGRAM 13: NESTED FUNCTION ---
@@ -260,4 +265,67 @@ def test():
 
 test()
 
+print('*' * 30)
+
+# --- PROGRAM 14: UPGRADE CALCULATOR ---
+print('--- Task 14: Upgrade Calculator ---')
+
+def get_sum_digits(n):
+    total = 0
+    if n == 0:
+        return 0
+    while n > 0:
+        last_digit = n % 10
+        total += last_digit
+        n //= 10
+    return total
+
+def get_min_number(n):
+    min = 9
+    if n == 0:
+        return 0
+    while n > 0:
+        last_digit = n % 10
+        if last_digit < min:
+            min = last_digit
+        n //= 10
+    return min
+
+def get_max_number(n):
+    max = 0
+    if n == 0:
+        return 0
+    while n > 0:
+        last_digit = n % 10
+        if last_digit > max:
+            max = last_digit
+        n //= 10
+    return max
+        
+is_running = True 
+while is_running: 
+    number = int(input('\nEnter the number (or -1 to exit): '))
+
+    if number == -1:
+        print('Work finished.')
+        is_running = False
+
+    else: 
+
+        choice = int(input('Choose the action: 1 - the sum of numbers; 2 - min number; 3 - max number: '))
+
+        if choice == 1:
+            result = get_sum_digits(number)
+            print(f'The sum of digits: {result}')
+
+        elif choice == 2: 
+            result = get_min_number(number)
+            print(f'The minimum: {result}')
+
+        elif choice == 3:
+            result = get_max_number(number)
+            print(f'The maximum: {result}')
+
+        else:
+            print('Invalid Input')
 print('*' * 30)
