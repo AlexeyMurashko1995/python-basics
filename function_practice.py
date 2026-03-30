@@ -239,3 +239,25 @@ if total_sum is None:
 else:
     print(f'The sum of numbers from 1 to {number}: {total_sum}')
 print('*' * 30)
+
+# --- PROGRAM 13: NESTED FUNCTION ---
+print('--- Task 13: Nested Function ---')
+
+def positive():
+    print('Positive')
+
+def negative():
+    print('Negative')
+
+def test():
+    number = int(input('Enter the number: '))
+    if number > 0: 
+        positive()
+    elif number < 0:
+        negative()
+    elif number == 0:
+        print('Invalid Input')
+
+test()
+
+print('*' * 30)
