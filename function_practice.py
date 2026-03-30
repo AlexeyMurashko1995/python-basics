@@ -134,5 +134,21 @@ user_text = input('Enter your text: ')
 
 print(f'Result: {get_prepare_string(user_text)}')
 print('*' * 30)
+
+# --- PROGRAM 8: THE SHOP ASSISTANT ---
+print('--- Task 8: The Shop Assistant ---')
+
+def get_discounted_price(price, discount_percent):
+    if discount_percent >= 100:
+        return 0.0
+    final_price = price - (price * (discount_percent / 100))
+    return final_price
+
+user_price = float(input('Enter the price: '))
+user_discount = int(input('Enter the discount percent: '))
+
+total = get_discounted_price(user_price, user_discount)
+
+print(f'Final price: {total:.2f}')
         
         
