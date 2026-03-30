@@ -218,3 +218,24 @@ elif choice == 2:
 else:
     print('Invalid Input')
 print('*' * 30)
+
+# --- PROGRAM 12: THE SUM OF NUMBERS ---
+print('--- Task 12: The Sum Of Numbers ---')
+
+def get_sum_numbers(n):
+    if n < 1:
+        return None
+    total = 0
+    for i in range (1, n + 1):
+        total += i
+    return total
+
+number = int(input('Enter the number: '))
+
+total_sum = get_sum_numbers(number)
+
+if total_sum is None:
+    print('The number must be higher than 0')
+else:
+    print(f'The sum of numbers from 1 to {number}: {total_sum}')
+print('*' * 30)
