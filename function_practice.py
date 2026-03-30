@@ -188,6 +188,33 @@ else:
 
 print('*' * 30)
 
+# --- PROGRAM 11: GPS-NAVIGATOR ---
+print('--- Task 11: GPS-Navigator ---')
 
+def get_customer_distance(x,y):
+    distance = math.sqrt((x ** 2) + (y ** 2))
+    return distance
 
+def get_between_points(x_1, y_1, x_2, y_2):
+    distance_2 = math.sqrt(((x_2 - x_1) ** 2) + ((y_2 - y_1) ** 2))
+    return distance_2
 
+choice = int(input('1 - Find the distance from your location to the point; 2 - Find the distance between two points: '))
+
+if choice == 1:
+    x = float(input('Enter the X coordinate: '))
+    y = float(input('Enter the Y coordinate: '))
+    result = get_customer_distance(x, y)
+    print(f'The distance: {result:.2f}')
+
+elif choice == 2: 
+    x_1 = float(input('Enter the coordinate X for the first point: '))
+    y_1 = float(input('Enter the coordinate Y for the first point: '))
+    x_2 = float(input('Enter the coordinate X for the second point: '))
+    y_2 = float(input('Enter the coordinate Y for the second point: '))
+    result_2 = get_between_points(x_1, y_1, x_2, y_2)
+    print(f'The distance: {result_2:.2f}')
+
+else:
+    print('Invalid Input')
+print('*' * 30)
