@@ -389,3 +389,24 @@ def start_main_menu():
 start_main_menu()
 
 print('*' * 30)
+
+# --- PROGRAM 16: TEXT EDITOR ---
+print('--- Task 16: Text Editor ---')
+
+def get_count_letters(phrase, our_digit, our_letter):
+    digit = 0
+    letter = 0
+    
+    for char in phrase:
+        if char == our_digit:
+            digit += 1
+        elif char.lower() == our_letter:
+            letter += 1 
+    print(f'The amount of "{our_digit}": {digit}\nThe amount of "{our_letter}": {letter}')
+
+
+text = input('Enter the text: ')
+digit_to_find = input('Which digit are we looking for? ')
+letter_to_find = input('Which letter are we looking for: ').lower()
+get_count_letters(text, digit_to_find, letter_to_find)
+print('*' * 30)
