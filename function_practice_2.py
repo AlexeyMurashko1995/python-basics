@@ -24,3 +24,20 @@ cleaned_version = clean_prompt(raw_prompt)
 
 print(f'Cleaned version: {cleaned_version}')
 print('*' * 30)
+
+# --- PROGRAM 3: ACTIVATION TRESHOLD ---
+print('--- Task 3: Activation Treshold ---')
+
+def is_activated(score): 
+    return score > 0.5
+
+probability_score = float(input('Enter probability score: '))
+
+status = is_activated(probability_score)
+
+if status:
+    print('Neuron status: True')
+else:
+    print('Neuron status: False')
+
+print('*' * 30)
