@@ -41,3 +41,23 @@ else:
     print('Neuron status: False')
 
 print('*' * 30)
+
+# --- PROGRAM 4: INPUT VALIDATION ---
+print('--- Task 4: Input Validation ---')
+
+def is_valid_input(text):
+    return text.strip() != '' and len(text) > 3
+    
+
+prompt = input('Enter the phrase: ')
+valid = is_valid_input(prompt)
+
+if valid:
+    print('Is valid: True')
+
+else:
+    print('Is valid: False')
+
+print('*' * 30)
+
+
