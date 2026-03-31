@@ -329,3 +329,63 @@ while is_running:
         else:
             print('Invalid Input')
 print('*' * 30)
+
+# --- PROGRAM 15: MULTI-GAME MINI APP ---
+print('--- Task 15: Multi-Game Mini App ---')
+
+def play_rock_paper_scissors(user_choice):
+    computer_choice = 'Rock'
+    print(f'Computer chose: {computer_choice}')
+    
+    if user_choice == computer_choice:
+        print("It's a draw!")
+    elif (user_choice == 'Paper' and computer_choice == 'Rock') or \
+         (user_choice == 'Scissors' and computer_choice == 'Paper') or \
+         (user_choice == 'Rock' and computer_choice == 'Scissors'):
+        print('Congratulations! You won!')
+    else:
+        print('You lost! Better luck next time.')
+
+def process_guess(user_number, secret_number):
+    if user_number < secret_number:
+        print('The hidden number is greater than your guess.')
+    elif user_number > secret_number:
+        print('The hidden number is less than your guess.')
+    else:
+        print('Perfect! You guessed the number!')
+
+def start_main_menu():
+    user_name = input('Please enter your name: ')
+    print(f'Hello, {user_name}! Welcome to the Mini-Game App.')
+    
+    is_active = True
+    while is_active:
+        print('\n--- MAIN MENU ---')
+        print('1 - Play Rock, Paper, Scissors')
+        print('2 - Play Guess the Number')
+        print('0 - Exit')
+        
+        menu_selection = int(input('Please select an option: '))
+        
+        if menu_selection == 1:
+            move = input('Enter your move (Rock, Paper, or Scissors): ')
+            play_rock_paper_scissors(move)
+            
+        elif menu_selection == 2:
+            target_number = 77 
+            print("I've thought of a number between 1 and 100. Try to guess it!")
+            
+            current_guess = 0
+            while current_guess != target_number:
+                current_guess = int(input('Enter your guess: '))
+                process_guess(current_guess, target_number)
+                
+        elif menu_selection == 0:
+            print('Thank you for playing! Goodbye.')
+            is_active = False
+        else:
+            print('Invalid selection. Please try again.')
+
+start_main_menu()
+
+print('*' * 30)
