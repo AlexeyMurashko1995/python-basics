@@ -25,8 +25,8 @@ cleaned_version = clean_prompt(raw_prompt)
 print(f'Cleaned version: {cleaned_version}')
 print('*' * 30)
 
-# --- PROGRAM 3: ACTIVATION TRESHOLD ---
-print('--- Task 3: Activation Treshold ---')
+# --- PROGRAM 3: ACTIVATION THRESHOLD ---
+print('--- Task 3: Activation Threshold ---')
 
 def is_activated(score): 
     return score > 0.5
@@ -57,7 +57,23 @@ if valid:
 
 else:
     print('Is valid: False')
-
 print('*' * 30)
 
+# --- PROGRAM 5: RELIABLE PREDICTION ---
+print('--- Task 5: Reliable Prediction ---')
 
+def is_reliable(confidence, min_threshold):
+    return confidence >= min_threshold 
+
+ai_confidence = float(input('Enter AI confidence (0.0 - 1.0): '))
+minimum_threshold = float(input('Enter minimum threshold: '))
+
+reliability_status = is_reliable(ai_confidence, minimum_threshold)
+
+if reliability_status:
+    print('Reliability status: True')
+
+else:
+    print('Reliability status: False')
+
+print('*' * 30)    
