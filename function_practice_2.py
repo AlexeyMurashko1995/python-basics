@@ -112,6 +112,24 @@ final = get_sequence_fibonacci(quantity)
 print(final)
 
 print('*' * 30)
+
+# --- PROGRAM 8: ACCESS CONTROL LIST (ACL) ---
+print('--- Task 8: Access Control List ---')
+
+def get_access_list(name):
+    reject = ['admin', 'root', 'superuser']
+    return name.lower() in reject
+    
+
+user_name = input('Enter username: ')
+
+status = get_access_list(user_name)
+if status:
+    print('Access Denied: This account is restricted.')
+else:
+    print('Access Granted: Welcome back!')
+
+
         
 
    
