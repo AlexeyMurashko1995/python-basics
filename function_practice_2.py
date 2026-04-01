@@ -39,7 +39,6 @@ if status:
     print('Neuron status: True')
 else:
     print('Neuron status: False')
-
 print('*' * 30)
 
 # --- PROGRAM 4: INPUT VALIDATION ---
@@ -75,7 +74,6 @@ if reliability_status:
 
 else:
     print('Reliability status: False')
-
 print('*' * 30)    
 
 # --- PROGRAM 6: GREATEST COMMON DIVISOR ---
@@ -93,7 +91,6 @@ second_number = int(input('Enter the second number: '))
 
 result = greatest_common_divisor(first_number, second_number)
 print(result)
-
 print('*' * 30)
 
 # --- PROGRAM 7: FIBONACCI SEQUENCE ---
@@ -110,7 +107,6 @@ def get_sequence_fibonacci(number):
 quantity = int(input('Enter the number of elements: '))
 final = get_sequence_fibonacci(quantity)
 print(final)
-
 print('*' * 30)
 
 # --- PROGRAM 8: ACCESS CONTROL LIST (ACL) ---
@@ -128,8 +124,30 @@ if status:
     print('Access Denied: This account is restricted.')
 else:
     print('Access Granted: Welcome back!')
+print('*' * 30)
 
+# --- PROGRAM 9: POWER OF TWO ---
+print('--- Task 9: Power Of Two ---')
 
+def is_power_of_two(num):
+    if num <= 0:
+        return False 
+    while num % 2 == 0:
+        num //= 2
+    return num == 1  
         
+number = int(input('Enter the number: '))
+
+result = is_power_of_two(number)
+if result:
+  print('Result: True')
+else:
+  print('Result: False')
+print('*' * 30)
+    
+    
+    
+
+
 
    
