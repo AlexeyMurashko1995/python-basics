@@ -181,6 +181,20 @@ final_result = get_sum_numbers(result)
 print(f'The sum from 1 to {result}: {final_result}')
 print('*' * 30)
 
+# --- PROGRAM 12: BACK TO THE FUTURE ---
+print('--- Task 12: Back To The Future ---')
+
+def get_gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+first_number = int(input('Enter the first number: '))
+second_number = int(input('Enter the second number: '))    
+result = get_gcd(first_number, second_number)
+
+print(f'The great common divisor: {result}')
+print('*' * 30)
 
     
     
