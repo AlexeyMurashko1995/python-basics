@@ -77,3 +77,23 @@ else:
     print('Reliability status: False')
 
 print('*' * 30)    
+
+# --- PROGRAM 6: GREATEST COMMON DIVISOR ---
+print('--- Task 6: Greatest Common Divisor ---')
+
+def greatest_common_divisor(a, b):
+    # In this function, I use the Euclidean algorithm to find the greatest common divisor
+    while b: 
+        a, b = b, a % b
+    return a 
+
+
+first_number = int(input('Enter the first number: '))
+second_number = int(input('Enter the second number: '))
+
+result = greatest_common_divisor(first_number, second_number)
+print(result)
+
+print('*' * 30)
+
+   
