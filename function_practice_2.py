@@ -96,4 +96,22 @@ print(result)
 
 print('*' * 30)
 
+# --- PROGRAM 7: FIBONACCI SEQUENCE ---
+print('--- Task 7: Fibonacci Sequence ---')
+
+def get_sequence_fibonacci(number):
+    a, b = 0, 1
+    result = []
+    for num in range(number):
+        result.append(a)
+        a, b = b, a + b
+    return result
+        
+quantity = int(input('Enter the number of elements: '))
+final = get_sequence_fibonacci(quantity)
+print(final)
+
+print('*' * 30)
+        
+
    
