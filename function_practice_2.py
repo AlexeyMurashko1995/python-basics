@@ -162,7 +162,24 @@ def get_fizzbuzz(n):
     
 num = int(input('Enter the range: '))
 get_fizzbuzz(num)
+print('*' * 30)
 
+# --- PROGRAM 11: THE SUM OF NUMBERS ---
+print('--- Task 11: The Sum Of Numbers ---')
+
+def get_sum_numbers(num):
+    #Applying the Gaussian summation formula here.
+    return (num * (num + 1) // 2)
+
+
+number = int(input('Enter the number: '))
+
+result = get_sum_numbers(number)
+print(f'The sum from 1 to {number}: {result}')
+
+final_result = get_sum_numbers(result)
+print(f'The sum from 1 to {result}: {final_result}')
+print('*' * 30)
 
 
     
