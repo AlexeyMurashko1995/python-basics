@@ -224,5 +224,21 @@ for tasks in range(1, amount + 1):
 print(f'The most digits - {digits_max}; task number: {number_win}')
 print('*' * 30)
 
+# --- PROGRAM 14: AI ACCURACY CHECKER ---
+print('--- Task 14: AI Accuracy Checker ---')
+
+def get_model_accuracy(results_list):
+    correct_count = 0
+    for prediction in results_list: 
+        if prediction == 1:
+            correct_count += 1
+    result = correct_count / len(results_list) * 100 
+    return result
+
+predictions = [1, 1, 0, 1, 0, 1]
+model_accuracy = get_model_accuracy(predictions)
+print(f'Model accuracy: {model_accuracy:.2f}% ')
+
+
 
    
