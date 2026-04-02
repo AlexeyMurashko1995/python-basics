@@ -312,3 +312,19 @@ max_value = find_max_score(data_list)
 print(f'The higher score is {max_value}')
 print('*' * 30)
 
+# --- PROGRAM 19: SIGNAL INTEGRATOR ---
+print('--- Task 19: Signal Integrator ---')
+
+
+def sum_signals(data):
+    total = 0
+    for signal in data:
+        total += signal
+    return total
+
+
+signals = [1.5, 2.0, -0.5, 3.0]
+final_result = sum_signals(signals)
+
+print(f'The sum of signals is {final_result}')
+print('*' * 30)
