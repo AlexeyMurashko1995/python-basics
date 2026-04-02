@@ -196,9 +196,33 @@ result = get_gcd(first_number, second_number)
 print(f'The great common divisor: {result}')
 print('*' * 30)
 
-    
-    
+# --- PROGRAM 13: TASK PRIORITY ---
+print('--- Task 13: Task Priority ---')
 
+def numeral_count(num):
+    num = abs(num)
+    if num == 0:
+        return 1
+    count = 0
+    while num > 0:
+        num //= 10
+        count += 1
+    return count
+
+
+amount = int(input('Enter the amount of tasks: '))
+
+digits_max = 0
+number_win = 0
+
+for tasks in range(1, amount + 1):
+    number = int(input(f'Enter the #{tasks} task number: '))
+    result = numeral_count(number)
+    if result > digits_max:
+        digits_max = result
+        number_win = number
+print(f'The most digits - {digits_max}; task number: {number_win}')
+print('*' * 30)
 
 
    
