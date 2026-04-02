@@ -273,3 +273,24 @@ sensor_readings = [72, 85, 79, 92, 90, 68, 81]
 anomalies_detected = find_anomalies(sensor_readings)
 
 print(f'Detected anomalies: {anomalies_detected}')
+print('*' * 30)
+
+# --- PROGRAM 17: ANOMALY INDEXER ---
+print('--- Task 17: Anomaly Indexer ---')
+
+
+def get_anomaly_indices(data, threshold):
+    index_list = []
+    for index, value in enumerate(data):
+        if value > threshold:
+            index_list.append(index)
+    return index_list 
+
+
+sensor_readings = [72, 95, 94, 123, 43, 90, 12, 141]
+user_threshold = int(input('Enter threshold: '))
+
+anomaly_indexer = get_anomaly_indices(sensor_readings, user_threshold)
+print(f'Indices of anomalies: {anomaly_indexer}')
+print('*' * 30)
+
