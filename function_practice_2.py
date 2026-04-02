@@ -239,6 +239,24 @@ predictions = [1, 1, 0, 1, 0, 1]
 model_accuracy = get_model_accuracy(predictions)
 print(f'Model accuracy: {model_accuracy:.2f}% ')
 
+# --- PROGRAM 15: COMPARISON OF PREDICTIONS ---
+print('--- Task 15: Comparison Of Predictions ---')
 
+def get_match_count(actual_list, predicted_list):
+    if len(actual_list) != len(predicted_list):
+        print('Error: Lists have different lengths!')
+        return 0
+    count = 0
+    for i in range(len(actual_list)):
+        if actual_list[i] == predicted_list[i]:
+            count += 1
+    return count
+
+
+ground_truth = [1, 0, 1, 1, 0]
+predictions = [1, 1, 1, 0, 0]
+result = get_match_count(ground_truth, predictions)
+
+print(f'Identical values: {result}')
 
    
