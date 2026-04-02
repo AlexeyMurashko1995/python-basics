@@ -252,11 +252,24 @@ def get_match_count(actual_list, predicted_list):
             count += 1
     return count
 
-
 ground_truth = [1, 0, 1, 1, 0]
 predictions = [1, 1, 1, 0, 0]
 result = get_match_count(ground_truth, predictions)
 
 print(f'Identical values: {result}')
+print('*' * 30)
 
-   
+# --- PROGRAM 16: ANOMALY DETECTOR ---
+print('--- Task 16: Anomaly Detector ---')
+
+def find_anomalies(data):
+    filtered_readings = []
+    for i in data:
+        if i > 80:
+            filtered_readings.append(i)
+    return filtered_readings
+
+sensor_readings = [72, 85, 79, 92, 90, 68, 81]
+anomalies_detected = find_anomalies(sensor_readings)
+
+print(f'Detected anomalies: {anomalies_detected}')
