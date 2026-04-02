@@ -294,3 +294,21 @@ anomaly_indexer = get_anomaly_indices(sensor_readings, user_threshold)
 print(f'Indices of anomalies: {anomaly_indexer}')
 print('*' * 30)
 
+# --- PROGRAM 18: FIND THE PEAK (MAX VALUE) ---
+print('--- Task 18: Find The Peak: Max Value ---')
+
+
+def find_max_score(data):
+    value_max = data[0]
+    for value in data:
+        if value > value_max: 
+            value_max = value
+    return value_max
+
+
+data_list = [0.45, 0.99, 0.12, 0.87, 0.98]
+max_value = find_max_score(data_list)
+
+print(f'The higher score is {max_value}')
+print('*' * 30)
+
