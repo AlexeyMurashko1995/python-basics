@@ -328,3 +328,22 @@ final_result = sum_signals(signals)
 
 print(f'The sum of signals is {final_result}')
 print('*' * 30)
+
+# --- PROGRAM 20: SHORT STRING FILTER ---
+print('--- Task 20: Short String Filter ---')
+
+
+def get_short_strings(string_list, max_length):
+    filtered_list = []
+    for word in string_list:
+        if len(word) <= max_length:
+            filtered_list.append(word)
+    return filtered_list
+
+
+words = ['python', 'c', 'java', 'go', 'javascript', 'ruby', 'php']
+limit = int(input('Enter the limit: '))
+short_list = get_short_strings(words, limit)
+
+print(f'Short words: {short_list}')
+print('*' * 30)
