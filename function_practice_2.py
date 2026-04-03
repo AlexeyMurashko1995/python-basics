@@ -347,3 +347,35 @@ short_list = get_short_strings(words, limit)
 
 print(f'Short words: {short_list}')
 print('*' * 30)
+
+# --- PROGRAM 21: DIGITAL COMPLEXITY ANALYZER ---
+print('--- Task 21: Digital Complexity Analyzer ---')
+
+
+def digit_sum(num):
+    num = abs(num)
+    total = 0
+    while num > 0:
+        last_digit = num % 10
+        total += last_digit
+        num //= 10
+    return total
+
+
+amount = int(input('Enter the quantity of tasks: '))
+digits_win = 0
+task_win = 0
+
+for i in range(1, amount + 1):
+    number = int(input(f'Enter the #{i} task number: '))
+    result = digit_sum(number)
+    if result > digits_win:
+        digits_win = result
+        task_win = number
+
+print(f'The most difficult task: {task_win};\nThe sum of digits: {digits_win}')
+print('*' * 30)
+    
+
+
+    
