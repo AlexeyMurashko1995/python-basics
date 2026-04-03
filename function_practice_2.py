@@ -429,3 +429,26 @@ if status:
     print('The budget will increase')
 else:
     print('The budget will not increase')
+
+# --- PROGRAM 24: COMPARISON ---
+print('--- Program 24: Comparison ---')
+
+
+def get_eqv(a,b,c):
+    d = a + b
+    if abs(c - d) < 1e-15:
+        return True
+    return False
+
+
+first_number = float(input('Enter the first number: '))
+second_number = float(input('Enter the second number: '))
+third_number = float(input('Enter the third number: '))
+result = get_eqv(first_number, second_number, third_number)
+
+if result:
+    print('True')
+else:
+    print('False')
+    
+print('*' * 30)
