@@ -375,7 +375,31 @@ for i in range(1, amount + 1):
 
 print(f'The most difficult task: {task_win};\nThe sum of digits: {digits_win}')
 print('*' * 30)
+
+# --- PROGRAM 22: NUMBER NORMALIZER ---
+print('--- Task 22: Number Normalizer ---')
+
+
+def get_num_exp(x):
+    if x <= 10:
+        return False
     
+    iteration = 0
+    while x >= 10:
+        x /= 10
+        iteration += 1
+    result = f'x = {x} * 10 ** {iteration}'
+    return result
+
+
+number = float(input('Enter the number greater than 10: '))
+status = get_num_exp(number)
+
+if status is False:
+    print('Invalid Input')
+else:
+    print(status)
+print('*' * 30)
 
 
     
