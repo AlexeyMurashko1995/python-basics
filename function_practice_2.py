@@ -401,5 +401,31 @@ else:
     print(status)
 print('*' * 30)
 
+# --- PROGRAM 23: TAXES --- 
 
-    
+
+import math
+
+
+print('--- Task 23: Taxes ---')
+
+
+def get_diff(tax, new_tax):
+    total = tax + new_tax
+    filtered_total = math.floor(math.log10(total))
+    filtered_tax = math.floor(math.log10(tax))
+    if filtered_tax != filtered_total:
+        return True
+    else:
+        return False
+
+
+country_tax = float(input('Enter the budget: '))
+new_country_tax = float(input('Enter the sum of new taxes: '))
+
+status = get_diff(country_tax, new_country_tax)
+
+if status:
+    print('The budget will increase')
+else:
+    print('The budget will not increase')
