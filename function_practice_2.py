@@ -474,3 +474,26 @@ if result:
 else:
     print("False: Weights don't match")
 print('*' * 30)
+
+# --- PROGRAM 26: MAXIMUM OF THREE ---
+print('--- Task 26: Maximum Of Three ---')
+
+
+def maximum_of_two(a, b):
+    return ((a + b) + abs(a - b)) / 2
+
+
+def maximum_of_three(a, b, c):
+    max_of_first_two = maximum_of_two(a,b)
+    return maximum_of_two(max_of_first_two, c)
+
+
+
+first_number = int(input('Enter the first number: '))
+second_number = int(input('Enter the second number: '))
+third_number = int(input('Enter the third number: '))
+
+result = int(maximum_of_three(first_number, second_number, third_number))
+
+print(f'The greatest number: {result}')
+print('*' * 30)
