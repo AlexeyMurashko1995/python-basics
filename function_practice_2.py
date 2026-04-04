@@ -3,7 +3,7 @@ print('--- Task 1: Data Scaling ---')
 
 def scale_value(scale, value):
     result = scale * value
-    return result 
+    return result
 
 init_value = float(input('Enter the initial value: '))
 weight = float(input('Enter weight: '))
@@ -14,7 +14,7 @@ print('*' * 30)
 # --- PROGRAM 2: PROMPT CLEANING ---
 print('--- Task 2: Prompt Cleaning ---')
 
-def clean_prompt(text): 
+def clean_prompt(text):
     clean_text = text.strip()
     final_text = clean_text.capitalize()
     return final_text
@@ -28,7 +28,7 @@ print('*' * 30)
 # --- PROGRAM 3: ACTIVATION THRESHOLD ---
 print('--- Task 3: Activation Threshold ---')
 
-def is_activated(score): 
+def is_activated(score):
     return score > 0.5
 
 probability_score = float(input('Enter probability score: '))
@@ -46,7 +46,7 @@ print('--- Task 4: Input Validation ---')
 
 def is_valid_input(text):
     return text.strip() != '' and len(text) > 3
-    
+
 
 prompt = input('Enter the phrase: ')
 valid = is_valid_input(prompt)
@@ -62,7 +62,7 @@ print('*' * 30)
 print('--- Task 5: Reliable Prediction ---')
 
 def is_reliable(confidence, min_threshold):
-    return confidence >= min_threshold 
+    return confidence >= min_threshold
 
 ai_confidence = float(input('Enter AI confidence (0.0 - 1.0): '))
 minimum_threshold = float(input('Enter minimum threshold: '))
@@ -74,16 +74,16 @@ if reliability_status:
 
 else:
     print('Reliability status: False')
-print('*' * 30)    
+print('*' * 30)
 
 # --- PROGRAM 6: GREATEST COMMON DIVISOR ---
 print('--- Task 6: Greatest Common Divisor ---')
 
 def greatest_common_divisor(a, b):
     # In this function, I use the Euclidean algorithm to find the greatest common divisor
-    while b: 
+    while b:
         a, b = b, a % b
-    return a 
+    return a
 
 
 first_number = int(input('Enter the first number: '))
@@ -103,7 +103,7 @@ def get_sequence_fibonacci(number):
         result.append(a)
         a, b = b, a + b
     return result
-        
+
 quantity = int(input('Enter the number of elements: '))
 final = get_sequence_fibonacci(quantity)
 print(final)
@@ -115,7 +115,7 @@ print('--- Task 8: Access Control List ---')
 def get_access_list(name):
     reject = ['admin', 'root', 'superuser']
     return name.lower() in reject
-    
+
 
 user_name = input('Enter username: ')
 
@@ -131,11 +131,11 @@ print('--- Task 9: Power Of Two ---')
 
 def is_power_of_two(num):
     if num <= 0:
-        return False 
+        return False
     while num % 2 == 0:
         num //= 2
-    return num == 1  
-        
+    return num == 1
+
 number = int(input('Enter the number: '))
 
 result = is_power_of_two(number)
@@ -144,7 +144,7 @@ if result:
 else:
   print('Result: False')
 print('*' * 30)
-    
+
 # --- PROGRAM 10: FIZZBUZZ CLASSIC ---
 print('--- Task 10: FizzBuzz Classic')
 
@@ -152,14 +152,14 @@ def get_fizzbuzz(n):
     for i in range(1, n + 1):
         if i % 3 == 0 and i % 5 == 0:
             print('Fizzbuzz')
-        elif i % 3 == 0: 
-            print('Fizz') 
+        elif i % 3 == 0:
+            print('Fizz')
         elif i % 5 == 0:
             print('Buzz')
         else:
             print(i)
-   
-    
+
+
 num = int(input('Enter the range: '))
 get_fizzbuzz(num)
 print('*' * 30)
@@ -190,7 +190,7 @@ def get_gcd(a, b):
     return a
 
 first_number = int(input('Enter the first number: '))
-second_number = int(input('Enter the second number: '))    
+second_number = int(input('Enter the second number: '))
 result = get_gcd(first_number, second_number)
 
 print(f'The great common divisor: {result}')
@@ -229,10 +229,10 @@ print('--- Task 14: AI Accuracy Checker ---')
 
 def get_model_accuracy(results_list):
     correct_count = 0
-    for prediction in results_list: 
+    for prediction in results_list:
         if prediction == 1:
             correct_count += 1
-    result = correct_count / len(results_list) * 100 
+    result = correct_count / len(results_list) * 100
     return result
 
 predictions = [1, 1, 0, 1, 0, 1]
@@ -284,7 +284,7 @@ def get_anomaly_indices(data, threshold):
     for index, value in enumerate(data):
         if value > threshold:
             index_list.append(index)
-    return index_list 
+    return index_list
 
 
 sensor_readings = [72, 95, 94, 123, 43, 90, 12, 141]
@@ -301,7 +301,7 @@ print('--- Task 18: Find The Peak: Max Value ---')
 def find_max_score(data):
     value_max = data[0]
     for value in data:
-        if value > value_max: 
+        if value > value_max:
             value_max = value
     return value_max
 
@@ -383,7 +383,7 @@ print('--- Task 22: Number Normalizer ---')
 def get_num_exp(x):
     if x <= 10:
         return False
-    
+
     iteration = 0
     while x >= 10:
         x /= 10
@@ -401,7 +401,7 @@ else:
     print(status)
 print('*' * 30)
 
-# --- PROGRAM 23: TAXES --- 
+# --- PROGRAM 23: TAXES ---
 
 
 import math
@@ -450,5 +450,27 @@ if result:
     print('True')
 else:
     print('False')
-    
+print('*' * 30)
+
+# --- PROGRAM 25: PACKAGING CONTROL ---
+print('--- Task 25: Packaging Control ---')
+
+
+def get_compare_weights(weight, amount, expected_weight):
+    fact_weight = 0
+    for portion in range(amount):
+        fact_weight += weight
+    return abs(expected_weight - fact_weight) <= 1e-15
+
+
+user_weight = float(input('Enter the weight of one portion: '))
+user_amount = int(input('Enter the quantity of portions: '))
+user_expected_weight = float(input('Enter expected total weight: '))
+
+result = get_compare_weights(user_weight, user_amount, user_expected_weight)
+
+if result:
+    print('True: Weights Match')
+else:
+    print("False: Weights don't match")
 print('*' * 30)
