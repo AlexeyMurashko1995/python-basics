@@ -497,3 +497,33 @@ result = int(maximum_of_three(first_number, second_number, third_number))
 
 print(f'The greatest number: {result}')
 print('*' * 30)
+
+# --- PROGRAM 27: MINIMUM OF FOUR ---
+print('--- Task 27: Minimum Of Four ---')
+
+
+def minimum_of_two(a,b):
+    return ((a + b) - abs(a - b)) / 2
+
+
+def minimum_of_three(a, b, c):
+    min_of_first_two = minimum_of_two(a, b)
+    min_of_three = minimum_of_two(min_of_first_two, c)
+    return min_of_three
+
+
+def minimum_of_four(a, b, c, d):
+    quarter = minimum_of_three(a, b, c)
+    final = minimum_of_two(quarter, d)
+    return final
+
+
+first_number = int(input('Enter the first number: '))
+second_number = int(input('Enter the second number: '))
+third_number = int(input('Enter the third number: '))
+fourth_number = int(input('Enter the fourth number: '))
+
+result = int(minimum_of_four(first_number, second_number, third_number, fourth_number))
+
+print(f'The minimum: {result}')
+print('*' * 30)
