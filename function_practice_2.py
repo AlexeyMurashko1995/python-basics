@@ -559,3 +559,24 @@ result = filter_signals(user_list, user_threshold)
 print(f'Filtered results: {result}')
 print('*' * 30)
 
+# --- PROGRAM 29: REVERSED NUMBER ---
+print('--- Task 29: Reversed Number ---')
+
+
+def reverse_number(a):
+  reverse_num_a = 0
+  while a > 0:
+    reverse_num_a = reverse_num_a * 10
+    last_digit = a % 10
+    reverse_num_a += last_digit
+    a //= 10
+  return reverse_num_a
+
+
+first_num = int(input('Enter the first number: '))
+second_num = int(input('Enter the second number: '))
+
+print(f'The reversed first number: {reverse_number(first_num)}')
+print(f'The reversed second number: {reverse_number(second_num)}')
+
+print('*' * 30)
