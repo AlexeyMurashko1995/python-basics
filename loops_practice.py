@@ -27,3 +27,21 @@ print("--- Task 3: Squares of Odd Numbers ---")
 n3 = int(input('Enter any number: '))
 for i in range(1, n3 + 1, 2):
     print(f'The result of squaring {i} is: {i ** 2}')
+
+# --- PROGRAM 4: PENDULUM ---
+print('--- Task 4: Pendulum ---')
+
+amplitude = float(input('Enter initial amplitude: '))
+threshold = float(input('Enter stop amplitude: '))
+
+while amplitude < 0 or threshold >= amplitude:
+    amplitude = float(input('Invalid input. Enter initial amplitude again: '))
+    threshold = float(input('Invalid input. Enter stop amplitude: '))
+
+else:
+
+    iteration = 0
+    while amplitude >= threshold:
+        iteration += 1
+        amplitude = amplitude * 0.916
+    print(f' Pendulum stopped after {iteration} oscillations.')
