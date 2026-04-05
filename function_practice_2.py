@@ -527,3 +527,35 @@ result = int(minimum_of_four(first_number, second_number, third_number, fourth_n
 
 print(f'The minimum: {result}')
 print('*' * 30)
+
+# --- PROGRAM 28: AI SIGNAL PROCESSOR ---
+print('--- Task 28: AI Signal Processor ---')
+
+
+def calculate_average(numbers):
+    quantity = 0
+    total = 0
+    for i in numbers:
+        total += i
+        quantity += 1
+    average = total / quantity
+    return average
+
+
+def filter_signals(data, threshold):
+    cleared_data = []
+    for numbers in data:
+        if numbers > threshold:
+            cleared_data.append(numbers)
+    average_number = calculate_average(data)
+    print(f'The average: {average_number}')
+    return cleared_data
+
+
+user_list = [12, 34, 50, 45, 94]
+user_threshold = int(input('Enter the limit: '))
+result = filter_signals(user_list, user_threshold)
+
+print(f'Filtered results: {result}')
+print('*' * 30)
+
