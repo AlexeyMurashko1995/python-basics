@@ -55,3 +55,16 @@ list_odd_numbers = list(range(1, n + 1, 2))
 
 print(f'List of odd numbers from 1 to {n}: {list_odd_numbers}')
 print('*' * 30)
+
+# --- PROGRAM 7: EVERY SECOND ITEM ---
+print('--- Task 7: Every Second Item ---')
+
+luggage = '💻📘👖💳💶📷🍎👟⌚🎨'
+
+my_luggage = list(luggage)
+
+print(f'My luggage: {my_luggage[::2]}')
+
+print('*' * 30)
+
+
