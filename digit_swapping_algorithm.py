@@ -12,7 +12,7 @@ def change_number(a):
     last_digit = a % 10
     between_digits = (a % (10 ** (num_count - 1))) // 10
     final_number = (last_digit * (10 ** (num_count - 1))) + (between_digits * 10) + first_digit
-    return final_numbe
+    return final_number
 
 
 def get_sum_of_numbers(a,b):
