@@ -33,3 +33,15 @@ my_list = list(range(1, n+1))
 
 print(f'List of numbers: {my_list}')
 print('*' * 30)
+
+# --- PROGRAM 5: LIST 0F LETTERS ---
+print('--- Task 5: List Of Letters ---')
+
+abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+n = int(input('Enter the number: '))
+if n < 1 or n > 26:
+    print('Invalid Input')
+else:
+    print(f'The letter: {abc[:n]}')
+print('*' * 30)
