@@ -45,3 +45,13 @@ if n < 1 or n > 26:
 else:
     print(f'The letter: {abc[:n]}')
 print('*' * 30)
+
+# --- PROGRAM 6: LIST OF ODD NUMBERS ---
+print('--- Task 6: List Of Odd Numbers ---')
+
+n = int(input('Enter the number: '))
+
+list_odd_numbers = list(range(1, n + 1, 2))
+
+print(f'List of odd numbers from 1 to {n}: {list_odd_numbers}')
+print('*' * 30)
