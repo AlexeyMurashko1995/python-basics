@@ -5,7 +5,6 @@ shopping_list = ['bread', 'meat', 'milk', 'fish', 'ice-cream']
 
 print(f'The third element: {shopping_list[2]}')
 print(f'All items: {shopping_list}')
-
 print('*' * 30)
 
 # --- PROGRAM 2: RANGE MAGIC ---
@@ -15,7 +14,6 @@ my_numbers = list(range(1, 22, 2))
 
 print(f'The length of the list: {len(my_numbers)}')
 print(f'The last: {my_numbers[10]}')
-
 print('*' * 30)
 
 # --- PROGRAM 3: STRING EXPLOSION ---
@@ -25,5 +23,13 @@ s = 'Python2026'
 my_list = list(s)
 
 print(f'My list by char: {my_list}\nIndex #6 element: {my_list[6]}')
+print('*' * 30)
 
+# --- PROGRAM 4: LIST OF NUMBERS ---
+print('--- Task 4: LIST OF NUMBERS ---')
+
+n = int(input('Enter the number: '))
+my_list = list(range(1, n+1))
+
+print(f'List of numbers: {my_list}')
 print('*' * 30)
