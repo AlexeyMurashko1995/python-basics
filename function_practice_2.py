@@ -579,5 +579,4 @@ second_num = int(input('Enter the second number: '))
 print(f'The reversed first number: {reverse_number(first_num)}')
 print(f'The reversed second number: {reverse_number(second_num)}')
 
-
-
+print('*' * 30)
