@@ -67,4 +67,11 @@ print(f'My luggage: {my_luggage[::2]}')
 
 print('*' * 30)
 
+# --- PROGRAM 8: Reverse Step Slice ---
+print('--- Task 8: Reverse Step Slice ---')
 
+phrase = 'PythonDevelopment'
+
+filtered_phrase = list(phrase)
+
+print(f'Filtered phrase: {filtered_phrase[::-2]}')
