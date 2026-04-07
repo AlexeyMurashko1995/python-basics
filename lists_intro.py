@@ -86,3 +86,13 @@ my_list = list(range(n, -1, -5))
 
 print(f'Decrementing range:{my_list}')
 print('*' * 30)
+
+# --- PROGRAM 10: INDEX FILTERING ---
+print('--- Task 10: Index Filtering ---')
+
+phrase = input('Enter the phrase: ')
+
+filtered_phrase = list(phrase)
+
+print(f'Result: {filtered_phrase[::3]}')
+print('*' * 30)
