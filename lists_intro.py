@@ -128,3 +128,13 @@ changed_phrase[0], changed_phrase[-1] = changed_phrase[-1], changed_phrase[0]
 
 print(f'Changed phrase: {changed_phrase}')
 print('*' * 30)
+
+# --- PROGRAM 14: THE HIDDEN MESSAGE ---
+print('--- Task 14: The Hidden Message ---')
+
+phrase = input('Enter the phrase: ')
+
+filtered_phrase = list(phrase[::3][::-1])
+
+print(f'Result: {filtered_phrase}')
+print('*' * 30)
