@@ -75,3 +75,14 @@ phrase = 'PythonDevelopment'
 filtered_phrase = list(phrase)
 
 print(f'Filtered phrase: {filtered_phrase[::-2]}')
+print('*' * 30)
+
+# --- PROGRAM 9: DECREMENTING RANGE ---
+print('--- Task 9: Decrementing Range ---')
+
+n = int(input('Enter the number: '))
+
+my_list = list(range(n, -1, -5))
+
+print(f'Decrementing range:{my_list}')
+print('*' * 30)
