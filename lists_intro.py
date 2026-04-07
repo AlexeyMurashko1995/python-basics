@@ -96,3 +96,13 @@ filtered_phrase = list(phrase)
 
 print(f'Result: {filtered_phrase[::3]}')
 print('*' * 30)
+
+# --- PROGRAM 11: THE PALINDROME LIST ---
+print('--- Task 11: The Palindrome List ---')
+
+text = input('Enter the text: ')
+
+palindrome_list = list(text)
+
+print(f'The palindrome list: {palindrome_list[::-1]}')
+print('*' * 30)
