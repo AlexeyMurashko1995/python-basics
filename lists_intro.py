@@ -106,3 +106,13 @@ palindrome_list = list(text)
 
 print(f'The palindrome list: {palindrome_list[::-1]}')
 print('*' * 30)
+
+# --- PROGRAM 12: THE MIDDLE CUT ---
+print('--- Task 12: The Middle Cut ---')
+
+text = input('Enter the text: ')
+
+filtered_text = list(text)
+
+print(filtered_text[1:-1])
+print('*' * 30)
