@@ -114,5 +114,17 @@ text = input('Enter the text: ')
 
 filtered_text = list(text)
 
-print(filtered_text[1:-1])
+print(f'Filtered text: {filtered_text[1:-1]}')
+print('*' * 30)
+
+# --- PROGRAM 13: SWAP ENDS ---
+print('--- Task 13: Swap Ends ---')
+
+phrase = input('Enter the phrase: ')
+
+changed_phrase = list(phrase)
+
+changed_phrase[0], changed_phrase[-1] = changed_phrase[-1], changed_phrase[0]
+
+print(f'Changed phrase: {changed_phrase}')
 print('*' * 30)
