@@ -138,3 +138,14 @@ filtered_phrase = list(phrase[::3][::-1])
 
 print(f'Result: {filtered_phrase}')
 print('*' * 30)
+
+# --- PROGRAM 15: THE DYNAMIC CENTER ---
+print('--- Task 15: The Dynamic Center ---')
+
+phrase = input('Enter the text: ')
+
+filtered_phrase = list(phrase)
+mid = len(filtered_phrase) // 2
+
+print(f'Result: {filtered_phrase[mid - 1: mid + 2:]}')
+print('*' * 30)
