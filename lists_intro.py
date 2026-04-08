@@ -161,3 +161,13 @@ test_data = full_data[index:]
 
 print(f'Train data: {train_data}\nTest data: {test_data}')
 print('*' * 30)
+
+# --- PROGRAM 17: THE STEP PROTECTOR ---
+print('--- Task 17: The Step Protector ---')
+
+phrase = input('Enter the phrase: ')
+
+filtered_phrase = list(phrase)
+
+print(f'Result: {filtered_phrase[-1::-4]}')
+print('*' * 30)
