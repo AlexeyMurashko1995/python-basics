@@ -171,3 +171,13 @@ filtered_phrase = list(phrase)
 
 print(f'Result: {filtered_phrase[-1::-4]}')
 print('*' * 30)
+
+# --- PROGRAM 18: THE SMART SWAP ---
+print('--- Program 18: The Smart Swap ---')
+
+data_list = [10, 20, 30, 40, 50, 60]
+
+data_list[:2], data_list[4:] = data_list[4:], data_list[:2]
+
+print(f'Result: {data_list}')
+print('*' * 30)
