@@ -150,8 +150,8 @@ mid = len(filtered_phrase) // 2
 print(f'Result: {filtered_phrase[mid - 1: mid + 2:]}')
 print('*' * 30)
 
-# --- PROGRAM 17: THE AI DATA SPLIT ---
-print('--- Task 17: The AI Data Split ---')
+# --- PROGRAM 16: THE AI DATA SPLIT ---
+print('--- Task 16: The AI Data Split ---')
 
 full_data = list(range(1, 21))
 index = int(len(full_data) * 0.8)
