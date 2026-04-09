@@ -181,3 +181,18 @@ data_list[:2], data_list[4:] = data_list[4:], data_list[:2]
 
 print(f'Result: {data_list}')
 print('*' * 30)
+
+# --- PROGRAM 19: SKIP BORDERS ---
+print('--- Task 19: Skip Borders ---')
+
+
+def get_core(data: list) -> list:
+    return data[1:-2]
+
+
+number_list = list(range(10, 70, 10))
+
+result = get_core(number_list)
+
+print(f'Result: {result}')
+print('*' * 30)
