@@ -210,3 +210,19 @@ result = get_every_second_from_middle(my_list)
 
 print(f'Result: {result}')
 print('*' * 30)
+
+# --- PROGRAM 21: REVERSED SEGMENT ---
+print('--- Task 21: Reversed Segment ---')
+
+
+def get_reserved_segment(data: list, start, stop) -> list:
+    return data[start:stop:][::-1]
+
+
+my_list = list(range(7))
+first_index = 1
+last_index = 5
+result = get_reserved_segment(my_list, first_index, last_index)
+
+print(f'Result: {result}')
+print('*' * 30)
