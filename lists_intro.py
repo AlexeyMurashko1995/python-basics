@@ -226,3 +226,18 @@ result = get_reserved_segment(my_list, first_index, last_index)
 
 print(f'Result: {result}')
 print('*' * 30)
+
+# --- PROGRAM 22: CENTER CROP ---
+print('--- Task 22: Center Crop ---')
+
+
+def get_center_window(data: list) -> list:
+    mid = len(data) // 2
+    return data[mid - 1: mid + 2]
+
+
+my_list = list(range(7))
+result = get_center_window(my_list)
+
+print(f'Result: {result}')
+print('*' * 30)
