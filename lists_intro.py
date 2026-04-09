@@ -196,3 +196,17 @@ result = get_core(number_list)
 
 print(f'Result: {result}')
 print('*' * 30)
+
+# --- PROGRAM 20: EVERY SECOND ---
+print('--- Task 20: Every Second ---')
+
+
+def get_every_second_from_middle(data: list) -> list:
+    return data[1:-1][::2]
+
+
+my_list = list(range(0, 9))
+result = get_every_second_from_middle(my_list)
+
+print(f'Result: {result}')
+print('*' * 30)
