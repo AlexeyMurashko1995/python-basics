@@ -241,3 +241,21 @@ result = get_center_window(my_list)
 
 print(f'Result: {result}')
 print('*' * 30)
+
+# --- PROGRAM 23: SWAP HALVES ---
+print('--- Task 23: Swap Halves ---')
+
+
+def swap_halves(data: list) -> list:
+    mid = (len(data) + 1) // 2
+    first_half = data[:mid]
+    second_half = data[mid:]
+    swapped_data = second_half + first_half
+    return swapped_data
+
+
+my_list = list(range(1,6))
+result = swap_halves(my_list)
+
+print(f'Result: {result}')
+print('*' * 30)
