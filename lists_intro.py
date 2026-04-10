@@ -259,3 +259,18 @@ result = swap_halves(my_list)
 
 print(f'Result: {result}')
 print('*' * 30)
+
+# --- PROGRAM 24: DATA RANGE ANALYZER ---
+print('--- Task 24: Data Range Analyzer ---')
+
+
+def get_workday_temperature_range(temps: list) -> int:
+    #Calculates the range for the first 5 days.
+    return max(temps[:5]) - min(temps[:5])
+
+
+user_temps = [10, 23, 29, 21, 15, 24, 26]
+diff = get_workday_temperature_range(user_temps)
+
+print(f'Difference: {diff}')
+print('*' * 30)
