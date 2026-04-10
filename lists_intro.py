@@ -274,3 +274,21 @@ diff = get_workday_temperature_range(user_temps)
 
 print(f'Difference: {diff}')
 print('*' * 30)
+
+# --- PROGRAM 25: DATABASE SANITIZER ---
+print('--- Task 25: Database Sanitizer ---')
+
+
+def sanitize_user_list(users: list) -> list:
+    #Checks for a bot in the list and replaces it with a security officer.
+    if 'bot_12' in users:
+        idx = users.index('bot_12')
+        users[idx] = 'security_officer'
+    return users
+
+
+current_users = ['admin', 'manager', 'guest', 'bot_12', 'ceo']
+clean_users = sanitize_user_list(current_users)
+
+print(f'Clean users: {clean_users}')
+print('*' * 30)
