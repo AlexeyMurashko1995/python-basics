@@ -215,14 +215,14 @@ print('*' * 30)
 print('--- Task 21: Reversed Segment ---')
 
 
-def get_reserved_segment(data: list, start, stop) -> list:
+def get_reversed_segment(data: list, start, stop) -> list:
     return data[start:stop:][::-1]
 
 
 my_list = list(range(7))
 first_index = 1
 last_index = 5
-result = get_reserved_segment(my_list, first_index, last_index)
+result = get_reversed_segment(my_list, first_index, last_index)
 
 print(f'Result: {result}')
 print('*' * 30)
@@ -325,4 +325,18 @@ letter = extract_task_metadata(my_tasks)
 
 print(f'Second letter of last task: {letter}')
 print(f'Updated tasks: {my_tasks}')
+print('*' * 30)
+
+# --- PROGRAM 28: THE MOVING AVERAGE ---
+print('--- Task 28: The Moving Average ---')
+
+
+def get_moving_average(sensor_data: list) -> float:
+    return sum(sensor_data[-3:]) / len(sensor_data[-3:])
+
+
+data_list = list(range(0, 70, 10))
+result = get_moving_average(data_list)
+
+print(f'Result: {result}')
 print('*' * 30)
