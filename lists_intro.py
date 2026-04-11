@@ -388,3 +388,16 @@ weights.append(0.77)
 
 print(f'Updated weights: {weights}')
 print('*' * 30)
+
+# --- PROGRAM 33: WEIGHT DATA ---
+print('--- Task 33: Weight Data ---')
+
+data = [0.5, -0.2, 0.8, -0.1, 0.3, -0.9, 0.4]
+
+positive_weights = [w for w in data if w > 0]
+negative_weights = [w for w in data if w < 0]
+positive_total = sum(positive_weights)
+
+print(f'Positive weights: {positive_weights}\nTotal: {positive_total}')
+print(f'Negative weights: {negative_weights}')
+print('*' * 30)
