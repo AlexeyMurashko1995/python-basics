@@ -401,3 +401,16 @@ positive_total = sum(positive_weights)
 print(f'Positive weights: {positive_weights}\nTotal: {positive_total}')
 print(f'Negative weights: {negative_weights}')
 print('*' * 30)
+
+# --- PROGRAM 34: LIST FROM USER ---
+print('--- Task 34: List From User ---')
+
+n = int(input('Enter the count of iterations: '))
+data_list = []
+
+for _ in range(n):
+    item = input('Enter the item: ')
+    data_list.append(item)
+
+print(f'Result: {data_list}')
+print('*' * 30)
