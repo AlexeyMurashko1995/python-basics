@@ -368,3 +368,14 @@ user_interests.extend(tags)
 
 print(f'User interests: {user_interests}')
 print('*' * 30)
+
+# --- PROGRAM 31: DATA STREAM CLEANER ---
+print('--- Task 31: Data Stream Cleaner ---')
+
+data = [25.5, 26.0, 999.0, 999.0, 27.2, 28.1, 999.0]
+
+del data[2:4]
+del data[-1]
+
+print(f'Cleared data: {data}')
+print('*' * 30)
