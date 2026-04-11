@@ -379,3 +379,12 @@ del data[-1]
 
 print(f'Cleared data: {data}')
 print('*' * 30)
+
+# --- PROGRAM 32: THE "NONE" TRAP ---
+print('--- Task 32: The "None" Trap ---')
+
+weights = [0.12, 0.45, 0.33]
+weights.append(0.77)
+
+print(f'Updated weights: {weights}')
+print('*' * 30)
