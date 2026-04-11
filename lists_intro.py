@@ -414,3 +414,13 @@ for _ in range(n):
 
 print(f'Result: {data_list}')
 print('*' * 30)
+
+# --- PROGRAM 35: CUBES OF NUMBER ---
+print('--- Task 35: Cubes Of Number ---')
+
+n = int(input('Enter the count of iterations: '))
+
+number_cubes = [int(input('Enter the number: ')) ** 3 for _ in range(n)]
+
+print(f'Cubes of number: {number_cubes}')
+print('*' * 30)
