@@ -469,3 +469,13 @@ for i in range(n - 1):
 
 print(sums_list)
 print('*' * 30)
+
+# --- PROGRAM 39: DELETE ODD INDICES ---
+print('--- Task 39: Delete Odd Indices ---')
+
+n = int(input('Enter the count of numbers: '))
+numbers_list = [int(input('Enter the number: ')) for _ in range(n)]
+del numbers_list[1::2]
+
+print(numbers_list)
+print('*' * 30)
