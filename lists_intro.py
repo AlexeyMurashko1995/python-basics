@@ -479,3 +479,18 @@ del numbers_list[1::2]
 
 print(numbers_list)
 print('*' * 30)
+
+# --- Task 40: Vertical Slice ---
+print('--- Task 40: Vertical Slice ---')
+
+n = int(input('Enter the count of strings: '))
+
+strings_list = [input('Enter the string: ') for _ in range(n)]
+k = int(input('Enter index letter: '))
+
+for s in strings_list:
+    if len(s) >= k:
+        print(s[k - 1], end='')
+
+print()
+print('*' * 30)
