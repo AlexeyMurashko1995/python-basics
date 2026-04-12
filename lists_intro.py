@@ -455,3 +455,17 @@ divisors_list = [i for i in range(1, n + 1) if n % i == 0]
 
 print(f'Divisors list: {divisors_list}')
 print('*' * 30)
+
+# --- PROGRAM 38: SUMS OF TWO ---
+print('--- Task 38: Sums Of Two ---')
+
+n = int(input('Enter the count of numbers: '))
+numbers_list = [int(input('Enter the number: ')) for number in range(n)]
+sums_list = []
+
+for i in range(n - 1):
+    result = numbers_list[i] + numbers_list[i + 1]
+    sums_list.append(result)
+
+print(sums_list)
+print('*' * 30)
