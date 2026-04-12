@@ -445,3 +445,13 @@ del numbers[-1]
 print(numbers)
 
 print('*' * 30)
+
+# --- PROGRAM 37: LIST OF DIVISORS ---
+print('--- Task 37: List Of Divisors ---')
+
+n = int(input('Enter the number: '))
+
+divisors_list = [i for i in range(1, n + 1) if n % i == 0]
+
+print(f'Divisors list: {divisors_list}')
+print('*' * 30)
