@@ -480,7 +480,7 @@ del numbers_list[1::2]
 print(numbers_list)
 print('*' * 30)
 
-# --- Task 40: Vertical Slice ---
+# --- PROGRAM 40: VERTICAL SLICE ---
 print('--- Task 40: Vertical Slice ---')
 
 n = int(input('Enter the count of strings: '))
@@ -493,4 +493,18 @@ for s in strings_list:
         print(s[k - 1], end='')
 
 print()
+print('*' * 30)
+
+# --- PROGRAM 41: ALL AT ONCE ---
+print('--- Task 41: All At Once ---')
+
+n = int(input('Enter the count of strings: '))
+
+strings_list = [input('Enter the string: ') for _ in range(n)]
+result_list = []
+
+for s in strings_list:
+    result_list.extend(s)
+
+print(result_list)
 print('*' * 30)
