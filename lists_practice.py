@@ -60,3 +60,17 @@ eur_list = [pln_price * 0.23 for pln_price in pln_list]
 print(pln_list)
 print(eur_list)
 print('*' * 30)
+
+# --- PROGRAM 6: DISTRICT VALIDATOR ---
+print('--- Task 6: District Validator ---')
+
+districts = ['Wola', 'Mokotów', 'Trash', 'Praga', 'Unknown']
+
+if 'Mokotów' in districts:
+        print('Ready for analysis')
+
+del districts[0]
+del districts[-1]
+
+print(districts)
+print('*' * 30)
