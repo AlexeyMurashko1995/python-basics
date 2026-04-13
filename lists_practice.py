@@ -36,3 +36,16 @@ for district, price in rent_data:
     print(f'The rent in {district} is {price} PLN')
 
 print('*' * 30)
+
+# --- PROGRAM 4: NESTED LIST ITERATION ---
+print('--- Task 4: Nested List Iteration ---')
+
+data = [["Mokotow", 45], ["Wola", 38], ["Bemowo", 50]]
+
+for district, total_area in data:
+    if total_area > 40:
+        print(f'Large apartment in {district}')
+    else:
+        print(f'Total area: {total_area}')
+
+print('*' * 30)
