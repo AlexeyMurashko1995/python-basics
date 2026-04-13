@@ -74,3 +74,16 @@ del districts[-1]
 
 print(districts)
 print('*' * 30)
+
+# --- PROGRAM 7: PRICE GAP ANALYZER ---
+print('--- Task 7: Price Gap Analyzer ---')
+
+prices = [500000, 520000, 490000, 600000]
+gaps = []
+
+for i in range(len(prices) - 1):
+    diff = abs(prices[i] - prices[i + 1])
+    gaps.append(diff)
+
+print(f'Price gaps: {gaps}')
+print('*' * 30)
