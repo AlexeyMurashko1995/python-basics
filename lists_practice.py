@@ -87,3 +87,13 @@ for i in range(len(prices) - 1):
 
 print(f'Price gaps: {gaps}')
 print('*' * 30)
+
+# --- PROGRAM 8: DATA CLEANER INDICES ---
+print('--- Task 8: Data Cleaner Indices ---')
+
+raw_data = ['Wola', '', 'Mokotów', '', 'Bemowo', '', 'Praga', '']
+
+del raw_data[1::2]
+
+print(raw_data)
+print('*' * 30)
