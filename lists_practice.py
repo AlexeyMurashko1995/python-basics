@@ -27,3 +27,12 @@ for price in prices:
 print(expensive_apartments)
 print('*' * 30)
 
+# --- PROGRAM 3: DISTRICT RENT FORMATTER ---
+print('--- Task 3: District Rent Formatter ---')
+
+rent_data = [["Wola", 3500], ["Bialoleka", 2800], ["Praga", 3200]]
+
+for district, price in rent_data:
+    print(f'The rent in {district} is {price} PLN')
+
+print('*' * 30)
