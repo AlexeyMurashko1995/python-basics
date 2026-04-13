@@ -13,3 +13,17 @@ apartments = [
 
 print(apartments[1][2])
 print('*' * 30)
+
+# --- PROGRAM 2: PRICE FILTER ---
+print('--- Task 2: Price Filter ---')
+
+prices = [550000, 720000, 480000, 950000, 610000]
+expensive_apartments = []
+
+for price in prices:
+    if price > 600000:
+        expensive_apartments.append(price)
+
+print(expensive_apartments)
+print('*' * 30)
+
