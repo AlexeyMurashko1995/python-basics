@@ -49,3 +49,14 @@ for district, total_area in data:
         print(f'Total area: {total_area}')
 
 print('*' * 30)
+
+# --- PROGRAM 5: CURRENCY CONVERTER ---
+print('--- Task 5: Currency Converter ---')
+
+flats_number = int(input('Enter the amount of flats: '))
+pln_list = [int(input('Enter the price in PLN: ')) for _ in range(flats_number)]
+eur_list = [pln_price * 0.23 for pln_price in pln_list]
+
+print(pln_list)
+print(eur_list)
+print('*' * 30)
