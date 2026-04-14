@@ -137,7 +137,7 @@ print('--- Task 12: Apartment Tags ---')
 
 tags = ['Metro', 'Parking', 'Elevator', 'Furnished', 'Renovated']
 
-print(*tags, sep =' | ')
+print(*tags, sep=' | ')
 print('*' * 30)
 
 # --- PROGRAM 13: SYSTEM STATUS ---
@@ -145,6 +145,19 @@ print('--- Task 13: System Status ---')
 
 status = 'SCANNING'
 
-print(*status, sep ='...')
-print(*status, sep ='\n')
+print(*status, sep='...')
+print(*status, sep='\n')
+print('*' * 30)
+
+# --- PROGRAM 14: DATA CLEANING ---
+print('--- Task 14: Data Cleaning ---')
+
+prices = [100, 3200, 3500, 4100, 25000, 3800]
+filtered_prices = []
+
+for price in prices:
+    if 3000 <= price <= 5000:
+        filtered_prices.append(str(price))
+
+print(' --> '.join(filtered_prices))
 print('*' * 30)
