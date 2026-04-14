@@ -131,3 +131,11 @@ for i, price in enumerate(prices[:3]):
     print(f'Lot #{i + 1}: {price} PLN')
 
 print('*' * 30)
+
+# --- PROGRAM 12: APARTMENT TAGS ---
+print('--- Task 12: Apartment Tags ---')
+
+tags = ['Metro', 'Parking', 'Elevator', 'Furnished', 'Renovated']
+
+print(*tags, sep = ' | ')
+print('*' * 30)
