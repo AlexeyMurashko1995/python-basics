@@ -137,5 +137,14 @@ print('--- Task 12: Apartment Tags ---')
 
 tags = ['Metro', 'Parking', 'Elevator', 'Furnished', 'Renovated']
 
-print(*tags, sep = ' | ')
+print(*tags, sep =' | ')
+print('*' * 30)
+
+# --- PROGRAM 13: SYSTEM STATUS ---
+print('--- Task 13: System Status ---')
+
+status = 'SCANNING'
+
+print(*status, sep ='...')
+print(*status, sep ='\n')
 print('*' * 30)
