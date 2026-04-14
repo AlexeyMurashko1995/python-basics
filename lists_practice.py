@@ -121,3 +121,13 @@ for district in districts:
     print(f'{district} - check passed!')
 
 print('*' * 30)
+
+# --- PROGRAM 11: TOP 3 OFFERS ---
+print('--- Task 11: Top 3 Offers ---')
+
+prices = [3200, 3550, 4100, 4800, 5200]
+
+for i, price in enumerate(prices[:3]):
+    print(f'Lot #{i + 1}: {price} PLN')
+
+print('*' * 30)
