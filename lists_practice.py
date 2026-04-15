@@ -181,3 +181,14 @@ logs = ['START', 'PROCESS_1', 'PROCESS_2', 'PROCESS_3', 'END']
 
 print(*logs[1:-1], sep='\n\t')
 print('*' * 30)
+
+# --- PROGRAM 17: AI IMAGE NORMALIZATION ---
+print('--- Task 17: AI Image Normalization ---')
+
+raw_pixels = [0, 128, 255, 64, 200]
+
+normalized = [raw / 255 for raw in raw_pixels]
+
+print(*normalized, sep=' | ')
+print('*' * 30)
+
