@@ -173,3 +173,11 @@ for i in range(len(districts)):
     print(*'SAFE', sep='-')
 
 print('*' * 30)
+
+# --- PROGRAM 16: CLEAN SYSTEM LOGS ---
+print('--- Task 16: Clean System Logs ---')
+
+logs = ['START', 'PROCESS_1', 'PROCESS_2', 'PROCESS_3', 'END']
+
+print(*logs[1:-1], sep='\n\t')
+print('*' * 30)
