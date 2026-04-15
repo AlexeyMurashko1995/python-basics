@@ -161,3 +161,15 @@ for price in prices:
 
 print(' --> '.join(filtered_prices))
 print('*' * 30)
+
+# --- PROGRAM 15: PARALLEL LISTS ---
+print('--- Task 15: Parallel Lists ---')
+
+districts = ['Wola', 'Mokotow', 'Bemowo']
+scores = [0.85, 0.92, 0.78]
+
+for i in range(len(districts)):
+    print(f'District: {districts[i]} | Safety score: {scores[i]}', end=' ')
+    print(*'SAFE', sep='-')
+
+print('*' * 30)
