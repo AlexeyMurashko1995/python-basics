@@ -210,3 +210,12 @@ for row in grid:
     print('---')
 
 print('*' * 30)
+
+# --- PROGRAM 19: AI DATA CLEANING (ANOMALY DETECTION) ---
+print('--- Task 19: AI Data Cleaning (Anomaly Detection) ---')
+
+data_stream = [14.2, 13.5, 101.1, 12.8, 98.2, 15.0, 14.7, 115.3]
+anomalies = [data for data in data_stream if data > 50.0]
+
+print(f'Detected {len(anomalies)} anomalies: {anomalies}')
+print('*' * 30)
