@@ -192,3 +192,21 @@ normalized = [raw / 255 for raw in raw_pixels]
 print(*normalized, sep=' | ')
 print('*' * 30)
 
+# --- PROGRAM 18: SENSOR GRID ANALYSIS(NESTED LISTS) ---
+print('--- Task 18: Sensor Grid Analysis(Nested Lists) ---')
+
+grid = [
+    [22.5, 23.0, 22.8],
+    [25.4, 28.1, 26.3],
+    [21.9, 22.1, 22.4]
+]
+
+for row in grid:
+    for temp in row:
+        if temp > 25.0:
+            print(f'ALERT: {temp}°C')
+        else:
+            print(f'Normal: {temp}°C')
+    print('---')
+
+print('*' * 30)
