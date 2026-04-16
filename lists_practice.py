@@ -219,3 +219,17 @@ anomalies = [data for data in data_stream if data > 50.0]
 
 print(f'Detected {len(anomalies)} anomalies: {anomalies}')
 print('*' * 30)
+
+# --- PROGRAM 20: MIN-MAX SCALING (AI PREPROCESSING) ---
+print('--- Task 20: Min-Max Scaling (AI Preprocessing) ---')
+
+prices = [1200, 4500, 2300, 8900, 3100]
+
+min_value = min(prices)
+max_value = max(prices)
+
+scaled_prices = [round((price - min_value) / (max_value - min_value), 2) for price in prices]
+
+print(f'Min: {min_value} | Max: {max_value}')
+print(f'Scaled prices: {scaled_prices}')
+print('*' * 30)
