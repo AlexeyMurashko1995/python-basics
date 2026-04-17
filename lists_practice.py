@@ -285,3 +285,22 @@ for _ in range(count_numbers):
 
 print(*string_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 24: FUNCTION VALUE ---
+print('--- Task 24: Function Value ---')
+
+count_numbers = int(input('Enter the count of numbers: '))
+number_list = []
+function_list = []
+
+for _ in range(count_numbers):
+    number = int(input('Enter the number: '))
+    number_list.append(number)
+    final_number = (number ** 2) + (2 * number) + 1
+    function_list.append(final_number)
+
+print(*number_list, sep='\n')
+print()
+print(*function_list, sep='\n')
+
+print('*' * 30)
