@@ -271,3 +271,17 @@ full_result = negatives_list + zeros_list + positives_list
 print(*full_result, sep='\n')
 
 print('*' * 30)
+
+# --- PROGRAM 23: NO DUBLICATES ---
+print('--- Task 23: No Dublicates ---')
+
+count_numbers = int(input('Enter the count of strings: '))
+string_list = []
+
+for _ in range(count_numbers):
+    string = input('Enter the string: ')
+    if string not in string_list:
+        string_list.append(string)
+
+print(*string_list, sep='\n')
+print('*' * 30)
