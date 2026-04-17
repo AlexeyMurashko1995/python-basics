@@ -233,3 +233,18 @@ scaled_prices = [round((price - min_value) / (max_value - min_value), 2) for pri
 print(f'Min: {min_value} | Max: {max_value}')
 print(f'Scaled prices: {scaled_prices}')
 print('*' * 30)
+
+# --- PROGRAM 21: WARSAW HOUSING DATA CLEANING ---
+print('--- Task 21: Warsaw Housing Data Cleaning ---')
+
+
+def clean_areas(areas_list: list) -> list:
+    result_list = [area for area in areas_list if 10.0 < area < 500.0]
+    return result_list
+
+
+raw_data = [45.5, -12.0, 1000.0, 32.0, 8.5, 120.0]
+result = sorted(clean_areas(raw_data))
+
+print(f'Cleaned and sorted areas: {result}')
+print('*' * 30)
