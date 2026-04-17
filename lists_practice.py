@@ -302,5 +302,18 @@ for _ in range(count_numbers):
 print(*number_list, sep='\n')
 print()
 print(*function_list, sep='\n')
+print('*' * 30)
 
+# --- PROGRAM 25: REMOVE OUTLIERS ---
+print('--- Task 25: Remove Outliers ---')
+
+count_numbers = int(input('Enter the count of numbers: '))
+number_list = [int(input('Enter the number: ')) for _ in range(count_numbers)]
+
+max_value = max(number_list)
+min_value = min(number_list)
+
+filtered_list = [numbers for numbers in number_list if numbers != max_value and numbers != min_value]
+
+print(*filtered_list, sep='\n')
 print('*' * 30)
