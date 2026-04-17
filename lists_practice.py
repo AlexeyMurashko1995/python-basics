@@ -248,3 +248,26 @@ result = sorted(clean_areas(raw_data))
 
 print(f'Cleaned and sorted areas: {result}')
 print('*' * 30)
+
+# --- PROGRAM 22: NEGATIVES, POSITIVES, ZEROS
+print('--- Task 22: Negatives, Positives, Zeros')
+
+count_number = int(input('Enter the count of numbers: '))
+
+positives_list = []
+zeros_list = []
+negatives_list = []
+
+for _ in range(count_number):
+    number = int(input('Enter the number: '))
+    if number < 0:
+        negatives_list.append(number)
+    elif number > 0:
+        positives_list.append(number)
+    else:
+        zeros_list.append(number)
+
+full_result = negatives_list + zeros_list + positives_list
+print(*full_result, sep='\n')
+
+print('*' * 30)
