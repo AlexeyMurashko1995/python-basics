@@ -450,3 +450,24 @@ for phrase in phrase_list:
 
 print(*final_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 33: SPECIAL CHARACTERS HANDLED ---
+print('--- Task 33: Special Characters Handled ---')
+
+tags_count = int(input('Enter the count of tags: '))
+tags_list = [input('Enter the tag: ').lower() for _ in range(tags_count)]
+phrase_count = int(input('Enter the count of phrases: '))
+phrase_list = [input('Enter the phrase: ') for _ in range(phrase_count)]
+
+final_list = []
+
+for phrase in phrase_list:
+    count = 0
+    for tag in tags_list:
+        if tag in phrase.lower():
+            count += 1
+    if count == len(tags_list):
+        final_list.append(phrase)
+
+print(*final_list, sep='\n')
+print('*' * 30)
