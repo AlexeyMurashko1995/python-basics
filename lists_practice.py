@@ -334,3 +334,24 @@ for string in string_list:
 
 print(*final_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 27: GOOGLE SEARCH - 2 ---
+print('--- Task 27: Google Search - 2 ---')
+
+string_count = int(input('Enter the count of strings: '))
+string_list = [input('Enter the string: ') for _ in range(string_count)]
+search_word_count = int(input('Enter the count of words for search: '))
+search_list = [input('Enter the word: ').lower() for _ in range(search_word_count)]
+
+final_list = []
+
+for phrase in string_list:
+    count = 0
+    for word in search_list:
+        if word in phrase.lower():
+            count += 1
+    if count == len(search_list):
+        final_list.append(phrase)
+
+print(*final_list, sep='\n')
+print('*' * 30)
