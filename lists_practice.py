@@ -355,3 +355,25 @@ for phrase in string_list:
 
 print(*final_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 28: SPAM FILTER ---
+print('--- Task 28: Spam Filter ---')
+
+count_messages = int(input('Enter the count of messages: '))
+messages_list = [input('Enter the message: ') for _ in range(count_messages)]
+spam_count = int(input('Enter the count of spam words: '))
+spam_list = [input('Enter the spam words: ').lower() for _ in range(spam_count)]
+
+filtered_list = []
+
+for message in messages_list:
+    is_spam = False
+    for spam in spam_list:
+        if spam in message.lower():
+            is_spam = True
+            break
+    if not is_spam:
+        filtered_list.append(message)
+
+print(*filtered_list, sep='\n')
+print('*' * 30)
