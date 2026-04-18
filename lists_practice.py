@@ -412,3 +412,21 @@ for description in descriptions_list:
 
 print(*filtered_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 31: INTERSECTION ---
+print('--- Task 31: Intersection ---')
+
+first_count = int(input('Enter the count of words: '))
+first_list = [input('Enter the word: ') for _ in range(first_count)]
+
+second_count = int(input('Enter the count of words: '))
+second_list = [input('Enter the word: ') for _ in range(second_count)]
+
+intersection_list = []
+
+for word in first_list:
+    if word in second_list:
+        intersection_list.append(word)
+
+print(*intersection_list, sep='\n')
+print('*' * 30)
