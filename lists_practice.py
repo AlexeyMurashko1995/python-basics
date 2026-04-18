@@ -317,3 +317,20 @@ filtered_list = [numbers for numbers in number_list if numbers != max_value and 
 
 print(*filtered_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 26: GOOGLE SEARCH - 1 ---
+print('--- Task 26: Google Search - 1 ---')
+
+string_count = int(input('Enter the count of strings: '))
+
+string_list = [input('Enter the string: ') for _ in range(string_count)]
+search_word = input('Enter the search: ').lower()
+
+final_list = []
+
+for string in string_list:
+    if search_word in string.lower():
+        final_list.append(string)
+
+print(*final_list, sep='\n')
+print('*' * 30)
