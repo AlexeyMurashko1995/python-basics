@@ -392,3 +392,23 @@ for logs in logs_list:
 
 print(*filtered_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 30: SMART TAG SEARCH ---
+print('--- Task 30: Smart Tag Search ---')
+
+description_count = int(input('Enter the count of descriptions: '))
+descriptions_list = [input('Enter the description: ') for _ in range(description_count)]
+tags_phrase = input('Enter the tags: ').lower().split()
+
+filtered_list = []
+
+for description in descriptions_list:
+    count = 0
+    for tags in tags_phrase:
+        if tags in description.lower():
+            count += 1
+    if count == len(tags_phrase):
+        filtered_list.append(description)
+
+print(*filtered_list, sep='\n')
+print('*' * 30)
