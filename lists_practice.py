@@ -377,3 +377,18 @@ for message in messages_list:
 
 print(*filtered_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 29: LOG SEARCH ---
+print('--- Task 29: Log Search ---')
+
+count_logs = int(input('Enter the count of logs: '))
+logs_list = [input('Enter the log: ') for _ in range(count_logs)]
+
+filtered_list = []
+
+for logs in logs_list:
+    if 'ERROR' in logs and 'CRITICAL' in logs and 'RESOLVED' not in logs:
+        filtered_list.append(logs)
+
+print(*filtered_list, sep='\n')
+print('*' * 30)
