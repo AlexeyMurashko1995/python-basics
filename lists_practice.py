@@ -430,3 +430,23 @@ for word in first_list:
 
 print(*intersection_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 32: FUZZY SEARCH ---
+print('--- Task 32: Fuzzy Search ---')
+
+tags_search = input('Enter the tags(at least 3): ').lower().split()
+threshold = 2
+phrase_list = [input('Enter the phrase: ') for _ in range(3)]
+
+final_list = []
+
+for phrase in phrase_list:
+    count = 0
+    for tag in tags_search:
+        if tag in phrase.lower():
+            count += 1
+    if count >= threshold:
+        final_list.append(phrase)
+
+print(*final_list, sep='\n')
+print('*' * 30)
