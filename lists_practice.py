@@ -524,3 +524,12 @@ phrase = input('Enter the phrase: ').split()
 
 print(*phrase, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 37: INITIALS ---
+print('--- Task 37: Initials ---')
+
+phrase_list = input('Enter your initials: ').split()
+initial_list = [word[0] for word in phrase_list]
+
+print(*initial_list, sep='.', end='.')
+print('*' * 30)
