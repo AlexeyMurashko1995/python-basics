@@ -494,3 +494,25 @@ for file in files_list:
 
 print(*filtered_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 35: REVIEW SENTIMENT ---
+print('--- Task 35: Review Sentiment ---')
+
+review_count = int(input('Enter the count of reviews: '))
+reviews_list = [input('Enter the review: ') for _ in range(review_count)]
+
+positive_count = int(input('Enter the count of positive words: '))
+positive_words = [input('Enter the word: ').lower() for _ in range(positive_count)]
+
+filtered_review = []
+
+for review in reviews_list:
+    count = 0
+    for word in positive_words:
+        if word in review.lower():
+            count += 1
+    if count >= 3:
+        filtered_review.append(review)
+
+print(*filtered_review, sep='\n')
+print('*' * 30)
