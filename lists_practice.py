@@ -589,3 +589,12 @@ else:
     print('NO')
 
 print('*' * 30)
+
+# --- PROGRAM 42: ADD A SEPARATOR ---
+print('--- Task 42: Add A Separator ---')
+
+word = input('Enter the word: ')
+separator = input('Enter the separator: ')
+
+print(separator.join(word))
+print('*' * 30)
