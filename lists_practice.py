@@ -541,3 +541,19 @@ phrase = input('Enter the phrase: ').split('\\')
 
 print(*phrase, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 39: DIAGRAM ---
+print('--- Task 39: Diagram ---')
+
+phrase_list = '5 6 7 8 9'.split()
+output_list = []
+
+for i in range(len(phrase_list)):
+    phrase_list[i] = int(phrase_list[i])
+
+for phrase in phrase_list:
+    result = phrase * '*'
+    output_list.append(result)
+
+print(*output_list, sep='\n')
+print('*' * 30)
