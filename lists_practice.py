@@ -565,3 +565,27 @@ diagram = [int(num) * '+' for num in input().split()]
 
 print(*diagram, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 41: VALID IP ADDRESS ---
+print('--- Task 41: Valid IP Address ---')
+
+ip_list = input('Enter the address: ').split('.')
+
+for i in range(len(ip_list)):
+    ip_list[i] = int(ip_list[i])
+
+is_valid = True
+
+for ip in ip_list:
+    if 0 <= ip <= 255:
+        is_valid = True
+    else:
+        is_valid = False
+        break
+
+if is_valid:
+    print('YES')
+else:
+    print('NO')
+
+print('*' * 30)
