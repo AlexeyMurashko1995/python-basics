@@ -557,3 +557,11 @@ for phrase in phrase_list:
 
 print(*output_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 40: DIAGRAM 2.0 ---
+print('--- Task 40: Diagram 2.0 ---')
+
+diagram = [int(num) * '+' for num in input().split()]
+
+print(*diagram, sep='\n')
+print('*' * 30)
