@@ -516,3 +516,11 @@ for review in reviews_list:
 
 print(*filtered_review, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 36: LINE-BY-LINE OUTPUT ---
+print('--- Task 36: Line-By-Line Output ---')
+
+phrase = input('Enter the phrase: ').split()
+
+print(*phrase, sep='\n')
+print('*' * 30)
