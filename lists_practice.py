@@ -471,3 +471,26 @@ for phrase in phrase_list:
 
 print(*final_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 34: FILE SCANNER ---
+print('--- Task 34: File Scanner ---')
+
+files_count = int(input('Enter the count of files: '))
+files_list = [input('Enter the file name: ').lower() for _ in range(files_count)]
+
+alerts_count = int(input('Enter the count of alerts: '))
+alerts_list = [input('Enter the alert: ').lower() for _ in range(alerts_count)]
+
+filtered_list = []
+
+for file in files_list:
+    is_alert = False
+    for alert in alerts_list:
+        if alert in file:
+            is_alert = True
+            break
+    if not is_alert:
+        filtered_list.append(file)
+
+print(*filtered_list, sep='\n')
+print('*' * 30)
