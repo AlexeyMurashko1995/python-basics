@@ -598,3 +598,19 @@ separator = input('Enter the separator: ')
 
 print(separator.join(word))
 print('*' * 30)
+
+# --- PROGRAM 43: NUMBER OF MATCHING PAIRS ---
+print('--- Task 43: Number Of Matching Pairs ---')
+
+phrase_str = input('Enter the phrase: ').split()
+phrase_int = [int(phrase) for phrase in phrase_str]
+
+count = 0
+
+for i in range(len(phrase_int)):
+    for j in range(i + 1, len(phrase_int)):
+        if phrase_int[i] == phrase_int[j]:
+            count += 1
+
+print(count)
+print('*' * 30)
