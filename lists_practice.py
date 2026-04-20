@@ -742,3 +742,12 @@ print(f'Order processing: {current_order}')
 print(*orders)
 
 print('*' * 30)
+
+# --- PROGRAM 54: UNDO ---
+print('--- Task 54: Undo ---')
+
+actions = ['Open file', 'Type text', 'Insert image', 'Delete paragraph']
+undone_action = actions.pop()
+
+print(f'Action "{undone_action}" canceled.')
+print('*' * 30)
