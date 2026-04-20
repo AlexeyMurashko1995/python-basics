@@ -648,3 +648,12 @@ for i in range(len(phrase_int)):
 print(count)
 print('*' * 30)
 
+# --- PROGRAM 46: NEW LOT ---
+print('--- Task 46: New Lot ---')
+
+price_list = [580000, 620000, 750000, 900000]
+
+price_list.insert(1, 600000)
+
+print(price_list)
+print('*' * 30)
