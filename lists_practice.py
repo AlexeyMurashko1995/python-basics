@@ -631,3 +631,20 @@ for i in range(len(phrase_int)):
 
 print(count)
 print('*' * 30)
+
+# --- PROGRAM 45: AI PRE-PROCESSING ---
+print('--- Task 45: AI Pre-Processing--- ')
+
+phrase_str = input('Enter the phrase: ').split()
+phrase_int = [int(num) for num in phrase_str]
+
+count = 0
+
+for i in range(len(phrase_int)):
+    for j in range(i + 1, len(phrase_int)):
+        if abs(phrase_int[i] - phrase_int[j]) <= 5000:
+            count += 1
+
+print(count)
+print('*' * 30)
+
