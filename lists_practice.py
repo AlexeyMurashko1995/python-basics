@@ -684,3 +684,15 @@ for task in tasks:
 
 print(final_tasks)
 print('*' * 30)
+
+# --- PROGRAM 49: ID-NUMBER ---
+print('--- Task 49: ID-Number ---')
+
+ids = [1024, 2048, 3072, 4096, 5120]
+
+if 4096 in ids:
+    print(f'Object found at index: {ids.index(4096)}')
+else:
+    print('Object not found')
+
+print('*' * 30)
