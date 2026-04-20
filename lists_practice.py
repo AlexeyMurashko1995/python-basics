@@ -765,3 +765,12 @@ print(*clients)
 print(*vip_clients)
 
 print('*' * 30)
+
+# --- PROGRAM 56: DUBLICATES ---
+print('--- Task 56: Dublicates ---')
+
+candidates = ['Adam', 'Olek', 'Marek', 'Olek', 'Kasja', 'Olek']
+cnt = candidates.count('Olek')
+
+print(cnt)
+print('*' * 30)
