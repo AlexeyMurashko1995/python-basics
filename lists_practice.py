@@ -707,3 +707,13 @@ second_pos = tasks.index('CRITICAL: Error 2')
 
 print(first_pos, second_pos)
 print('*' * 30)
+
+# --- PROGRAM 51: SOLD LOT ---
+print('--- Task 51: Sold Lot ---')
+
+prices = [450000, 520000, 610000, 520000, 700000]
+
+prices.remove(520000)
+
+print(prices)
+print('*' * 30)
