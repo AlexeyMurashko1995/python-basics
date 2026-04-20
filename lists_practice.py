@@ -657,3 +657,15 @@ price_list.insert(1, 600000)
 
 print(price_list)
 print('*' * 30)
+
+# --- PROGRAM 47: SPECIAL CHARS ---
+print('--- Task 47: Special Chars ---')
+
+numbers_list = [10, -5, 20, -3, 30]
+
+for i in range(len(numbers_list) - 1, -1, -1):
+    if numbers_list[i] < 0:
+        numbers_list.insert(i, 0)
+
+print(numbers_list)
+print('*' * 30)
