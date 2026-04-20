@@ -669,3 +669,18 @@ for i in range(len(numbers_list) - 1, -1, -1):
 
 print(numbers_list)
 print('*' * 30)
+
+# --- PROGRAM 48: VIP-QUEUE ---
+print('--- Task 48: VIP-Queue ---')
+
+tasks = ['Fix bug', 'Update docs', 'CRITICAL: Server down', 'Drink coffee', 'CRITICAL: Database error']
+final_tasks = []
+
+for task in tasks:
+    if 'CRITICAL' in task:
+        final_tasks.insert(0, task)
+    else:
+        final_tasks.append(task)
+
+print(final_tasks)
+print('*' * 30)
