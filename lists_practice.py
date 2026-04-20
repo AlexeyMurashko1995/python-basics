@@ -787,3 +787,16 @@ else:
     print('System OK')
 
 print('*' * 30)
+
+# --- PROGRAM 58: UNIQUENESS ---
+print('--- Task 58: Uniqueness ---')
+
+numbers = [5, 10, 15, 20, 10, 25]
+cnt = numbers.count(10)
+
+if cnt == 1:
+    print('Number is unique')
+else:
+    print('Not unique or missing')
+
+print('*' * 30)
