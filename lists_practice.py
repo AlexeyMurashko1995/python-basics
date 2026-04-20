@@ -751,3 +751,17 @@ undone_action = actions.pop()
 
 print(f'Action "{undone_action}" canceled.')
 print('*' * 30)
+
+# --- PROGRAM 55: MOVING ---
+print('--- Task 55: Moving ---')
+
+clients = ['Adam', 'Olek', 'Marek', 'Kasja']
+vip_clients = []
+
+client = clients.pop(1)
+vip_clients.append(client)
+
+print(*clients)
+print(*vip_clients)
+
+print('*' * 30)
