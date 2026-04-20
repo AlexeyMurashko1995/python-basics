@@ -774,3 +774,16 @@ cnt = candidates.count('Olek')
 
 print(cnt)
 print('*' * 30)
+
+# --- PROGRAM 57: LOG ANALYSIS ---
+print('--- Task 57: Log Analysis ---')
+
+logs = ['OK', 'ERROR', 'OK', 'OK', 'ERROR', 'TIMEOUT', 'ERROR']
+cnt = logs.count('ERROR')
+
+if cnt > 2:
+    print('System unstable')
+else:
+    print('System OK')
+
+print('*' * 30)
