@@ -717,3 +717,16 @@ prices.remove(520000)
 
 print(prices)
 print('*' * 30)
+
+# --- PROGRAM 52: SECURE DISPOSAL ---
+print('--- Task 52: Secure Disposal ---')
+
+stock = ['Apples', 'Oranges', 'DAMAGED', 'Bananas']
+
+if 'DAMAGED' in stock:
+    stock.remove('DAMAGED')
+else:
+    print('Object not found')
+
+print(*stock)
+print('*' * 30)
