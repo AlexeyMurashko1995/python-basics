@@ -696,3 +696,14 @@ else:
     print('Object not found')
 
 print('*' * 30)
+
+# --- PROGRAM 50: SECOND CRITICAL FAILURE ---
+print('--- Task 50: Second Critical Failure ---')
+
+tasks = ['Fix bug', 'CRITICAL: Error 1', 'Update docs', 'CRITICAL: Error 2', 'Drink coffee']
+
+first_pos = tasks.index('CRITICAL: Error 1')
+second_pos = tasks.index('CRITICAL: Error 2')
+
+print(first_pos, second_pos)
+print('*' * 30)
