@@ -614,3 +614,20 @@ for i in range(len(phrase_int)):
 
 print(count)
 print('*' * 30)
+
+# --- PROGRAM 44: COMBINATIONS 3.0 ---
+print('--- Task 44: Combinations 3.0 ---')
+
+phrase_str = input('Enter the phrase: ').split()
+phrase_int = [int(num) for num in phrase_str]
+
+count = 0
+
+for i in range(len(phrase_int)):
+    for j in range(i + 1, len(phrase_int)):
+        for k in range(j + 1, len(phrase_int)):
+            if phrase_int[i] == phrase_int[j] == phrase_int[k]:
+                count += 1
+
+print(count)
+print('*' * 30)
