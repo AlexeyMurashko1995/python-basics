@@ -730,3 +730,15 @@ else:
 
 print(*stock)
 print('*' * 30)
+
+# --- PROGRAM 53: PROCESSING THE LAST ORDER ---
+print('--- Task 53: Processing The Last Order ---')
+
+orders = [101, 102, 103, 104, 105]
+
+current_order = orders.pop()
+
+print(f'Order processing: {current_order}')
+print(*orders)
+
+print('*' * 30)
