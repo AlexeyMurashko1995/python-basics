@@ -823,3 +823,17 @@ total = phrase.count('a') + phrase.count('an') + phrase.count('the')
 
 print(total)
 print('*' * 30)
+
+# --- PROGRAM 61: SWAP MIN AND MAX ---
+print('--- Task 61: Swap Min and Max ---')
+
+number = input().split()
+number_list = [int(x) for x in number]
+
+index_max = number_list.index(max(number_list))
+index_min = number_list.index(min(number_list))
+
+number_list[index_max], number_list[index_min] = min(number_list), max(number_list)
+
+print(*number_list)
+print('*' * 30)
