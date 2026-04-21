@@ -814,3 +814,12 @@ numbers.insert(3, 25)
 
 print(numbers)
 print('*' * 30)
+
+# --- PROGRAM 60: NUMBER OF ARTICLES ---
+print('--- Task 60: Number Of Articles ---')
+
+phrase = input('Enter the phrase: ').lower().split()
+total = phrase.count('a') + phrase.count('an') + phrase.count('the')
+
+print(total)
+print('*' * 30)
