@@ -848,3 +848,15 @@ filtered_phrases = [input().split('#')[0].rstrip() for _ in range(n)]
 
 print(*filtered_phrases, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 63: CONTACT LIST CLEANING ---
+print('--- Task 63: Contact List Cleaning ---')
+
+n_str = input().strip('#')
+n = int(n_str)
+
+mail_list = [input().split(':')[0].rstrip() for _ in range(n)]
+domen_list = [mail.split('@')[1] for mail in mail_list]
+
+print(*domen_list, sep='\n')
+print('*' * 30)
