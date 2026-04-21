@@ -860,3 +860,18 @@ domen_list = [mail.split('@')[1] for mail in mail_list]
 
 print(*domen_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 64: FILE NAME NORMALIZATION ---
+print('--- Task 64: File Name Normalization ---')
+
+n_str = input().strip('#')
+n = int(n_str)
+
+preprocessing_list = [input().split('#')[0].rstrip() for _ in range(n)]
+names_list = [name.split('.')[0].strip() for name in preprocessing_list]
+extensions_list = [extension.split('.')[1].strip() for extension in preprocessing_list]
+
+for ext, names in zip(extensions_list, names_list):
+    print(f'{ext} ----> {names}')
+
+print('*' * 30)
