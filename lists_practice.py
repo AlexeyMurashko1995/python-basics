@@ -837,3 +837,14 @@ number_list[index_max], number_list[index_min] = min(number_list), max(number_li
 
 print(*number_list)
 print('*' * 30)
+
+# --- PROGRAM 62: RIGHT STRIP ---
+print('--- Task 62: Right Strip ---')
+
+n_str = input().strip('#')
+n = int(n_str)
+
+filtered_phrases = [input().split('#')[0].rstrip() for _ in range(n)]
+
+print(*filtered_phrases, sep='\n')
+print('*' * 30)
