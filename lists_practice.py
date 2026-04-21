@@ -800,3 +800,17 @@ else:
     print('Not unique or missing')
 
 print('*' * 30)
+
+# --- PROGRAM 59: ALL AT ONCE ---
+print('--- Task 59: All At Once ---')
+
+numbers = [8, 9, 10, 11]
+
+numbers[1] = 17
+numbers.extend([4, 5, 6])
+numbers.pop(0)
+numbers *= 2
+numbers.insert(3, 25)
+
+print(numbers)
+print('*' * 30)
