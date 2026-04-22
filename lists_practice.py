@@ -875,3 +875,16 @@ for ext, names in zip(extensions_list, names_list):
     print(f'{ext} ----> {names}')
 
 print('*' * 30)
+
+# --- PROGRAM 65: THE TEMPERATURE LOG ---
+print('--- Task 65: THE TEMPERATURE LOG ---')
+
+temps = [12, 18, 15, 11, 22, 18, 13]
+
+temps_desc = sorted(temps, reverse=True)
+temps.sort()
+
+print(*temps_desc)
+print(*temps)
+
+print('*' * 30)
