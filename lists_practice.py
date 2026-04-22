@@ -911,3 +911,14 @@ num_list.sort(key=int, reverse=True)
 print(*num_list)
 
 print('*' * 30)
+
+# --- PROGRAM 68: SONG SORTING ---
+print('--- Task 68: Song Sorting ---')
+
+n = int(input())
+songs_list = [input() for _ in range(n)]
+
+songs_list.sort()
+
+print(*songs_list, sep='\n')
+print('*' * 30)
