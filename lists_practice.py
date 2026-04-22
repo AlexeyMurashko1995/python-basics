@@ -931,3 +931,15 @@ number_list.sort()
 
 print(*number_list[-1:-4:-1])
 print('*' * 30)
+
+# --- PROGRAM 70: DATA CLEANER ---
+print('--- Task 70: Data Cleaner ---')
+
+raw_data = ['  python', 'java  ', '  c++  ', '  javascript']
+filtered_data = [raw.strip() for raw in raw_data]
+
+filtered_data.sort(key=len)
+result = ' ---> '.join(filtered_data)
+
+print(result)
+print('*' * 30)
