@@ -888,3 +888,13 @@ print(*temps_desc)
 print(*temps)
 
 print('*' * 30)
+
+# --- PROGRAM 66: THE NAME FILTER ---
+print('--- Task 66: The Name Filter ---')
+
+users = ['alex', 'Boris', 'charles', 'Anna', 'dmitry']
+
+users.sort(key=str.lower)
+
+print(*users)
+print('*' * 30)
