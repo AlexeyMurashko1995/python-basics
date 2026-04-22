@@ -898,3 +898,16 @@ users.sort(key=str.lower)
 
 print(*users)
 print('*' * 30)
+
+# --- PROGRAM 67: NUMBER SORTING ---
+print('--- Task 67: Number Sorting ---')
+
+num_list = input().split()
+
+num_list.sort(key=int)
+print(*num_list)
+
+num_list.sort(key=int, reverse=True)
+print(*num_list)
+
+print('*' * 30)
