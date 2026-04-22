@@ -922,3 +922,12 @@ songs_list.sort()
 
 print(*songs_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 69: TOP 3 COMPETITION ---
+print('--- Task 69: Top 3 Competition ---')
+
+number_list = [10, 45, 2, 30, 22, 7]
+number_list.sort()
+
+print(*number_list[-1:-4:-1])
+print('*' * 30)
