@@ -943,3 +943,18 @@ result = ' ---> '.join(filtered_data)
 
 print(result)
 print('*' * 30)
+
+# --- PROGRAM 71: ODD AND EVEN ---
+print('--- Task 71: Odd And Even ---')
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+even_list = [x for x in numbers if x % 2 == 0]
+even_list.sort()
+odd_list = [x for x in numbers if x % 2 != 0]
+odd_list.sort()
+
+even_list.extend(odd_list)
+
+print(*even_list)
+print('*' * 30)
