@@ -1004,3 +1004,10 @@ filtered_phrase = [phrase.lower() for phrase in phrase_list if len(phrase) > 3]
 
 print(filtered_phrase)
 print('*' * 30)
+
+# --- PROGRAM 76: COORDINATE DATA VALIDATOR ---
+print('--- Task 76: Coordinate Data Validator ---')
+
+print([int(x) ** 2 for x in input().split() if x.isdigit()])
+
+print('*' * 30)
