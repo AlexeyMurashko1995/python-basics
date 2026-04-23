@@ -958,3 +958,14 @@ even_list.extend(odd_list)
 
 print(*even_list)
 print('*' * 30)
+
+# --- PROGRAM 71: IT STACK ANALYST ---
+print('--- Task 71: IT Stack Analyst ---')
+
+languages = ['python', 'java', 'c++', 'javascript', 'c#', 'ruby', 'php', 'go', 'swift']
+filtered_languages = [language for language in languages if len(language) > 2]
+
+filtered_languages.sort(key=lambda x: (-len(x), x))
+
+print(*filtered_languages)
+print('*' * 30)
