@@ -969,3 +969,12 @@ filtered_languages.sort(key=lambda x: (-len(x), x))
 
 print(*filtered_languages)
 print('*' * 30)
+
+# --- PROGRAM 72: PALINDROME NUMBERS ---
+print('--- Task 72: Palindrome Numbers ---')
+
+palindromes = [i + j for i in range(100, 901 ,100) for j in range(i // 100, 101, 10)]
+palindromes.sort()
+
+print(*palindromes)
+print('*' * 30)
