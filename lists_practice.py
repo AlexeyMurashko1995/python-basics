@@ -978,3 +978,10 @@ palindromes.sort()
 
 print(*palindromes)
 print('*' * 30)
+
+# --- PROGRAM 73: TO SQUARE ---
+print('--- Task 73: To Square ---')
+
+print(*[int(x) ** 2 for x in input().split() if int(x) % 2 == 0 and (int(x) ** 2) % 10 != 4])
+
+print('*' * 30)
