@@ -985,3 +985,12 @@ print('--- Task 73: To Square ---')
 print(*[int(x) ** 2 for x in input().split() if int(x) % 2 == 0 and (int(x) ** 2) % 10 != 4])
 
 print('*' * 30)
+
+# --- PROGRAM 74: REAL ESTATE PRICE PARSER ---
+print('--- Task 74: Real Estate Price Parser ---')
+
+price_list = input().split()
+filtered_list = [f for x in price_list if (f:= int(x[:-2])) < 5000]
+
+print(*filtered_list, sep='\n')
+print('*' * 30)
