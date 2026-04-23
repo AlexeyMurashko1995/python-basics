@@ -994,3 +994,13 @@ filtered_list = [f for x in price_list if (f:= int(x[:-2])) < 5000]
 
 print(*filtered_list, sep='\n')
 print('*' * 30)
+
+# --- PROGRAM 75: TEXT DESCRIPTION SANITIZER ---
+print('--- Task 75: Text Description Sanitizer ---')
+
+phrase_list = input().split()
+
+filtered_phrase = [phrase.lower() for phrase in phrase_list if len(phrase) > 3]
+
+print(filtered_phrase)
+print('*' * 30)
