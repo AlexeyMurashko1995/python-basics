@@ -1011,3 +1011,11 @@ print('--- Task 76: Coordinate Data Validator ---')
 print([int(x) ** 2 for x in input().split() if x.isdigit()])
 
 print('*' * 30)
+
+# --- PROGRAM 77: 3X3 MATRIX ---
+print('--- Task 77: 3x3 Matrix ---')
+
+matrix_list = [[i * j for i in range(1,4)] for j in range(1,4)]
+
+print(matrix_list)
+print('*' * 30)
