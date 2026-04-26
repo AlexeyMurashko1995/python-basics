@@ -155,3 +155,25 @@ result_list = filter_by_max_price(apartments, user_budget)
 
 print(result_list)
 print('*' * 30)
+
+# --- PROGRAM 8: THE PRICE FORMATTER ---
+print('--- Task 8: The Price Formatter ---')
+
+
+def format_apartment_stats(data_list: list) -> list:
+    if not data_list:
+        return []
+    formatted_list = [f'ID: {flat['id']}, District: {flat['district']}, Price: {flat['price']}' for flat in data_list]
+    return formatted_list
+
+
+apartments = [
+    {'id': 1, 'district': 'Wola', 'price': 950000},
+    {'id': 2, 'district': 'Mokotów', 'price': 1200000}
+]
+
+filtered_list = format_apartment_stats(apartments)
+
+print(filtered_list)
+print('*' * 30)
+
