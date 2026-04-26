@@ -81,3 +81,26 @@ eur_prices = convert_prices_to_eur(pln_prices, user_rate)
 
 print(eur_prices)
 print('*' * 30)
+
+
+# --- PROGRAM 5: THE AREA RANKER ---
+print('--- Task 5: The Area Ranker ---')
+
+def get_large_apartments(data: list, min_area: float) -> list:
+    if not data:
+        return {}
+    large_apartments = [apartments['id'] for apartments in data if apartments['area'] >= min_area]
+    return large_apartments
+
+
+apartments = [
+    {'id': '101', 'area': 45.5, 'price': 900000},
+    {'id': '102', 'area': 30.0, 'price': 550000},
+    {'id': '103', 'area': 85.2, 'price': 2000000}
+]
+
+user_area = 31
+result = get_large_apartments(apartments, user_area)
+
+print(result)
+print('*' * 30)
