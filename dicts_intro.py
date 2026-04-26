@@ -14,9 +14,10 @@ flat_info['is_expensive'] = flat_info['price per meter'] > 15000
 print(flat_info)
 print('*' * 30)
 
-
 # --- PROGRAM 2: REAL ESTATE PRICE ANALYZER ---
 print('--- Task 2: Real Estate Price Analyzer ---')
+
+
 def calculate_average_price(data_list):
     if not data_list:
         return 0
@@ -36,9 +37,10 @@ average_price = calculate_average_price(apartments_data)
 print(f'Average price: {average_price}')
 print('*' * 30)
 
-
 # --- PROGRAM 3: THE DATA SANITIZER ---
 print('--- Task 3: The Data Sanitizer ---')
+
+
 def get_user_clean_data(raw_data: dict) -> dict:
     if not raw_data:
         return {}
@@ -63,9 +65,9 @@ result = get_user_clean_data(user_dict)
 print(result)
 print('*' * 30)
 
-
 # --- PROGRAM 4: THE CURRENCY CONVERTER ---
 print('--- Task 4: The Currency Converter ---')
+
 
 def convert_prices_to_eur(price_data: dict, rate: float) -> dict:
     if not price_data:
@@ -82,9 +84,9 @@ eur_prices = convert_prices_to_eur(pln_prices, user_rate)
 print(eur_prices)
 print('*' * 30)
 
-
 # --- PROGRAM 5: THE AREA RANKER ---
 print('--- Task 5: The Area Ranker ---')
+
 
 def get_large_apartments(data: list, min_area: float) -> list:
     if not data:
@@ -103,4 +105,29 @@ user_area = 31
 result = get_large_apartments(apartments, user_area)
 
 print(result)
+print('*' * 30)
+
+# --- PROGRAM 6: THE DISTRICT FILTER ---
+print('--- Task 6: The district filter ---')
+
+
+def get_prices_by_district(data: list, target_district: str) -> list:
+    if not data:
+        return []
+    district_list = [flat['price'] for flat in data if flat['district'] == target_district]
+    return district_list
+
+
+apartments = [
+    {'id': 1, 'district': 'Wola', 'price': 950000},
+    {'id': 2, 'district': 'Mokotów', 'price': 1200000},
+    {'id': 3, 'district': 'Wola', 'price': 700000},
+    {'id': 4, 'district': 'Ursus', 'price': 500000}
+]
+
+user_district = 'Wola'
+
+result = get_prices_by_district(apartments, user_district)
+print(result)
+
 print('*' * 30)
