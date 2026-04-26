@@ -128,6 +128,30 @@ apartments = [
 user_district = 'Wola'
 
 result = get_prices_by_district(apartments, user_district)
-print(result)
 
+print(result)
+print('*' * 30)
+
+# --- PROGRAM 7: THE BUDGET FILTER ---
+print('--- Task 7: The Budget Filter ---')
+
+
+def filter_by_max_price(data_list: list, max_price: int) -> list:
+    if not data_list:
+        return []
+
+    filtered_apartment = [flat for flat in data_list if flat['price'] <= max_price]
+    return filtered_apartment
+
+
+apartments = [
+    {'id': 1, 'district': 'Wola', 'price': 950000},
+    {'id': 2, 'district': 'Mokotów', 'price': 1200000},
+    {'id': 3, 'district': 'Ursus', 'price': 500000}
+]
+
+user_budget = 960000
+result_list = filter_by_max_price(apartments, user_budget)
+
+print(result_list)
 print('*' * 30)
