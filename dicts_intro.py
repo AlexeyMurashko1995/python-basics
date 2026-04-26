@@ -62,3 +62,22 @@ result = get_user_clean_data(user_dict)
 
 print(result)
 print('*' * 30)
+
+
+# --- PROGRAM 4: THE CURRENCY CONVERTER ---
+print('--- Task 4: The Currency Converter ---')
+
+def convert_prices_to_eur(price_data: dict, rate: float) -> dict:
+    if not price_data:
+        return {}
+    eur_price = {k: (v * rate if rate > 0 else v) for k, v in price_data.items()}
+    return eur_price
+
+
+pln_prices = {'id1': 1000000, 'id2': 750000}
+user_rate = 0.23
+
+eur_prices = convert_prices_to_eur(pln_prices, user_rate)
+
+print(eur_prices)
+print('*' * 30)
