@@ -284,3 +284,29 @@ expensive_cars = {k: v for k, v in cars.items() if v > 20000}
 
 print(expensive_cars)
 print('*' * 30)
+
+# --- PROGRAM 15: AI DATA PREPROCESSING (FULL CYCLE) ---
+print('--- Task 15: AI Data Preprocessing (Full Cycle) ---')
+
+raw_data = [
+    {'dist': 'Wola', 'p': 800000},
+    {'dist': 'Mokotów', 'p': 0},      # Buggy data!
+    {'dist': 'Wola', 'p': 750000},
+    {'dist': 'Mokotów', 'p': 950000},
+    {'dist': 'Wola', 'p': 100}        # Too cheap (anomaly!)
+]
+
+clean_data = [raw for raw in raw_data if raw['p'] > 10000]
+final_stats = {}
+
+for ad in clean_data:
+    ad_name = ad['dist']
+    ad_price = ad['p']
+    if ad_name not in final_stats:
+        final_stats[ad_name] = {'total': ad_price, 'count': 1}
+    else:
+        final_stats[ad_name]['total'] += ad_price
+        final_stats[ad_name]['count'] += 1
+
+print(final_stats)
+print('*' * 30)
