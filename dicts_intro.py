@@ -310,3 +310,32 @@ for ad in clean_data:
 
 print(final_stats)
 print('*' * 30)
+
+# --- PROGRAM 16: REAL ESTATE MARKET ANALYTICS ---
+print('--- Task 16: Real Estate Market Analytics ---')
+
+district_stats = {
+    'Wola': {'total': 1550000, 'count': 2},
+    'Mokotów': {'total': 950000, 'count': 1},
+    'Ursynów': {'total': 2400000, 'count': 3},
+    'Praga': {'total': 800000, 'count': 2}
+}
+
+average_prices = {}
+
+max_avg = 0
+expensive_district = ''
+
+for district, stats in district_stats.items():
+    average = stats['total'] / stats['count']
+    if average >= max_avg:
+        max_avg = average
+        expensive_district = district
+    if district not in average_prices:
+        average_prices[district] = average
+
+print(max_avg)
+print(expensive_district)
+print(average_prices)
+
+print('*' * 30)
