@@ -187,3 +187,26 @@ prices['orange'] = 4
 
 print(f'Prices: {prices}')
 print('*' * 30)
+
+# --- PROGRAM 10: AGGREGATION ---
+print('--- Task 10: Aggregation ---')
+
+sales = [
+    {'category': 'tech', 'price': 100},
+    {'category': 'home', 'price': 50},
+    {'category': 'tech', 'price': 200},
+    {'category': 'home', 'price': 30}
+]
+
+report = {}
+
+for sale in sales:
+    sale_name = sale['category']
+    sale_price = sale['price']
+    if sale_name not in report:
+        report[sale_name] = sale_price
+    else:
+        report[sale_name] += sale_price
+
+print(report)
+print('*' * 30)
