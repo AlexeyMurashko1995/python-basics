@@ -250,3 +250,27 @@ for item in cargo:
 
 print(inventory)
 print('*' * 30)
+
+# --- PROGRAM 13: NESTED AGGREGATION ---
+print('--- Task 13: Nested Aggregation ---')
+
+sales_data = [
+    {'dept': 'A', 'rev': 100},
+    {'dept': 'B', 'rev': 200},
+    {'dept': 'A', 'rev': 300}
+]
+
+report = {}
+
+for sale in sales_data:
+    sale_dept = sale['dept']
+    sale_profit = sale['rev']
+
+    if sale_dept not in report:
+        report[sale_dept] = {'total': sale_profit, 'count': 1}
+    else:
+        report[sale_dept]['total'] += sale_profit
+        report[sale_dept]['count'] += 1
+
+print(report)
+print('*' * 30)
