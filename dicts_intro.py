@@ -274,3 +274,13 @@ for sale in sales_data:
 
 print(report)
 print('*' * 30)
+
+# --- PROGRAM 14: DATA FILTERING (CONDITIONS) ---
+print('--- Task 14: Data Filtering (Conditions) ---')
+
+cars = {'Tesla': 50000, 'BMW': 40000, 'Lada': 5000, 'Ford': 15000}
+
+expensive_cars = {k: v for k, v in cars.items() if v > 20000}
+
+print(expensive_cars)
+print('*' * 30)
