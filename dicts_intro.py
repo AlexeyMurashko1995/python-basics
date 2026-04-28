@@ -177,3 +177,13 @@ filtered_list = format_apartment_stats(apartments)
 print(filtered_list)
 print('*' * 30)
 
+# --- PROGRAM 9: UPDATE AND ADD
+print('--- Task 9: Update And Add')
+
+prices = {'apple': 5, 'banana': 3}
+
+prices['apple'] = 6
+prices['orange'] = 4
+
+print(f'Prices: {prices}')
+print('*' * 30)
