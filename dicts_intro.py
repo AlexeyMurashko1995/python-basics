@@ -234,3 +234,19 @@ for item in items:
 
 print(max_prices)
 print('*' * 30)
+
+# --- PROGRAM 12: WAREHOUSE INVENTORY: COUNTING ---
+print('--- Task 12: Warehouse Inventory: Counting ---')
+
+cargo = ['box', 'pallet', 'box', 'box', 'container', 'pallet']
+
+inventory = {}
+
+for item in cargo:
+    if item not in inventory:
+        inventory[item] = 1
+    else:
+        inventory[item] += 1
+
+print(inventory)
+print('*' * 30)
