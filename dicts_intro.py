@@ -210,3 +210,27 @@ for sale in sales:
 
 print(report)
 print('*' * 30)
+
+# --- PROGRAM 11: NESTED LOGIC ---
+print('--- Task 11: Nested Logic ---')
+
+items = [
+    {'cat': 'food', 'name': 'bread', 'p': 2},
+    {'cat': 'food', 'name': 'meat', 'p': 15},
+    {'cat': 'auto', 'name': 'oil', 'p': 50},
+    {'cat': 'auto', 'name': 'tire', 'p': 120}
+]
+
+max_prices = {}
+
+for item in items:
+    item_name = item['cat']
+    item_price = item['p']
+    if item_name not in max_prices:
+        max_prices[item_name] = item_price
+    else:
+        if max_prices[item_name] < item_price:
+            max_prices[item_name] = item_price
+
+print(max_prices)
+print('*' * 30)
