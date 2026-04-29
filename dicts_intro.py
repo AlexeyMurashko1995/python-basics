@@ -403,3 +403,18 @@ filtered_ranking = sorted(ranking, key=lambda x: x[1])
 print(filtered_ranking)
 print('*' * 30)
 
+# --- PROGRAM 20: MAX WITH LAMBDA ---
+print('--- Task 20: Max With Lambda ---')
+
+apartments = [
+    {'district': 'Wola', 'price': 900000, 'area': 45.5},
+    {'district': 'Mokotów', 'price': 1500000, 'area': 120.0},
+    {'district': 'Wawer', 'price': 600000, 'area': 32.2},
+    {'district': 'Białołęka', 'price': 850000, 'area': 55.0}
+]
+
+biggest_area = max(apartments, key=lambda x: x['area'])
+
+print(biggest_area)
+print('*' * 30)
+
