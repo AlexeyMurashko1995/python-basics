@@ -339,3 +339,20 @@ print(expensive_district)
 print(average_prices)
 
 print('*' * 30)
+
+# --- PROGRAM 17: MULTI-LEVEL STORE (ACCESSING DATA) ---
+print('--- Task 17: Multi-Level Store (Accessing Data)')
+
+storage = {
+    'laptop': {'brand': 'Dell', 'stock': 5, 'price': 3000},
+    'smartphone': {'brand': 'iPhone', 'stock': 10, 'price': 4000}
+}
+
+
+storage['laptop']['stock'] -= 1
+storage['monitor'] = {'brand': 'Samsung', 'stock': 3, 'price': 1000}
+
+print(storage)
+print(storage['laptop']['price'])
+
+print('*' * 30)
