@@ -356,3 +356,27 @@ print(storage)
 print(storage['laptop']['price'])
 
 print('*' * 30)
+
+# --- PROGRAM 18: WEATHER AGGREGATOR ---
+print('--- Task 18: Weather Aggregator ---')
+
+weather_log = [
+    {'city': 'Warsaw', 'temp': 15},
+    {'city': 'Krakow', 'temp': 12},
+    {'city': 'Warsaw', 'temp': 18},
+    {'city': 'Krakow', 'temp': 10}
+]
+
+report = {}
+
+for weather in weather_log:
+    weather_city = weather['city']
+    weather = weather['temp']
+    if weather_city not in report:
+        report[weather_city] = {'total_temp': weather, 'count': 1}
+    else:
+        report[weather_city]['total_temp'] += weather
+        report[weather_city]['count'] += 1
+
+print(report)
+print('*' * 30)
