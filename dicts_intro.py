@@ -380,3 +380,26 @@ for weather in weather_log:
 
 print(report)
 print('*' * 30)
+
+# --- PROGRAM 19: MARKET RANKER ---
+print('--- Task 19: Market Ranker ---')
+
+market_data = {
+    'Wola': {'total': 1000000, 'count': 2},    # Avg: 500k
+    'Białołęka': {'total': 800000, 'count': 4}, # Avg: 200k
+    'Mokotów': {'total': 1200000, 'count': 2}   # Avg: 600k
+}
+
+ranking = []
+
+for district, stats in market_data.items():
+    district_name = district
+    avg_district = round(stats['total'] / stats['count'], 2)
+    result = district_name, avg_district
+    ranking.append(result)
+
+filtered_ranking = sorted(ranking, key=lambda x: x[1])
+
+print(filtered_ranking)
+print('*' * 30)
+
