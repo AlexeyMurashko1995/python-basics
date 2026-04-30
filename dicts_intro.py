@@ -419,7 +419,7 @@ print(biggest_area)
 print('*' * 30)
 
 # --- PROGRAM 21: THE BUDGET FILTER ---
-print('--- Task 31: The Budget Filter ---')
+print('--- Task 21: The Budget Filter ---')
 
 apartments = [
     {'district': 'Wola', 'price': 900000},
@@ -433,5 +433,27 @@ budget_apartments = list(filter(lambda x: x['price'] < 600000, apartments))
 print(budget_apartments)
 print('*' * 30)
 
+# --- PROGRAM 22: POPULAR DISTRICTS ---
+print('--- Task 22: Popular Districts ---')
+
+stats = {
+    'Wola': {'total_price': 1000000, 'count': 15},
+    'Wawer': {'total_price': 500000, 'count': 2},
+    'Mokotów': {'total_price': 2000000, 'count': 25},
+    'Rembertów': {'total_price': 300000, 'count': 1}
+}
+
+popular_districts = []
+
+for district, stat in stats.items():
+    if stat['count'] >= 10:
+        new_data = {
+            'district_name': district,
+            'count': stat['count']
+        }
+        popular_districts.append(new_data)
+
+print(popular_districts)
+print('*' * 30)
 
 
