@@ -456,4 +456,24 @@ for district, stat in stats.items():
 print(popular_districts)
 print('*' * 30)
 
+# --- PROGRAM 23: DATA TRANSFORMATION ---
+print('--- Task 23: DATA TRANSFORMATION ---')
 
+raw_apartments = [
+    {'id': 1, 'price': 1200000, 'area': 60},
+    {'id': 2, 'price': 800000, 'area': 40},
+    {'id': 3, 'price': 1500000, 'area': 100}
+]
+
+processed_apartments = []
+
+for apartment in raw_apartments:
+    price_per_meter_2 = round(apartment['price'] / apartment['area'], 2)
+    filtered_data = {
+        'id': apartment['id'],
+        'price_per_meter_2': price_per_meter_2
+    }
+    processed_apartments.append(filtered_data)
+
+print(processed_apartments)
+print('*' * 30)
