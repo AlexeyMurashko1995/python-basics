@@ -477,3 +477,18 @@ for apartment in raw_apartments:
 
 print(processed_apartments)
 print('*' * 30)
+
+# --- PROGRAM 24: MULTI-SORTING ---
+print('--- Task 24: Multi-Sorting ---')
+
+market_stats = [
+    {'name': 'Wola', 'count': 25},
+    {'name': 'Wawer', 'count': 10},
+    {'name': 'Mokotów', 'count': 25},
+    {'name': 'Białołęka', 'count': 40}
+]
+
+market_stats.sort(key=lambda x: (-x['count'], x['name']))
+
+print(market_stats)
+print('*' * 30)
