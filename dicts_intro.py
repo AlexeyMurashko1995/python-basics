@@ -535,3 +535,33 @@ premium_districts = [apartment['district'] for apartment in apartments if apartm
 
 print(premium_districts)
 print('*' * 30)
+
+# --- PROGRAM 27: THE MARKET OVERVIEW ---
+print('--- Task 27: The Market Overview ---')
+
+
+def get_market_stats(data_list):
+    total_count = len(data_list)
+    total_price = (sum(data['price'] for data in data_list))
+    avg_price = round(total_price / total_count, 2)
+    max_price = (max(data['price'] for data in data_list))
+
+    stats_list = {
+        'total_count': total_count,
+        'max_price': max_price,
+        'average_price': avg_price
+    }
+    return stats_list
+
+
+apartments = [
+    {'district': 'Wola', 'price': 900000, 'area': 50},
+    {'district': 'Mokotów', 'price': 1200000, 'area': 70},
+    {'district': 'Wawer', 'price': 600000, 'area': 40},
+    {'district': 'Białołęka', 'price': 800000, 'area': 55}
+]
+
+filtered_list = get_market_stats(apartments)
+
+print(filtered_list)
+print('*' * 30)
