@@ -492,3 +492,31 @@ market_stats.sort(key=lambda x: (-x['count'], x['name']))
 
 print(market_stats)
 print('*' * 30)
+
+# --- PROGRAM 25: THE AGGREGATOR ---
+print('--- Task 25: The Aggregator ---')
+
+
+def get_district_counts(data_list):
+    result = {}
+    for data in data_list:
+        data_name = data['district']
+        if data_name not in result:
+            result[data_name] = 1
+        else:
+            result[data_name] += 1
+    return result
+
+
+listings = [
+    {'district': 'Wola', 'price': 500000},
+    {'district': 'Mokotów', 'price': 700000},
+    {'district': 'Wola', 'price': 550000},
+    {'district': 'Białołęka', 'price': 300000},
+    {'district': 'Mokotów', 'price': 750000}
+]
+
+final_counts = get_district_counts(listings)
+print(final_counts)
+
+print('*' * 30)
