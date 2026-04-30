@@ -520,3 +520,18 @@ final_counts = get_district_counts(listings)
 print(final_counts)
 
 print('*' * 30)
+
+# --- PROGRAM 26: THE SMART EXTRACTOR ---
+print('--- Task 26: The Smart Extractor ---')
+
+apartments = [
+    {'district': 'Wola', 'price': 500000},
+    {'district': 'Mokotów', 'price': 700000},
+    {'district': 'Ursynów', 'price': 650000},
+    {'district': 'Białołęka', 'price': 300000}
+]
+
+premium_districts = [apartment['district'] for apartment in apartments if apartment['price'] > 600000]
+
+print(premium_districts)
+print('*' * 30)
