@@ -418,3 +418,20 @@ biggest_area = max(apartments, key=lambda x: x['area'])
 print(biggest_area)
 print('*' * 30)
 
+# --- PROGRAM 21: THE BUDGET FILTER ---
+print('--- Task 31: The Budget Filter ---')
+
+apartments = [
+    {'district': 'Wola', 'price': 900000},
+    {'district': 'Wawer', 'price': 550000},
+    {'district': 'Mokotów', 'price': 1200000},
+    {'district': 'Białołęka', 'price': 480000}
+]
+
+budget_apartments = list(filter(lambda x: x['price'] < 600000, apartments))
+
+print(budget_apartments)
+print('*' * 30)
+
+
+
