@@ -639,3 +639,18 @@ deal = {apartment['id']: (True if apartment['price'] / apartment['m2'] < 20000 e
 
 print(deal)
 print('*' * 30)
+
+# --- PROGRAM 32: THE STATS WINNER ---
+print('--- Program 32: The Stats Winner ---')
+
+stats = {
+    'Wola': {'total_price': 15000000, 'count': 15},
+    'Mokotów': {'total_price': 25000000, 'count': 22},
+    'Ursynów': {'total_price': 12000000, 'count': 10},
+    'Białołęka': {'total_price': 8000000, 'count': 18}
+}
+
+count_max = max(stats, key=lambda x: stats[x]['count'])
+
+print(count_max)
+print('*' * 30)
