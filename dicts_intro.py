@@ -625,3 +625,17 @@ for apartment in raw_apartments:
 
 print(grouped_data)
 print('*' * 30)
+
+# --- PROGRAM 31: THE DEAL FINDER ---
+print('--- Task 31: The Deal Finder ---')
+
+apartments = [
+    {'id': 101, 'district': 'Wola', 'price': 900000, 'm2': 45},
+    {'id': 102, 'district': 'Mokotów', 'price': 1500000, 'm2': 60},
+    {'id': 103, 'district': 'Wawer', 'price': 600000, 'm2': 40}
+]
+
+deal = {apartment['id']: (True if apartment['price'] / apartment['m2'] < 20000 else False) for apartment in apartments}
+
+print(deal)
+print('*' * 30)
