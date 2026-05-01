@@ -602,3 +602,26 @@ full_listing = base_info | extra_info
 
 print(full_listing)
 print('*' * 30)
+
+# --- PROGRAM 30: THE DISTRICT GROUPER ---
+print('--- Task 30: The District Grouper ---')
+
+raw_apartments = [
+    {'id': 1, 'dist': 'Wola', 'p': 900000},
+    {'id': 2, 'dist': 'Mokotów', 'p': 1200000},
+    {'id': 3, 'dist': 'Wola', 'p': 750000},
+    {'id': 4, 'dist': 'Mokotów', 'p': 950000}
+]
+
+grouped_data = {}
+
+for apartment in raw_apartments:
+    apartment_name = apartment['dist']
+    apartment_id = apartment['id']
+    if apartment_name not in grouped_data:
+        grouped_data[apartment_name] = [apartment_id]
+    else:
+        grouped_data[apartment_name].append(apartment_id)
+
+print(grouped_data)
+print('*' * 30)
