@@ -565,3 +565,29 @@ filtered_list = get_market_stats(apartments)
 
 print(filtered_list)
 print('*' * 30)
+
+# --- PROGRAM 28: THE MULTI-FILTER ---
+print('--- Task 28: The Multi-Filter ---')
+
+
+def find_my_flat(data, target_district, min_p, max_p):
+    result_list = [apartment['id'] for apartment in data if apartment['district'] == target_district and apartment['price'] > min_p and apartment['price'] < max_p]
+    return result_list
+
+
+apartments = [
+    {'id': 1, 'district': 'Wola', 'price': 900000},
+    {'id': 2, 'district': 'Mokotów', 'price': 1200000},
+    {'id': 3, 'district': 'Wola', 'price': 750000},
+    {'id': 4, 'district': 'Wawer', 'price': 500000},
+    {'id': 5, 'district': 'Wola', 'price': 1100000}
+]
+
+user_district = 'Wola'
+min_price = 300000
+max_price = 800000
+
+result = find_my_flat(apartments, user_district, min_price, max_price)
+
+print(result)
+print('*' * 30)
