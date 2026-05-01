@@ -591,3 +591,14 @@ result = find_my_flat(apartments, user_district, min_price, max_price)
 
 print(result)
 print('*' * 30)
+
+# --- PROGRAM 29: THE DATA MERGER ---
+print('--- Task 29: The Data Merger ---')
+
+base_info = {'id': 101, 'district': 'Wola', 'price': 800000}
+extra_info = {'floor': 4, 'has_elevator': True, 'condition': 'modern'}
+
+full_listing = base_info | extra_info
+
+print(full_listing)
+print('*' * 30)
