@@ -664,3 +664,22 @@ clean_prices = [int(raw.replace('zł', '').replace('zl','').replace(' ', '')) fo
 
 print(clean_prices)
 print('*' * 30)
+
+# --- PROGRAM 34: THE MARKET ANALYZER ---
+print('--- Task 34: The Market Analyzer ---')
+
+market_data = {
+    'Wola': 19500,
+    'Mokotów': 21000,
+    'Białołęka': 14500,
+    'Ursus': 15800,
+    'Bemowo': 17200
+}
+
+my_budget = 18000
+
+affordable_districts = {k: v for k, v in market_data.items() if v <= my_budget}
+cheapest_flat = min(affordable_districts, key=affordable_districts.get)
+
+print(cheapest_flat)
+print('*' * 30)
