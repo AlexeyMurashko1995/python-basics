@@ -654,3 +654,13 @@ count_max = max(stats, key=lambda x: stats[x]['count'])
 
 print(count_max)
 print('*' * 30)
+
+# --- PROGRAM 33: THE RAW DATA SANITIZER ---
+print('--- Task 33: The Raw Data Sanitizer ---')
+
+raw_prices = [' 1 200 000 zł ', '850000', ' 950 000 zl ', '1 100 000']
+
+clean_prices = [int(raw.replace('zł', '').replace('zl','').replace(' ', '')) for raw in raw_prices]
+
+print(clean_prices)
+print('*' * 30)
