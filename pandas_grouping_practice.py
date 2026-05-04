@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Load the dataset
 df = pd.read_csv('apartments_lab.csv', encoding='utf-8-sig')
@@ -17,6 +18,7 @@ grouped = df.groupby('area_name')
 agg_info = grouped['price'].agg(['min', 'max', 'count'])
 agg_info = agg_info[agg_info['count'] > 10]
 
-filtered_agg_info = agg_info.sort_values('min')
+filtered_agg_info = agg_info.sort_values('min').plot(kind='bar')
 
-print(filtered_agg_info)
+plt.show()
+
