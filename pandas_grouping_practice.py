@@ -16,7 +16,10 @@ df = df.rename(columns={
 #Finding missing values
 empty_fields = df.isna().sum()
 
-print(empty_fields)
+#Filter price outliers
+df = df[(df['price_m2'] > 8000) & (df['price_m2'] < 50000)]
+
+print(df.shape[0])
 
 # grouped = df.groupby('area_name')
 
