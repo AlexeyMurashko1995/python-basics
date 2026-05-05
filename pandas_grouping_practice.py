@@ -26,6 +26,10 @@ df.to_csv('apartments_clean.csv', index=False, encoding='utf-8-sig')
 correlation_matrix = df.corr(numeric_only=True)
 df.plot(kind='scatter', x='area', y='price', alpha=0.5)
 
+#Creating boxplot
+df.boxplot(column='price_m2', by='area_name', figsize=(12, 6))
+plt.xticks(rotation=45)
+
 plt.show()
 
 # grouped = df.groupby('area_name')
