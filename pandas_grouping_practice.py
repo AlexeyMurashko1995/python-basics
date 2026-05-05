@@ -13,12 +13,17 @@ df = df.rename(columns={
     'price per meter 2': 'price_m2'
 })
 
-grouped = df.groupby('area_name')
+#Finding missing values
+empty_fields = df.isna().sum()
 
-agg_info = grouped['price'].agg(['min', 'max', 'count'])
-agg_info = agg_info[agg_info['count'] > 10]
+print(empty_fields)
 
-filtered_agg_info = agg_info.sort_values('min').plot(kind='bar')
+# grouped = df.groupby('area_name')
 
-plt.show()
+# agg_info = grouped['price'].agg(['min', 'max', 'count'])
+# agg_info = agg_info[agg_info['count'] > 10]
+
+# filtered_agg_info = agg_info.sort_values('min').plot(kind='bar')
+
+# plt.show()
 
