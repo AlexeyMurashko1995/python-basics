@@ -22,12 +22,18 @@ df = df[(df['price_m2'] > 8000) & (df['price_m2'] < 50000)]
 #Save clean data
 df.to_csv('apartments_clean.csv', index=False, encoding='utf-8-sig')
 
-grouped = df.groupby('area_name')
-
-agg_info = grouped['price'].agg(['min', 'max', 'count'])
-agg_info = agg_info[agg_info['count'] > 10]
-
-filtered_agg_info = agg_info.sort_values('min').plot(kind='bar')
+#Correlation calculation
+correlation_matrix = df.corr(numeric_only=True)
+df.plot(kind='scatter', x='area', y='price', alpha=0.5)
 
 plt.show()
+
+# grouped = df.groupby('area_name')
+
+# agg_info = grouped['price'].agg(['min', 'max', 'count'])
+# agg_info = agg_info[agg_info['count'] > 10]
+
+# filtered_agg_info = agg_info.sort_values('min').plot(kind='bar')
+
+#plt.show()
 
