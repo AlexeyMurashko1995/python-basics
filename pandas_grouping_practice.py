@@ -38,8 +38,10 @@ plt.xticks(rotation=45)
 plt.show()
 
 #Starting work with scikit-learn
-X = df[['area']]
-y = df['price']
+df_with_districts = pd.get_dummies(df, columns=['area_name'], drop_first=True)
+
+X = df_with_districts.drop(['price', 'price_m2'], axis=1)
+y = df_with_districts['price']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
