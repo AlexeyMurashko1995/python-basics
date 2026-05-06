@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
 # Load the dataset
 df = pd.read_csv('apartments_lab.csv', encoding='utf-8-sig')
@@ -28,9 +29,19 @@ df.plot(kind='scatter', x='area', y='price', alpha=0.5)
 
 #Creating boxplot
 df.boxplot(column='price_m2', by='area_name', figsize=(12, 6))
-plt.xticks(rotation=45)
 
+plt.xticks(rotation=45)
 plt.show()
+
+#Starting work with scikit-learn
+X = df[['area']]
+y = df['price']
+model = LinearRegression()
+model.fit(X, y)
+
+print(f'Price per sqm: {model.coef_[0]}')
+print(f'Intercept: {model.intercept_}')
+
 
 # grouped = df.groupby('area_name')
 
