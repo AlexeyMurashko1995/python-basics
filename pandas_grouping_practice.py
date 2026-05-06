@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 pd.options.display.float_format = '{:.2f}'.format
 
 # Load the dataset
-df = pd.read_csv('apartments_lab.csv', encoding='utf-8-sig')
+df = pd.read_csv('warsaw_apartments.csv', encoding='utf-8-sig')
 
 # Data cleaning: calculate and drop temporary column, rename districts
 df['price_usd'] = df['price'] * 0.25
@@ -20,6 +20,7 @@ df = df.rename(columns={
 
 #Finding missing values
 empty_fields = df.isna().sum()
+df['rooms'] = df['rooms'].fillna(df['rooms'].median())
 
 #Filter price outliers
 df = df[(df['price_m2'] > 8000) & (df['price_m2'] < 50000)]
@@ -60,6 +61,17 @@ comparison = pd.DataFrame({
 })
 
 print(comparison)
+
+new_apartment = pd.DataFrame(0, index=[0], columns=X.columns)
+
+new_apartment['area'] = 52.0
+new_apartment['rooms'] = 2
+
+if 'area_name_Mokotów' in new_apartment.columns:
+    new_apartment['area_name_Mokotów'] = 1
+
+predicted_price = model.predict(new_apartment)
+print(f'Predicted price: {predicted_price[0]:,.2f} zł')
 
 
 # grouped = df.groupby('area_name')
