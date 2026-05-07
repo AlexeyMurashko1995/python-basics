@@ -36,3 +36,18 @@ reverse = user_input [-1:0:-1]
 
 print(first_letter + reverse)
 print('*' * 30)
+
+# --- TASK 4: DYNAMIC STRING SPLIT & SWAP ---
+print('--- Task 4: Dynamic String Split & Swap ---')
+
+user_input = input()
+
+if len(user_input) % 2 == 0:
+    first_half = user_input[len(user_input) // 2:]
+    second_half = user_input[:len(user_input) // 2]
+    filtered_output = first_half + second_half
+else:
+    filtered_output = user_input
+
+print(filtered_output)
+print('*' * 30)
