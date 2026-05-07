@@ -51,3 +51,10 @@ else:
 
 print(filtered_output)
 print('*' * 30)
+
+# --- TASK 5: STANDARD AMERICAN CONVENTION ---
+print('--- Task 5: Standard American Convention ---')
+
+user_input = int(input())
+
+print(f'{user_input:,}')
