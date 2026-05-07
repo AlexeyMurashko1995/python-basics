@@ -56,5 +56,16 @@ print('*' * 30)
 print('--- Task 5: Standard American Convention ---')
 
 user_input = int(input())
+user_input = str(user_input)
 
-print(f'{user_input:,}')
+result = []
+
+while len(user_input) > 3:
+    result.append(user_input[-3:])
+    user_input = user_input[:-3]
+
+result.append(user_input)
+result.reverse()
+
+print(','.join(result))
+print('*' * 30)
