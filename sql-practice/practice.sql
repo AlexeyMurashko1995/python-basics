@@ -1,0 +1,1 @@
+SELECT * FROM apartments WHERE price > 500000;
