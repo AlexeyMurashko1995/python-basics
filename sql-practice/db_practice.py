@@ -23,28 +23,32 @@ sample_data = [
 ]
 cursor.executemany('INSERT INTO apartments (label, price) VALUES (?, ?)', sample_data)
 
-# --- 3. ARCHIVED PRACTICES (Commented for reference) ---
+# --- 3. ARCHIVED PRACTICES ---
 """
-# Pattern matching (LIKE)
-sql_query = "SELECT * FROM apartments WHERE label LIKE '%Warsaw%'"
-cursor.execute(sql_query)
-results = cursor.fetchall()
-
-# Update operation
-cursor.execute("UPDATE apartments SET price = 650000 WHERE label ='Warsaw Central'")
-
-# Delete operation
-cursor.execute("DELETE FROM apartments WHERE label = 'Krakow North'")
+# Archived for reference:
+# 1. Pattern matching: LIKE '%Warsaw%'
+# 2. Update: SET price = 650000
+# 3. Delete: WHERE label = 'Krakow North'
 """
 
-# --- 4. CURRENT PRACTICE: SORTING ---
-# Selecting all apartments sorted by price in ascending order
-cursor.execute("SELECT * FROM apartments ORDER BY price ASC")
-results = cursor.fetchall()
+# --- 4. CURRENT PRACTICE: SELECTING THE BEST OPTION ---
+# Goal: Find the cheapest apartment in Warsaw
+cursor.execute("""
+    SELECT * FROM apartments
+    WHERE label LIKE '%Warsaw%'
+    ORDER BY price ASC
+    LIMIT 1
+""")
 
-print("List of apartments (Sorted by Price):")
-for row in results:
-    print(f"- {row[1]}: {row[2]} PLN")
+# fetchone() returns a single tuple (row) or None
+result = cursor.fetchone()
+
+print("--- Search Result ---")
+if result:
+    # Formatting the output: index 1 is label, index 2 is price
+    print(f"Cheapest option in Warsaw: {result[1]} - {result[2]} PLN")
+else:
+    print("No apartments found matching your criteria.")
 
 # --- 5. CLEANUP ---
 conn.close()
