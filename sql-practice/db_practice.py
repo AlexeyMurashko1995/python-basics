@@ -35,15 +35,26 @@ cursor.executemany('INSERT INTO apartments (label, price) VALUES (?, ?)', sample
 # for row in results:
 #     print(f"- {row[1]}: {row[2]} PLN")
 
-cursor.execute("UPDATE apartments SET price = 650000 WHERE label ='Warsaw Central'")
+# cursor.execute("UPDATE apartments SET price = 650000 WHERE label ='Warsaw Central'")
+
+# cursor.execute("SELECT * FROM apartments")
+
+# results = cursor.fetchall()
+
+# print("Found apartments:")
+# for row in results:
+#     print(f"- {row[1]}: {row[2]} PLN")
+
+cursor.execute("DELETE FROM apartments WHERE label = 'Krakow North'")
 
 cursor.execute("SELECT * FROM apartments")
 
 results = cursor.fetchall()
 
-print("Found apartments:")
+print("Founded variants:")
 for row in results:
-    print(f"- {row[1]}: {row[2]} PLN")
+    print(f"{row[1]} - {row[2]} PLN")
+
 
 # 7. Close the connection
 conn.close()
