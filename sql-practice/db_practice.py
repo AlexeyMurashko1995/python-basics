@@ -24,11 +24,21 @@ sample_data = [
 ]
 cursor.executemany('INSERT INTO apartments (label, price) VALUES (?, ?)', sample_data)
 
-# 5. Execute SQL query using LIKE operator for pattern matching
-sql_query = "SELECT * FROM apartments WHERE label LIKE '%Warsaw%'"
-cursor.execute(sql_query)
+# # 5. Execute SQL query using LIKE operator for pattern matching
+# sql_query = "SELECT * FROM apartments WHERE label LIKE '%Warsaw%'"
+# cursor.execute(sql_query)
 
-# 6. Fetch and display the results
+# # 6. Fetch and display the results
+# results = cursor.fetchall()
+
+# print("Found apartments:")
+# for row in results:
+#     print(f"- {row[1]}: {row[2]} PLN")
+
+cursor.execute("UPDATE apartments SET price = 650000 WHERE label ='Warsaw Central'")
+
+cursor.execute("SELECT * FROM apartments")
+
 results = cursor.fetchall()
 
 print("Found apartments:")
