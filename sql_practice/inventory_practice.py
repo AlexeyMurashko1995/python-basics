@@ -52,19 +52,30 @@ cursor.executemany("INSERT INTO products (name, category, quantity, price) VALUE
 
 # print(f'Total inventory value:\n{total_value} USD')
 
-# 8. Product Statistics
-cursor.execute("SELECT AVG(price) FROM products")
-result = cursor.fetchone()[0]
+# # 8. Product Statistics
+# cursor.execute("SELECT AVG(price) FROM products")
+# result = cursor.fetchone()[0]
 
-print(f'Average price: {result:.2f} USD')
+# print(f'Average price: {result:.2f} USD')
 
-cursor.execute("SELECT * FROM products ORDER BY price DESC LIMIT 1")
-max_price_item = cursor.fetchall()
+# cursor.execute("SELECT * FROM products ORDER BY price DESC LIMIT 1")
+# max_price_item = cursor.fetchall()
 
-for item in max_price_item:
-    print(f'The most expensive item:\n{item[1]}, price: {item[4]} USD')
+# for item in max_price_item:
+#     print(f'The most expensive item:\n{item[1]}, price: {item[4]} USD')
 
+# 9. Advanced Filtering
+cursor.execute("SELECT * FROM products WHERE name LIKE '%o%'")
+result = cursor.fetchall()
 
+for item in result:
+    print(f'Product name with "o": {item[1]}')
 
-# 8. Close the database connection
+cursor.execute("SELECT * FROM products WHERE price BETWEEN 50 and 1000")
+result = cursor.fetchall()
+
+for item in result:
+    print(f'Product names with price between 50 and 1000 USD: {item[1]}, price: {item[4]} USD')
+
+# 10. Close the database connection
 conn.close()
