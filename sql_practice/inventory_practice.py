@@ -17,6 +17,15 @@ products_data = [
 
 cursor.executemany("INSERT INTO products (name, category, quantity, price) VALUES (?, ?, ?, ?)", products_data)
 
+# cursor.execute("SELECT * FROM products")
+
+# result = cursor.fetchall()
+
+# for row in result:
+#     print(f"{row[1]}")
+
+cursor.execute("UPDATE products SET price = 1250.50 WHERE id = 1")
+
 cursor.execute("SELECT * FROM products")
 
 result = cursor.fetchall()
