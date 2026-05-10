@@ -32,8 +32,15 @@ def manage_inventory():
         cursor.execute("DELETE FROM products")
         cursor.executemany("INSERT INTO products (name, category, quantity, price) VALUES (?, ?, ?, ?)", products_data)
 
+        try:
+            user_price = input('Enter new price for Laptop: ')
+            new_price = float(user_price)
+            cursor.execute("UPDATE products SET price = ? WHERE name = 'Laptop'", (new_price,))
+            print(f'You successfully updated the price for Laptop to {new_price}')
+        except ValueError:
+            print('You must enter numbers, not text!')
+
         # 4. Business logic: Update and Delete
-        cursor.execute("UPDATE products SET price = 1250.50 WHERE name = 'Laptop'")
         cursor.execute("DELETE FROM products WHERE quantity = 0")
 
         # 5. Saving changes
