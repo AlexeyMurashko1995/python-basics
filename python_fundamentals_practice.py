@@ -117,3 +117,29 @@ print(f'Fourth quadrant: {fourth_quadrant}')
 
 print('*' * 30)
 
+# --- TASK 8: GREATER THAN THE PREVIOUS ONE ---
+print('--- Task 8: Greater Than The Previous One ---')
+
+# First variant
+number_list = [int(x) for x in input().split()]
+
+count = -1
+temp_number = -1
+
+for number in number_list:
+    if number > temp_number:
+        count += 1
+    temp_number = number
+print(count)
+
+#Second variant
+number_list = [int(x) for x in input().split()]
+
+count = 0
+
+for i in range(1, len(number_list)):
+    if number_list[i] > number_list[i - 1]:
+        count += 1
+
+print(count)
+print('*' * 30)
