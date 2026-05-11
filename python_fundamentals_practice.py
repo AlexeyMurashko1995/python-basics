@@ -143,3 +143,14 @@ for i in range(1, len(number_list)):
 
 print(count)
 print('*' * 30)
+
+# --- TASK 9: BACK AND FORTH ---
+print('--- Task 9: Back And Forth ---')
+
+number_list = [int(x) for x in input().split()]
+
+for i in range(0, len(number_list) - 1, +2):
+    number_list[i],number_list[i + 1] = number_list[i + 1], number_list[i]
+
+print(*number_list)
+print('*' * 30)
