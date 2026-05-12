@@ -1,2 +1,6 @@
 *.csv
 *.db
+.env
+__pycache__/
+.idea/
+.vscode/
