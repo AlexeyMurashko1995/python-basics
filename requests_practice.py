@@ -4,4 +4,6 @@ url = 'https://catfact.ninja/fact'
 
 response = requests.get(url)
 
-print(response.status_code)
+if response.ok:
+    data = response.json()
+    print(f'Interesting fact: {data['fact']}')
