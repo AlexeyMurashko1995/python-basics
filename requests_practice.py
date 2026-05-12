@@ -1,9 +1,11 @@
 import requests
 
-url = 'https://catfact.ninja/fact'
+url = 'https://api.agify.io/'
 
-response = requests.get(url)
+params = {'name': 'Alex'}
+
+response = requests.get(url, params=params)
 
 if response.ok:
     data = response.json()
-    print(f'Interesting fact: {data['fact']}')
+    print(f'Age: {data['age']}')
