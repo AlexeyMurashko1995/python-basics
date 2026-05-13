@@ -44,16 +44,26 @@ from dotenv import load_dotenv
 #     data = response.json()
 #     print(f"Interesting fact: {data[0]['fact']}")
 
-# Task 4. GET + params(practice)
+# # Task 4. GET + params(practice)
 
-url = 'https://api.nationalize.io/'
+# url = 'https://api.nationalize.io/'
 
-params = {
-    'name':'Alex'
-}
+# params = {
+#     'name':'Alex'
+# }
 
-response = requests.get(url, params=params)
+# response = requests.get(url, params=params)
+
+# if response.ok:
+#     data = response.json()
+#     print(data['country'][0])
+
+# Task 5 (Zippopotam API)
+
+url = 'https://api.zippopotam.us/pl/00-001'
+
+response = requests.get(url)
 
 if response.ok:
     data = response.json()
-    print(data['country'][0])
+    print(data['places'][0]['place name'])
