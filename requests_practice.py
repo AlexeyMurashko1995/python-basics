@@ -60,23 +60,53 @@ from dotenv import load_dotenv
 # ==============================================================================
 # Task 6. Double Query (Orchestration)
 # ==============================================================================
-name = 'Alex'
-params = {'name': name}
+# name = 'Alex'
+# params = {'name': name}
 
-first_url = 'https://api.agify.io'
-second_url = 'https://api.genderize.io'
+# first_url = 'https://api.agify.io'
+# second_url = 'https://api.genderize.io'
 
-first_response = requests.get(first_url, params=params)
-second_response = requests.get(second_url, params=params)
+# first_response = requests.get(first_url, params=params)
+# second_response = requests.get(second_url, params=params)
 
-if first_response.ok and second_response.ok:
-    first_data = first_response.json()
-    second_data = second_response.json()
+# if first_response.ok and second_response.ok:
+#     first_data = first_response.json()
+#     second_data = second_response.json()
 
-    # Using f-string to aggregate data from both sources
-    output = (
-        f"Name: {first_data['name']} | "
-        f"Age: {first_data['age']} | "
-        f"Gender: {second_data['gender']}"
-    )
-    print(output)
+#     # Using f-string to aggregate data from both sources
+#     output = (
+#         f"Name: {first_data['name']} | "
+#         f"Age: {first_data['age']} | "
+#         f"Gender: {second_data['gender']}"
+#     )
+#     print(output)
+
+# ==============================================================================
+# Task 7. Exception Handling
+# ==============================================================================
+
+try:
+
+    name = 'Alex'
+    params = {'name': name}
+
+    first_url = 'https://api.agify.io'
+    second_url = 'https://api.genderize.io'
+
+    first_response = requests.get(first_url, params=params)
+    second_response = requests.get(second_url, params=params)
+
+    if first_response.ok and second_response.ok:
+        first_data = first_response.json()
+        second_data = second_response.json()
+
+        # Using f-string to aggregate data from both sources
+        output = (
+            f"Name: {first_data['name']} | "
+            f"Age: {first_data['age']} | "
+            f"Gender: {second_data['gender']}"
+        )
+        print(output)
+
+except requests.exceptions.RequestException:
+    print('Problems with connection')
