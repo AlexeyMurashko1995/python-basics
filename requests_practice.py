@@ -85,28 +85,55 @@ from dotenv import load_dotenv
 # Task 7. Exception Handling
 # ==============================================================================
 
+# try:
+
+#     name = 'Alex'
+#     params = {'name': name}
+
+#     first_url = 'https://api.agify.io'
+#     second_url = 'https://api.genderize.io'
+
+#     first_response = requests.get(first_url, params=params)
+#     second_response = requests.get(second_url, params=params)
+
+#     if first_response.ok and second_response.ok:
+#         first_data = first_response.json()
+#         second_data = second_response.json()
+
+#         # Using f-string to aggregate data from both sources
+#         output = (
+#             f"Name: {first_data['name']} | "
+#             f"Age: {first_data['age']} | "
+#             f"Gender: {second_data['gender']}"
+#         )
+#         print(output)
+
+# except requests.exceptions.ConnectionError:
+#     print('Check your internet connection!')
+
+# except requests.exceptions.Timeout:
+#     print('The server does not respond!')
+
+# ==============================================================================
+# Task 8. POST request
+# ==============================================================================
+
 try:
+    url = 'https://httpbin.org/post'
 
-    name = 'Alex'
-    params = {'name': name}
+    payload = {
+        'model': 'gemini - pro',
+        'prompt': 'Hello, AI!'
+    }
 
-    first_url = 'https://api.agify.io'
-    second_url = 'https://api.genderize.io'
+    response = requests.post(url, json=payload)
 
-    first_response = requests.get(first_url, params=params)
-    second_response = requests.get(second_url, params=params)
+    if response.ok:
+        data = response.json()
+        print(data)
 
-    if first_response.ok and second_response.ok:
-        first_data = first_response.json()
-        second_data = second_response.json()
+except requests.exceptions.ConnectionError:
+    print('Check your internet connection!')
 
-        # Using f-string to aggregate data from both sources
-        output = (
-            f"Name: {first_data['name']} | "
-            f"Age: {first_data['age']} | "
-            f"Gender: {second_data['gender']}"
-        )
-        print(output)
-
-except requests.exceptions.RequestException:
-    print('Problems with connection')
+except requests.exceptions.ConnectTimeout:
+    print('The server does not respond')
