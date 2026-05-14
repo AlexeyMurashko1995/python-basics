@@ -118,22 +118,51 @@ from dotenv import load_dotenv
 # Task 8. POST request
 # ==============================================================================
 
+# try:
+#     url = 'https://httpbin.org/post'
+
+#     payload = {
+#         'model': 'gemini - pro',
+#         'prompt': 'Hello, AI!'
+#     }
+
+#     response = requests.post(url, json=payload)
+
+#     if response.ok:
+#         data = response.json()
+#         print(data)
+
+# except requests.exceptions.ConnectionError:
+#     print('Check your internet connection!')
+
+# except requests.exceptions.ConnectTimeout:
+#     print('The server does not respond')
+
+# ==============================================================================
+# Task 9. Headers & The Secret Key
+# ==============================================================================
+
 try:
     url = 'https://httpbin.org/post'
 
     payload = {
-        'model': 'gemini - pro',
+        'model': 'gemini-pro',
         'prompt': 'Hello, AI!'
     }
 
-    response = requests.post(url, json=payload)
+    headers = {
+        'Authorization': 'Bearer my-super-secret-python-ai-token-2026',
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.post(url, json=payload, headers=headers)
 
     if response.ok:
         data = response.json()
-        print(data)
+        print(data['headers'])
 
 except requests.exceptions.ConnectionError:
-    print('Check your internet connection!')
+    print('Check your internet connection')
 
 except requests.exceptions.ConnectTimeout:
     print('The server does not respond')
