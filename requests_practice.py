@@ -171,19 +171,38 @@ from dotenv import load_dotenv
 # Task 10. Status Code Detective
 # ==============================================================================
 
-try:
-    url = 'https://httpbin.org/status/404'
+# try:
+#     url = 'https://httpbin.org/status/404'
 
-    response = requests.get(url)
+#     response = requests.get(url)
 
-    if response.status_code == 404:
-        print('The page is not found')
+#     if response.status_code == 404:
+#         print('The page is not found')
 
-    elif response.status_code == 200:
-        print('Success')
+#     elif response.status_code == 200:
+#         print('Success')
 
-except requests.exceptions.ConnectionError:
-    print('Check your internet connection')
+# except requests.exceptions.ConnectionError:
+#     print('Check your internet connection')
 
-except requests.exceptions.ConnectTimeout:
-    print('The server does not respond')
+# except requests.exceptions.ConnectTimeout:
+#     print('The server does not respond')
+
+# ==============================================================================
+# Task 11. JSON Data Architect
+# ==============================================================================
+import json
+
+raw_json = '{"user_id": 12, "role": "student", "skills": ["Python", "English"]}'
+
+raw_python = json.loads(raw_json)
+
+raw_python['skills'].append('AI Basics')
+raw_python['role'] = 'Python Developer'
+
+raw_json = json.dumps(raw_python, indent=4)
+
+print(raw_json)
+
+
+
