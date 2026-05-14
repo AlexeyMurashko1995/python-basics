@@ -142,24 +142,45 @@ from dotenv import load_dotenv
 # Task 9. Headers & The Secret Key
 # ==============================================================================
 
+# try:
+#     url = 'https://httpbin.org/post'
+
+#     payload = {
+#         'model': 'gemini-pro',
+#         'prompt': 'Hello, AI!'
+#     }
+
+#     headers = {
+#         'Authorization': 'Bearer my-super-secret-python-ai-token-2026',
+#         'Content-Type': 'application/json'
+#     }
+
+#     response = requests.post(url, json=payload, headers=headers)
+
+#     if response.ok:
+#         data = response.json()
+#         print(data['headers'])
+
+# except requests.exceptions.ConnectionError:
+#     print('Check your internet connection')
+
+# except requests.exceptions.ConnectTimeout:
+#     print('The server does not respond')
+
+# ==============================================================================
+# Task 10. Status Code Detective
+# ==============================================================================
+
 try:
-    url = 'https://httpbin.org/post'
+    url = 'https://httpbin.org/status/404'
 
-    payload = {
-        'model': 'gemini-pro',
-        'prompt': 'Hello, AI!'
-    }
+    response = requests.get(url)
 
-    headers = {
-        'Authorization': 'Bearer my-super-secret-python-ai-token-2026',
-        'Content-Type': 'application/json'
-    }
+    if response.status_code == 404:
+        print('The page is not found')
 
-    response = requests.post(url, json=payload, headers=headers)
-
-    if response.ok:
-        data = response.json()
-        print(data['headers'])
+    elif response.status_code == 200:
+        print('Success')
 
 except requests.exceptions.ConnectionError:
     print('Check your internet connection')
