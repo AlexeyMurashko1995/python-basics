@@ -61,3 +61,28 @@ dq_list.rotate(1)
 
 print(*dq_list)
 print('*' * 30)
+
+
+# ==============================================================================
+# TASK 11: ZIP CODE RANGE GENERATOR
+# ==============================================================================
+print('--- Task 11: Zip Code Range Generator ---')
+
+first_index = input().replace('-', '')
+second_index = input().replace('-', '')
+
+first_index = int(first_index)
+second_index = int(second_index)
+
+if first_index < second_index:
+    indexes_list = []
+
+    for number in range(first_index + 1, second_index):
+        number = str(number)
+        index = number[:2] + '-' + number[2:]
+        indexes_list.append(index)
+
+    print(*indexes_list)
+else:
+    print('The second index must be greater than first')
+print('*' * 30)
