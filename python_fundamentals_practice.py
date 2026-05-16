@@ -91,13 +91,31 @@ print('*' * 30)
 # Task 12. FINDING MISSING ELEMENTS (First Variant)
 # ==============================================================================
 
-def get_missing_numbers(n: int, number_list: list) -> list:
-    missing_list = [number for number in range(1, n + 1) if number not in number_list]
-    return missing_list
+# def get_missing_numbers(n: int, number_list: list) -> list:
+#     missing_list = [number for number in range(1, n + 1) if number not in number_list]
+#     return missing_list
 
-user_range = int(input())
-user_list = [int(y) for y in input().split(' ')]
+# user_range = int(input())
+# user_list = [int(y) for y in input().split(' ')]
 
-result = get_missing_numbers(user_range, user_list)
+# result = get_missing_numbers(user_range, user_list)
+
+# print(*result)
+
+# ==============================================================================
+# Task 12. FINDING MISSING ELEMENTS (Second Variant)
+# ==============================================================================
+
+def get_missing_numbers(n: set, number_list: list) -> list:
+    number_set = set(number_list)
+
+    missing_numbers = n - number_set
+    return sorted(list(missing_numbers))
+
+n_range = int(input())
+user_n = set(range(1, n_range + 1))
+user_numbers = [int(x) for x in input().split(' ')]
+
+result = get_missing_numbers(user_n, user_numbers)
 
 print(*result)
