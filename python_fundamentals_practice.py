@@ -66,23 +66,38 @@ print('*' * 30)
 # ==============================================================================
 # TASK 11: ZIP CODE RANGE GENERATOR
 # ==============================================================================
-print('--- Task 11: Zip Code Range Generator ---')
+# print('--- Task 11: Zip Code Range Generator ---')
 
-first_index = input().replace('-', '')
-second_index = input().replace('-', '')
+# first_index = input().replace('-', '')
+# second_index = input().replace('-', '')
 
-first_index = int(first_index)
-second_index = int(second_index)
+# first_index = int(first_index)
+# second_index = int(second_index)
 
-if first_index < second_index:
-    indexes_list = []
+# if first_index < second_index:
+#     indexes_list = []
 
-    for number in range(first_index + 1, second_index):
-        number = str(number)
-        index = number[:2] + '-' + number[2:]
-        indexes_list.append(index)
+#     for number in range(first_index + 1, second_index):
+#         number = str(number)
+#         index = number[:2] + '-' + number[2:]
+#         indexes_list.append(index)
 
-    print(*indexes_list)
-else:
-    print('The second index must be greater than first')
-print('*' * 30)
+#     print(*indexes_list)
+# else:
+#     print('The second index must be greater than first')
+# print('*' * 30)
+
+# ==============================================================================
+# Task 12. FINDING MISSING ELEMENTS (First Variant)
+# ==============================================================================
+
+def get_missing_numbers(n: int, number_list: list) -> list:
+    missing_list = [number for number in range(1, n + 1) if number not in number_list]
+    return missing_list
+
+user_range = int(input())
+user_list = [int(y) for y in input().split(' ')]
+
+result = get_missing_numbers(user_range, user_list)
+
+print(*result)
