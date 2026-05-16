@@ -2,20 +2,33 @@ import requests
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+try:
+    load_dotenv()
 
-# TOKEN = os.getenv('HF_TOKEN')
+    TOKEN = os.getenv('GROQ_KEY')
 
-api_url = 'https://text.pollinations.ai/'
+    api_url = 'https://api.groq.com/openai/v1/chat/completions'
 
-headers = {
-}
+    headers = {'Authorization': f'Bearer {TOKEN}'}
 
-payload = {
-    'messages': [{'role': 'user', 'content': 'Tell me a short joke about Python coding'}]
-}
+    prompt = input()
 
-response = requests.post(api_url, headers=headers, json=payload)
+    payload = {
+        'model': 'llama-3.1-8b-instant',
+        'messages': [{'role': 'user', 'content': prompt}]
+    }
 
-print(response.text)
-print(response.status_code)
+    response = requests.post(api_url, headers=headers, json=payload)
+
+    if response.ok:
+        data = response.json()
+        print('Answer:')
+        print(data['choices'][0]['message']['content'])
+    else:
+        print(response.text)
+
+except requests.exceptions.ConnectionError:
+    print('Check your internet connection')
+
+except requests.exceptions.ConnectTimeout:
+    print('The server does not respond')
