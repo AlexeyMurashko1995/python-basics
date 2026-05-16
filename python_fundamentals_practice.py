@@ -18,9 +18,9 @@ from collections import deque
 
 
 # ==============================================================================
-# TASK 6: JOSEPHUS PROBLEM
+# TASK 2: JOSEPHUS PROBLEM
 # ==============================================================================
-# print('--- Task 6: Josephus Problem ---')
+# print('--- Task 2: Josephus Problem ---')
 # n = int(input(''))
 # k = int(input(''))
 #
@@ -37,9 +37,9 @@ from collections import deque
 
 
 # ==============================================================================
-# TASK 10: LIST ROTATION (Standard method)
+# TASK 3: LIST ROTATION (Standard method)
 # ==============================================================================
-# print('--- Task 10: List Rotation ---')
+# print('--- Task 3: List Rotation ---')
 # number_list = [int(x) for x in input().split()]
 #
 # last_digit = number_list.pop()
@@ -50,23 +50,23 @@ from collections import deque
 
 
 # ==============================================================================
-# TASK 10: LIST ROTATION (Using class deque)
+# TASK 4: LIST ROTATION (Using class deque)
 # ==============================================================================
-print('--- Task 10: List Rotation (using class deque) ---')
+# print('--- Task 4: List Rotation (using class deque) ---')
 
-number_list = [int(x) for x in input().split()]
+# number_list = [int(x) for x in input().split()]
 
-dq_list = deque(number_list)
-dq_list.rotate(1)
+# dq_list = deque(number_list)
+# dq_list.rotate(1)
 
-print(*dq_list)
-print('*' * 30)
+# print(*dq_list)
+# print('*' * 30)
 
 
 # ==============================================================================
-# TASK 11: ZIP CODE RANGE GENERATOR
+# TASK 5: ZIP CODE RANGE GENERATOR
 # ==============================================================================
-# print('--- Task 11: Zip Code Range Generator ---')
+# print('--- Task 5: Zip Code Range Generator ---')
 
 # first_index = input().replace('-', '')
 # second_index = input().replace('-', '')
@@ -88,7 +88,7 @@ print('*' * 30)
 # print('*' * 30)
 
 # ==============================================================================
-# Task 12. FINDING MISSING ELEMENTS (First Variant)
+# TASK 6: FINDING MISSING ELEMENTS (First Variant)
 # ==============================================================================
 
 # def get_missing_numbers(n: int, number_list: list) -> list:
@@ -103,19 +103,41 @@ print('*' * 30)
 # print(*result)
 
 # ==============================================================================
-# Task 12. FINDING MISSING ELEMENTS (Second Variant)
+# TASK 7: FINDING MISSING ELEMENTS (Second Variant)
 # ==============================================================================
 
-def get_missing_numbers(n: set, number_list: list) -> list:
-    number_set = set(number_list)
+# def get_missing_numbers(n: set, number_list: list) -> list:
+#     number_set = set(number_list)
 
-    missing_numbers = n - number_set
-    return sorted(list(missing_numbers))
+#     missing_numbers = n - number_set
+#     return sorted(list(missing_numbers))
 
-n_range = int(input())
-user_n = set(range(1, n_range + 1))
-user_numbers = [int(x) for x in input().split(' ')]
+# n_range = int(input())
+# user_n = set(range(1, n_range + 1))
+# user_numbers = [int(x) for x in input().split(' ')]
 
-result = get_missing_numbers(user_n, user_numbers)
+# result = get_missing_numbers(user_n, user_numbers)
 
+# print(*result)
+
+# ==============================================================================
+# TASK 8: DECIMAL GENERATION
+# ==============================================================================
+
+from decimal import Decimal
+
+def get_decimal_range() -> list:
+    start = Decimal('2.0')
+    finish = Decimal('5.5')
+    diff = Decimal('0.5')
+
+    decimal_list = []
+
+    while start <= finish:
+        decimal_list.append(start)
+        start += diff
+
+    return decimal_list
+
+result = get_decimal_range()
 print(*result)
