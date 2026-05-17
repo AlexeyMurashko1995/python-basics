@@ -24,4 +24,12 @@ client = genai.Client()
 
 response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
 
-print(response.text)
+conn = sqlite3.connect('gym.db')
+cursor = conn.cursor()
+
+cursor.execute("""CREATE TABLE IF NOT EXISTS reports (report_date TEXT, report_text TEXT)""")
+
+cursor.execute("INSERT INTO reports (report_date, report_text) VALUES (?, ?)", ('2026-05-17', response.text))
+
+conn.commit()
+conn.close()
