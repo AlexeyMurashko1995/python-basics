@@ -13,3 +13,12 @@ df = pd.DataFrame(music_data)
 
 conn = sqlite3.connect('spotify_tracks.db')
 
+df.to_sql('tracks', conn, if_exists='replace', index=False)
+
+query = "SELECT * FROM tracks WHERE genre = 'Pop'"
+
+pop_df = pd.read_sql_query(query, conn)
+
+print(pop_df)
+
+conn.close()
