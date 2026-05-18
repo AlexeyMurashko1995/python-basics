@@ -57,25 +57,55 @@ from io import StringIO
 # Task 3. Log Filter
 # =======================================
 
+# from io import StringIO
+
+# def counter_critical(data):
+#     counter = 0
+#     io = StringIO(data)
+
+#     while True:
+#         line = io.readline()
+#         if line == '':
+#             break
+
+#         clean_line = line.strip()
+#         if clean_line == 'CRITICAL':
+#             counter += 1
+
+#     return counter
+
+# server_logs = "INFO\nWARNING\nCRITICAL\nINFO\nCRITICAL"
+
+# result = counter_critical(server_logs)
+
+# print(result)
+
+# =======================================
+# Task 4. Early Exit
+# =======================================
+
 from io import StringIO
 
-def counter_critical(data):
-    counter = 0
+def find_first_error(data):
+    line_number = 0
     io = StringIO(data)
 
     while True:
+        line_number += 1
         line = io.readline()
         if line == '':
             break
 
         clean_line = line.strip()
-        if clean_line == 'CRITICAL':
-            counter += 1
 
-    return counter
+        if clean_line == 'ERROR':
+            return line_number
 
-server_logs = "INFO\nWARNING\nCRITICAL\nINFO\nCRITICAL"
+    return -1
 
-result = counter_critical(server_logs)
+log_data = "OK\nOK\nERROR\nOK\nERROR"
 
-print(result)
+print(find_first_error(log_data))
+
+
+
