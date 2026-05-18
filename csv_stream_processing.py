@@ -35,9 +35,33 @@ from io import StringIO
 # Task 2. Row Counter
 # =======================================
 
-def count_denied(data):
-    io = StringIO(data)
+# def count_denied(data):
+#     io = StringIO(data)
+#     counter = 0
+
+#     while True:
+#         line = io.readline()
+#         if line == '':
+#             break
+
+#         clean_line = line.strip()
+#         if clean_line == 'DENIED':
+#             counter += 1
+
+#     return counter
+
+# log_data = "ALLOWED\nDENIED\nALLOWED\nDENIED\nDENIED"
+# print(count_denied(log_data))
+
+# =======================================
+# Task 3. Log Filter
+# =======================================
+
+from io import StringIO
+
+def counter_critical(data):
     counter = 0
+    io = StringIO(data)
 
     while True:
         line = io.readline()
@@ -45,10 +69,13 @@ def count_denied(data):
             break
 
         clean_line = line.strip()
-        if clean_line == 'DENIED':
+        if clean_line == 'CRITICAL':
             counter += 1
 
     return counter
 
-log_data = "ALLOWED\nDENIED\nALLOWED\nDENIED\nDENIED"
-print(count_denied(log_data))
+server_logs = "INFO\nWARNING\nCRITICAL\nINFO\nCRITICAL"
+
+result = counter_critical(server_logs)
+
+print(result)
