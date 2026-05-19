@@ -129,18 +129,39 @@ from io import StringIO
 # =======================================
 # Task 6. Early Exit
 # =======================================
-def has_warning(data):
+# def has_warning(data):
+#     io = StringIO(data)
+
+#     while True:
+#         line = io.readline()
+#         if line == '':
+#             break
+#         clean_line = line.strip()
+#         if clean_line == 'WARNING':
+#             return True
+#     return False
+
+
+# log_data = 'INFO\nINFO\nWARNING\nOK'
+# print(has_warning(log_data))
+
+# =======================================
+# Task 7. Partial Match
+# =======================================
+
+def finding_errors(data):
     io = StringIO(data)
 
     while True:
         line = io.readline()
         if line == '':
             break
-        clean_line = line.strip()
-        if clean_line == 'WARNING':
+
+        if 'DB_ERROR' in line:
             return True
+
     return False
 
+data_log = 'INFO: User logged in\nERROR: DB_ERROR connection lost\nINFO: Retry success'
+print(finding_errors(data_log))
 
-log_data = 'INFO\nINFO\nWARNING\nOK'
-print(has_warning(log_data))
