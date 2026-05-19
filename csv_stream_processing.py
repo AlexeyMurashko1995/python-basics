@@ -111,21 +111,43 @@ from io import StringIO
 # Task 5. Warm Up
 # =======================================
 
+# from io import StringIO
+
+# def count_total_lines(data):
+#     io = StringIO(data)
+#     line_counter = 0
+
+#     while True:
+#         line = io.readline()
+#         if line == '':
+#             break
+#         clean_line = line.strip()
+#         line_counter += 1
+
+#     return line_counter
+
+# log_data = 'INFO\nWARNING\nERROR\nINFO'
+
+# print(count_total_lines(log_data))
+
+# =======================================
+# Task 6. Early Exit
+# =======================================
+
 from io import StringIO
 
-def count_total_lines(data):
+def has_warning(data):
+
     io = StringIO(data)
-    line_counter = 0
 
     while True:
         line = io.readline()
         if line == '':
             break
         clean_line = line.strip()
-        line_counter += 1
+        if clean_line == 'WARNING':
+            return True
+    return False
 
-    return line_counter
-
-log_data = 'INFO\nWARNING\nERROR\nINFO'
-
-print(count_total_lines(log_data))
+log_data = 'INFO\nINFO\nWARNING\nOK'
+print(has_warning(log_data))
