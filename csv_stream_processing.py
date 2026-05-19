@@ -84,28 +84,48 @@ from io import StringIO
 # Task 4. Early Exit
 # =======================================
 
+# from io import StringIO
+
+# def find_first_error(data):
+#     line_number = 0
+#     io = StringIO(data)
+
+#     while True:
+#         line_number += 1
+#         line = io.readline()
+#         if line == '':
+#             break
+
+#         clean_line = line.strip()
+
+#         if clean_line == 'ERROR':
+#             return line_number
+
+#     return -1
+
+# log_data = "OK\nOK\nERROR\nOK\nERROR"
+
+# print(find_first_error(log_data))
+
+# =======================================
+# Task 5. Warm Up
+# =======================================
+
 from io import StringIO
 
-def find_first_error(data):
-    line_number = 0
+def count_total_lines(data):
     io = StringIO(data)
+    line_counter = 0
 
     while True:
-        line_number += 1
         line = io.readline()
         if line == '':
             break
-
         clean_line = line.strip()
+        line_counter += 1
 
-        if clean_line == 'ERROR':
-            return line_number
+    return line_counter
 
-    return -1
+log_data = 'INFO\nWARNING\nERROR\nINFO'
 
-log_data = "OK\nOK\nERROR\nOK\nERROR"
-
-print(find_first_error(log_data))
-
-
-
+print(count_total_lines(log_data))
