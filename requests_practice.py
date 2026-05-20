@@ -261,30 +261,65 @@ from dotenv import load_dotenv
 # Task 14. AI Response Parser(JSON Deep Extraction)
 # ==============================================================================
 
-def extract_ai_response(response_data):
-    return response_data['choices'][0]['message']['content']
+# def extract_ai_response(response_data):
+#     return response_data['choices'][0]['message']['content']
 
 
-mock_response = {
-    "id": "chatcmpl-123",
-    "object": "chat.completion",
-    "created": 1677652288,
-    "model": "gpt-4o",
-    "choices": [
-        {
-            "index": 0,
-            "message": {
-                "role": "assistant",
-                "content": "The solution is ready!"
-            },
-            "finish_reason": "stop"
+# mock_response = {
+#     "id": "chatcmpl-123",
+#     "object": "chat.completion",
+#     "created": 1677652288,
+#     "model": "gpt-4o",
+#     "choices": [
+#         {
+#             "index": 0,
+#             "message": {
+#                 "role": "assistant",
+#                 "content": "The solution is ready!"
+#             },
+#             "finish_reason": "stop"
+#         }
+#     ],
+#     "usage": {
+#         "prompt_tokens": 9,
+#         "completion_tokens": 12,
+#         "total_tokens": 21
+#     }
+# }
+
+# print(extract_ai_response(mock_response))
+
+# ==============================================================================
+# Task 15. Secure Weather Fetcher(.env + API Key Isolation)
+# ==============================================================================
+
+import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+api_key = os.getenv('WEATHER_API_KEY')
+
+if api_key is None:
+    print('[Error]: API Key not found')
+    print('Shutting down ...')
+
+else:
+    try:
+        headers = {
+            'X-API-KEY': api_key
         }
-    ],
-    "usage": {
-        "prompt_tokens": 9,
-        "completion_tokens": 12,
-        "total_tokens": 21
-    }
-}
+        url = 'https://httpbin.org/headers'
 
-print(extract_ai_response(mock_response))
+        response = requests.get(url, headers=headers, timeout=5)
+
+        if response.ok:
+            data = response.json()
+            print(data['headers'])
+
+    except requests.exceptions.ConnectionError:
+        print('Check your internet connection')
+
+    except requests.exceptions.ConnectTimeout:
+        print('The server is not responding')
