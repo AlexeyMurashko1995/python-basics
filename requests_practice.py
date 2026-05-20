@@ -232,27 +232,59 @@ from dotenv import load_dotenv
 # Task 13. AI Request Dispatcher(POST + Headers + JSON Payload)
 # ==============================================================================
 
-try:
-    url = 'https://httpbin.org/post'
+# try:
+#     url = 'https://httpbin.org/post'
 
-    headers = {
-        'Authorization': 'Bearer open-ai-mesh-2026',
-        'Content-Type': 'application/json'
+#     headers = {
+#         'Authorization': 'Bearer open-ai-mesh-2026',
+#         'Content-Type': 'application/json'
+#     }
+
+#     payload = {
+#         'model': 'gpt-4o',
+#         'messages': [{'role': 'user', 'content': 'Optimize my Python loop'}]
+#     }
+
+#     response = requests.post(url, json=payload, headers=headers)
+
+#     if response.ok:
+#         data = response.json()
+#         print(data['json'])
+
+# except requests.exceptions.ConnectionError:
+#     print('Check your internet connection')
+
+# except requests.exceptions.ConnectTimeout:
+#     print('The server does not respond')
+
+# ==============================================================================
+# Task 14. AI Response Parser(JSON Deep Extraction)
+# ==============================================================================
+
+def extract_ai_response(response_data):
+    return response_data['choices'][0]['message']['content']
+
+
+mock_response = {
+    "id": "chatcmpl-123",
+    "object": "chat.completion",
+    "created": 1677652288,
+    "model": "gpt-4o",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "The solution is ready!"
+            },
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 9,
+        "completion_tokens": 12,
+        "total_tokens": 21
     }
+}
 
-    payload = {
-        'model': 'gpt-4o',
-        'messages': [{'role': 'user', 'content': 'Optimize my Python loop'}]
-    }
-
-    response = requests.post(url, json=payload, headers=headers)
-
-    if response.ok:
-        data = response.json()
-        print(data['json'])
-
-except requests.exceptions.ConnectionError:
-    print('Check your internet connection')
-
-except requests.exceptions.ConnectTimeout:
-    print('The server does not respond')
+print(extract_ai_response(mock_response))
