@@ -208,19 +208,48 @@ from dotenv import load_dotenv
 # Task 12. Nationality Analyzer (GET + Params + JSON)
 # ==============================================================================
 
-try:
-    url = 'https://api.nationalize.io/'
+# try:
+#     url = 'https://api.nationalize.io/'
 
-    params = {
-        'name': 'Alex'
+#     params = {
+#         'name': 'Alex'
+#     }
+
+#     response = requests.get(url, params=params)
+
+#     if response.status_code == 200:
+#         data = response.json()
+
+#         print(data['country'][0]['country_id'])
+
+# except requests.exceptions.ConnectionError:
+#     print('Check your internet connection')
+
+# except requests.exceptions.ConnectTimeout:
+#     print('The server does not respond')
+
+# ==============================================================================
+# Task 13. AI Request Dispatcher(POST + Headers + JSON Payload)
+# ==============================================================================
+
+try:
+    url = 'https://httpbin.org/post'
+
+    headers = {
+        'Authorization': 'Bearer open-ai-mesh-2026',
+        'Content-Type': 'application/json'
     }
 
-    response = requests.get(url, params=params)
+    payload = {
+        'model': 'gpt-4o',
+        'messages': [{'role': 'user', 'content': 'Optimize my Python loop'}]
+    }
 
-    if response.status_code == 200:
+    response = requests.post(url, json=payload, headers=headers)
+
+    if response.ok:
         data = response.json()
-
-        print(data['country'][0]['country_id'])
+        print(data['json'])
 
 except requests.exceptions.ConnectionError:
     print('Check your internet connection')
