@@ -191,18 +191,39 @@ from dotenv import load_dotenv
 # ==============================================================================
 # Task 11. JSON Data Architect
 # ==============================================================================
-import json
+# import json
 
-raw_json = '{"user_id": 12, "role": "student", "skills": ["Python", "English"]}'
+# raw_json = '{"user_id": 12, "role": "student", "skills": ["Python", "English"]}'
 
-raw_python = json.loads(raw_json)
+# raw_python = json.loads(raw_json)
 
-raw_python['skills'].append('AI Basics')
-raw_python['role'] = 'Python Developer'
+# raw_python['skills'].append('AI Basics')
+# raw_python['role'] = 'Python Developer'
 
-raw_json = json.dumps(raw_python, indent=4)
+# raw_json = json.dumps(raw_python, indent=4)
 
-print(raw_json)
+# print(raw_json)
 
+# ==============================================================================
+# Task 12. Nationality Analyzer (GET + Params + JSON)
+# ==============================================================================
 
+try:
+    url = 'https://api.nationalize.io/'
 
+    params = {
+        'name': 'Alex'
+    }
+
+    response = requests.get(url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()
+
+        print(data['country'][0]['country_id'])
+
+except requests.exceptions.ConnectionError:
+    print('Check your internet connection')
+
+except requests.exceptions.ConnectTimeout:
+    print('The server does not respond')
