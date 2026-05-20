@@ -149,19 +149,42 @@ from io import StringIO
 # Task 7. Partial Match
 # =======================================
 
-def finding_errors(data):
+# def finding_errors(data):
+#     io = StringIO(data)
+
+#     while True:
+#         line = io.readline()
+#         if line == '':
+#             break
+
+#         if 'DB_ERROR' in line:
+#             return True
+
+#     return False
+
+# data_log = 'INFO: User logged in\nERROR: DB_ERROR connection lost\nINFO: Retry success'
+# print(finding_errors(data_log))
+
+# =======================================
+# Task 8. Data Extraction
+# =======================================
+
+from io import StringIO
+
+def get_first_ip(data):
+
     io = StringIO(data)
 
     while True:
         line = io.readline()
+        clean_line = line.strip()
         if line == '':
             break
+        if clean_line.startswith('LOGIN_FROM'):
+            ip = clean_line.removeprefix('LOGIN_FROM:')
+            return ip
+    return None
 
-        if 'DB_ERROR' in line:
-            return True
+log_data = 'INFO: System started\nLOGIN_FROM:192.168.1.50\nINFO: Session closed'
 
-    return False
-
-data_log = 'INFO: User logged in\nERROR: DB_ERROR connection lost\nINFO: Retry success'
-print(finding_errors(data_log))
-
+print(get_first_ip(log_data))
