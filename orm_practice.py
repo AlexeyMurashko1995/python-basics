@@ -1,4 +1,4 @@
-from sqlmodel import Field, SQLModel, create_engine
+from sqlmodel import Field, SQLModel, create_engine, Session
 
 
 
@@ -26,3 +26,9 @@ sqlite_url = f'sqlite:///{sqlite_file_name}'
 engine = create_engine(sqlite_url)
 
 SQLModel.metadata.create_all(engine)
+
+with Session(engine) as session:
+    session.add(cargo_one)
+    session.add(cargo_two)
+
+    session.commit()
