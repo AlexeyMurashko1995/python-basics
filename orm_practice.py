@@ -1,4 +1,6 @@
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, SQLModel, create_engine
+
+
 
 class Cargo(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -17,3 +19,10 @@ cargo_two = Cargo(
 
 print(f'Cargo {cargo_one.id_tracking} has weight {cargo_one.weight} kg')
 print(f'Cargo {cargo_two.id_tracking} has weight {cargo_two.weight} kg')
+
+sqlite_file_name = 'database.db'
+sqlite_url = f'sqlite:///{sqlite_file_name}'
+
+engine = create_engine(sqlite_url)
+
+SQLModel.metadata.create_all(engine)
