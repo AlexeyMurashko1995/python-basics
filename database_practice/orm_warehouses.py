@@ -1,4 +1,4 @@
-from sqlmodel import SQLModel, Field, create_engine, Session
+from sqlmodel import SQLModel, Field, create_engine, Session, select
 
 class Warehouse(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -23,3 +23,9 @@ if __name__ == '__main__':
         session.add(warehouse_two)
 
         session.commit()
+
+        query = select(Warehouse)
+        result = session.exec(query)
+
+        for warehouse in result:
+            print(f'Warehouse name: {warehouse.name}; in city: {warehouse.city}; capacity tons: {warehouse.capacity_tons} ton')
