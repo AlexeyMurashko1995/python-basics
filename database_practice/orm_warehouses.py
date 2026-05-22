@@ -1,5 +1,11 @@
 from sqlmodel import SQLModel, Field, create_engine, Session, select
 
+class Cargo(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    name: str
+    weight_tons: int
+    warehouse_id: int | None = Field(default=None, foreign_key='warehouse.id')
+
 class Warehouse(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str
