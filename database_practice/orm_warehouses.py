@@ -24,8 +24,20 @@ if __name__ == '__main__':
 
         session.commit()
 
+        second_warehouse = session.get(Warehouse, 2)
+        if second_warehouse:
+            second_warehouse.capacity_tons = 1200
+            session.commit()
+
+        first_warehouse = session.get(Warehouse, 1)
+        if first_warehouse:
+            session.delete(first_warehouse)
+            session.commit()
+
         query = select(Warehouse)
         result = session.exec(query)
 
         for warehouse in result:
-            print(f'Warehouse name: {warehouse.name}; in city: {warehouse.city}; capacity tons: {warehouse.capacity_tons} ton')
+            print(f'Name: {warehouse.name}; City: {warehouse.city}; Capacity tons: {warehouse.capacity_tons}')
+
+
