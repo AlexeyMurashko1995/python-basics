@@ -22,11 +22,17 @@ def init_db_and_add_warehouses():
     warehouse_one = Warehouse(name='Janki', city='Warsaw', capacity_tons=550)
     warehouse_two = Warehouse(name='Gdanski', city='Gdansk', capacity_tons=1100)
 
+    cargo_one = Cargo(name='Electronics', weight_tons=50, warehouse_id=1)
+    cargo_two = Cargo(name='Apparel', weight_tons=120, warehouse_id=2)
+
     SQLModel.metadata.create_all(engine)
 
     with Session(engine) as session:
         session.add(warehouse_one)
         session.add(warehouse_two)
+
+        session.add(cargo_one)
+        session.add(cargo_two)
 
         session.commit()
 
