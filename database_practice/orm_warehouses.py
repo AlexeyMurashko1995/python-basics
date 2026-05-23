@@ -1,16 +1,18 @@
-from sqlmodel import SQLModel, Field, create_engine, Session, select
+from sqlmodel import SQLModel, Field, create_engine, Session, select, Relationship
 
 class Cargo(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str
     weight_tons: int
-    warehouse_id: int | None = Field(default=None, foreign_key='warehouse.id')
+    warehouse_id: int = Field(foreign_key='warehouse.id')
+    warehouse: 'Warehouse' = Relationship(back_populates='cargos')
 
 class Warehouse(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str
     city: str
     capacity_tons: int
+    cargos: list['Cargo'] = Relationship(back_populates='warehouse')
 
 sql_file_name = 'database.db'
 url = f'sqlite:///{sql_file_name}'
@@ -70,5 +72,5 @@ def show_all_warehouses():
 if __name__ == '__main__':
     init_db_and_add_warehouses()
     update_warehouse_capacity(2, 1200)
-    delete_warehouse(1)
+    # delete_warehouse(1)
     show_all_warehouses()
