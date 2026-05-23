@@ -3,11 +3,13 @@ from sqlmodel import SQLModel, Field, create_engine, Session, select, Relationsh
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     username: str
+    posts: list['Post'] = Relationship(back_populates='user')
 
 class Post(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     title: str
     user_id: int = Field(foreign_key='user.id')
+    user: 'User' = Relationship(back_populates='posts')
 
 sql_file_name = 'simple_db.db'
 url = f'sqlite:///{sql_file_name}'
@@ -39,11 +41,8 @@ def show_users_and_their_posts():
         for user in result_users:
             print(f'Name: {user.username}')
 
-            all_posts = select(Post).where(Post.user_id == user.id)
-            result_posts = session.exec(all_posts)
-
-            for post in result_posts:
-                print(f'Post: {post.title}')
+            for post in user.posts:
+                print(f'User name: {user.username}; Posts: {post.title}')
 
 
 if __name__ == '__main__':
