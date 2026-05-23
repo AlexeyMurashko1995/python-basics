@@ -61,6 +61,11 @@ def show_all_warehouses():
         for warehouse in result:
             print(f'Warehouse name: {warehouse.name} is located in {warehouse.city}; capacity tons: {warehouse.capacity_tons}')
 
+            cargo_query = select(Cargo).where(Cargo.warehouse_id == warehouse.id)
+            cargos = session.exec(cargo_query)
+            for cargo in cargos:
+                print(f'Cargo: {cargo.name}; weight - {cargo.weight_tons} t')
+
 
 if __name__ == '__main__':
     init_db_and_add_warehouses()
