@@ -11,7 +11,6 @@ class Post(SQLModel, table=True):
 
 sql_file_name = 'simple_db.db'
 url = f'sqlite:///{sql_file_name}'
-
 engine = create_engine(url)
 
 
@@ -32,7 +31,23 @@ def init_db_and_fill():
         session.commit()
 
 
+def show_users_and_their_posts():
+    with Session(engine) as session:
+        all_users = select(User)
+        result_users = session.exec(all_users)
+
+        for user in result_users:
+            print(f'Name: {user.username}')
+
+            all_posts = select(Post).where(Post.user_id == user.id)
+            result_posts = session.exec(all_posts)
+
+            for post in result_posts:
+                print(f'Post: {post.title}')
+
+
 if __name__ == '__main__':
     init_db_and_fill()
+    show_users_and_their_posts()
 
 
