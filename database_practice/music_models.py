@@ -25,7 +25,7 @@ def init_db():
 def create_music_data():
     with Session(engine) as session:
         artist_one = Artist(name='Eminem')
-        track_one = Track(title='Loose Yourself')
+        track_one = Track(title='Lose Yourself')
 
         track_one.artist = artist_one
 
@@ -35,6 +35,19 @@ def create_music_data():
         session.commit()
 
 
+def read_music_data():
+    with Session(engine) as session:
+        query = select(Artist).where(Artist.id==1)
+        result = session.exec(query)
+
+        for artist in result:
+            print(f'Artist name: {artist.name}')
+            for track in artist.tracks:
+                print(f'Name: {track.title}')
+
+
+
 if __name__ == '__main__':
     init_db()
     create_music_data()
+    read_music_data()
