@@ -58,9 +58,19 @@ def update_music_data():
         session.commit()
 
 
+def delete_music_data():
+    with Session(engine) as session:
+        target_track = session.get(Track, 1)
+
+        session.delete(target_track)
+        session.commit()
+
+
 if __name__ == '__main__':
     init_db()
     create_music_data()
     read_music_data()
     update_music_data()
+    read_music_data()
+    delete_music_data()
     read_music_data()
