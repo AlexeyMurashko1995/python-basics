@@ -1,14 +1,18 @@
-from sqlmodel import SQLModel, Field, Session, select, Relationship, create_engine
+from sqlmodel import (
+    SQLModel, Field, Session, select, Relationship, create_engine
+)
 
 sql_file_name = 'music_db.db'
 url = f'sqlite:///{sql_file_name}'
 
 engine = create_engine(url)
 
+
 class Artist(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str
-    tracks: list['Track']= Relationship(back_populates='artist')
+    tracks: list['Track'] = Relationship(back_populates='artist')
+
 
 class Track(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -37,7 +41,7 @@ def create_music_data():
 
 def read_music_data():
     with Session(engine) as session:
-        query = select(Artist).where(Artist.id==1)
+        query = select(Artist).where(Artist.id == 1)
         result = session.exec(query)
 
         for artist in result:
@@ -47,9 +51,10 @@ def read_music_data():
 
         session.commit()
 
+
 def update_music_data():
     with Session(engine) as session:
-        query = select(Artist).where(Artist.id==1)
+        query = select(Artist).where(Artist.id == 1)
 
         result = session.exec(query)
         for first_artist in result:
