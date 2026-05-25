@@ -45,9 +45,22 @@ def read_music_data():
             for track in artist.tracks:
                 print(f'Name: {track.title}')
 
+        session.commit()
+
+def update_music_data():
+    with Session(engine) as session:
+        query = select(Artist).where(Artist.id==1)
+
+        result = session.exec(query)
+        for first_artist in result:
+            first_artist.name = 'Eminem ft. Rihanna'
+
+        session.commit()
 
 
 if __name__ == '__main__':
     init_db()
     create_music_data()
+    read_music_data()
+    update_music_data()
     read_music_data()
