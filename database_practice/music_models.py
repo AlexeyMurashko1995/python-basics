@@ -1,6 +1,8 @@
+from fastapi import FastAPI
 from sqlmodel import (
     SQLModel, Field, Session, select, Relationship, create_engine
 )
+
 
 sql_file_name = 'music_db.db'
 url = f'sqlite:///{sql_file_name}'
