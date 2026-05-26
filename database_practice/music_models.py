@@ -67,8 +67,12 @@ def delete_music_data():
     with Session(engine) as session:
         target_track = session.get(Track, 1)
 
-        session.delete(target_track)
-        session.commit()
+        if target_track:
+            session.delete(target_track)
+            session.commit()
+            print('Track deleted successfully')
+        else:
+            print('Track not found, nothing to delete')
 
 
 if __name__ == '__main__':
