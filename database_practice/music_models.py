@@ -9,6 +9,7 @@ url = f'sqlite:///{sql_file_name}'
 
 engine = create_engine(url)
 
+app = FastAPI()
 
 class Artist(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -41,17 +42,14 @@ def create_music_data():
         session.commit()
 
 
+@app.get('/artists')
 def read_music_data():
     with Session(engine) as session:
         query = select(Artist).where(Artist.id == 1)
         result = session.exec(query)
 
-        for artist in result:
-            print(f'Artist name: {artist.name}')
-            for track in artist.tracks:
-                print(f'Name: {track.title}')
-
-        session.commit()
+        target_artists = result.all()
+        return target_artists
 
 
 def update_music_data():
@@ -79,9 +77,3 @@ def delete_music_data():
 
 if __name__ == '__main__':
     init_db()
-    create_music_data()
-    read_music_data()
-    update_music_data()
-    read_music_data()
-    delete_music_data()
-    read_music_data()
