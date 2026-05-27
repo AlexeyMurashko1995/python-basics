@@ -52,6 +52,16 @@ def read_music_data():
         return target_artists
 
 
+@app.post('/artists')
+def create_artist_endpoint(artist: Artist):
+    with Session(engine) as session:
+        session.add(artist)
+
+        session.commit()
+        session.refresh(artist)
+
+        return artist
+
 def update_music_data():
     with Session(engine) as session:
         query = select(Artist).where(Artist.id == 1)
