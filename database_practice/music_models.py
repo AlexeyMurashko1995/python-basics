@@ -45,7 +45,7 @@ def create_music_data():
 @app.get('/artists')
 def read_music_data():
     with Session(engine) as session:
-        query = select(Artist).where(Artist.id == 1)
+        query = select(Artist)
         result = session.exec(query)
 
         target_artists = result.all()
