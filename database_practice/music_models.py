@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi import HTTPException
 from sqlmodel import (
     SQLModel, Field, Session, select, Relationship, create_engine
 )
@@ -50,6 +51,18 @@ def read_music_data():
 
         target_artists = result.all()
         return target_artists
+
+
+@app.get('/artists/{artist_id}')
+def get_artist_id(artist_id: int):
+    with Session(engine) as session:
+        artist = session.get(Artist, artist_id)
+
+        if artist != None:
+            return artist
+        else:
+            raise HTTPException(status_code=404, detail='Artist not found')
+
 
 
 @app.post('/artists')
