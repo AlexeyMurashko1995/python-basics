@@ -12,6 +12,7 @@ engine = create_engine(url)
 
 app = FastAPI()
 
+
 class Artist(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str
@@ -62,7 +63,6 @@ def get_artist_id(artist_id: int):
             return artist
         else:
             raise HTTPException(status_code=404, detail='Artist not found')
-
 
 
 @app.post('/artists')
