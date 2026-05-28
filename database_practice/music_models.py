@@ -73,6 +73,17 @@ def read_tracks_data():
         return target_tracks
 
 
+@app.post('/tracks')
+def create_tracks_endpoint(track: Track):
+    with Session(engine) as session:
+        session.add(track)
+
+        session.commit()
+        session.refresh(track)
+
+        return track
+
+
 def update_music_data():
     with Session(engine) as session:
         query = select(Artist).where(Artist.id == 1)
