@@ -1,6 +1,13 @@
 from sqlmodel import SQLModel, Field, Session, create_engine, Relationship
 from fastapi import FastAPI
 
+app = FastAPI()
+
+sql_file_name = 'delivery_service.db'
+url = f'sqlite:///{sql_file_name}'
+
+engine = create_engine(url)
+
 
 class Hub(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -21,12 +28,16 @@ def init_db():
     print('Database created successfully')
 
 
-app = FastAPI()
+@app.post('/hubs')
+def create_hub_endpoint(hub: Hub):
+    with Session(engine) as session:
+        session.add(hub)
 
-sql_file_name = 'delivery_service.db'
-url = f'sqlite:///{sql_file_name}'
+        session.commit()
+        session.refresh(hub)
 
-engine = create_engine(url)
+        return hub
+
 
 if __name__ == '__main__':
     init_db()
