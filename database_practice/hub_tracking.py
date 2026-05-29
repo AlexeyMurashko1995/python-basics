@@ -1,4 +1,4 @@
-from sqlmodel import SQLModel, Field, Session, create_engine, Relationship
+from sqlmodel import SQLModel, Field, Session, create_engine, Relationship, select
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -26,6 +26,16 @@ class Parcel(SQLModel, table=True):
 def init_db():
     SQLModel.metadata.create_all(engine)
     print('Database created successfully')
+
+
+@app.get('/hubs')
+def read_hubs_data():
+    with Session(engine) as session:
+        query = select(Hub)
+        result = session.exec(query)
+        all_hubs = result.all()
+
+        return all_hubs
 
 
 @app.post('/hubs')
