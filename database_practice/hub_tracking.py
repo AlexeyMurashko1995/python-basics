@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, Field, Session, create_engine, Relationship, select
 from fastapi import FastAPI
 
+
 app = FastAPI()
 
 sql_file_name = 'delivery_service.db'
@@ -14,6 +15,7 @@ class Hub(SQLModel, table=True):
     name: str
     city: str
     parcels: list['Parcel'] = Relationship(back_populates='hub')
+
 
 class Parcel(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -34,7 +36,6 @@ def read_hubs_data():
         query = select(Hub)
         result = session.exec(query)
         all_hubs = result.all()
-
         return all_hubs
 
 
@@ -42,10 +43,8 @@ def read_hubs_data():
 def create_hub_endpoint(hub: Hub):
     with Session(engine) as session:
         session.add(hub)
-
         session.commit()
         session.refresh(hub)
-
         return hub
 
 
