@@ -48,5 +48,14 @@ def create_hub_endpoint(hub: Hub):
         return hub
 
 
+@app.post('/parcels')
+def create_parcel_endpoint(parcel: Parcel):
+    with Session(engine) as session:
+        session.add(parcel)
+        session.commit()
+        session.refresh(parcel)
+        return parcel
+
+
 if __name__ == '__main__':
     init_db()
