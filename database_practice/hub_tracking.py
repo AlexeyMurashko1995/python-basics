@@ -39,6 +39,15 @@ def read_hubs_data():
         return all_hubs
 
 
+@app.get('/hubs/{hub_id}')
+def read_single_hub(hub_id: int):
+    with Session(engine) as session:
+        target_hub = session.get(Hub, hub_id)
+        if target_hub == None:
+            raise HTTPException(status_code=404, detail='Hub not found')
+        return target_hub
+
+
 @app.post('/hubs')
 def create_hub_endpoint(hub: Hub):
     with Session(engine) as session:
