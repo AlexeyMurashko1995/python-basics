@@ -43,7 +43,7 @@ def read_hubs_data():
 def read_single_hub(hub_id: int):
     with Session(engine) as session:
         target_hub = session.get(Hub, hub_id)
-        if target_hub == None:
+        if target_hub is None:
             raise HTTPException(status_code=404, detail='Hub not found')
         return target_hub
 
@@ -65,6 +65,14 @@ def read_parcels_data():
         all_parcels = result.all()
         return all_parcels
 
+
+@app.get('/parcels/{parcel_id}')
+def read_single_parcel(parcel_id: int):
+    with Session(engine) as session:
+        target_parcel = session.get(Parcel, parcel_id)
+        if target_parcel is None:
+            raise HTTPException(status_code=404, detail='Parcel not found')
+        return target_parcel
 
 @app.post('/parcels')
 def create_parcel_endpoint(parcel: Parcel):
