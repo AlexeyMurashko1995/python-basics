@@ -74,6 +74,19 @@ def read_single_parcel(parcel_id: int):
             raise HTTPException(status_code=404, detail='Parcel not found')
         return target_parcel
 
+
+@app.delete('/parcels/{parcel_id}')
+def delete_single_parcel(parcel_id: int):
+    with Session(engine) as session:
+        target_parcel = session.get(Parcel, parcel_id)
+        if target_parcel:
+            session.delete(target_parcel)
+            session.commit()
+            return {'status': 'success', 'message': f'Parcel {parcel_id} deleted successfully'}
+        else:
+            raise HTTPException(status_code=404, detail='Parcel not found')
+
+
 @app.post('/parcels')
 def create_parcel_endpoint(parcel: Parcel):
     with Session(engine) as session:
