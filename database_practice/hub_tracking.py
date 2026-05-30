@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel, Field, Session, create_engine, Relationship, select
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 
 app = FastAPI()
@@ -46,6 +46,15 @@ def create_hub_endpoint(hub: Hub):
         session.commit()
         session.refresh(hub)
         return hub
+
+
+@app.get('/parcels')
+def read_parcels_data():
+    with Session(engine) as session:
+        query = select(Parcel)
+        result = session.exec(query)
+        all_parcels = result.all()
+        return all_parcels
 
 
 @app.post('/parcels')
