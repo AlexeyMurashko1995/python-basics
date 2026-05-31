@@ -36,6 +36,13 @@ class Parcel(SQLModel, table=True):
     hub: 'Hub' = Relationship(back_populates='parcels')
 
 
+class ParcelRead(SQLModel):
+    id: int
+    tracking_number: str
+    weight: float
+    hub_id: int
+
+
 def init_db():
     SQLModel.metadata.create_all(engine)
     print('Database created successfully')
