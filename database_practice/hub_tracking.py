@@ -17,6 +17,12 @@ class Hub(SQLModel, table=True):
     parcels: list['Parcel'] = Relationship(back_populates='hub')
 
 
+class HubRead(SQLModel):
+    id: int
+    name: str
+    city: str
+
+
 class Parcel(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     tracking_number: str
