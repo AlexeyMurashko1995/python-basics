@@ -112,13 +112,14 @@ def delete_single_parcel(parcel_id: int):
             raise HTTPException(status_code=404, detail='Parcel not found')
 
 
-@app.post('/parcels')
-def create_parcel_endpoint(parcel: Parcel):
+@app.post('/parcels', response_model=ParcelRead)
+def create_parcel_endpoint(parcel_in: ParcelCreate):
     with Session(engine) as session:
-        session.add(parcel)
+        parcel_db = Parcel(tracking_number=parcel_in.tracking_number, weight=parcel_in.weight, hub_id=parcel_in.hub_id)
+        session.add(parcel_db)
         session.commit()
-        session.refresh(parcel)
-        return parcel
+        session.refresh(parcel_db)
+        return parcel_db
 
 
 if __name__ == '__main__':
