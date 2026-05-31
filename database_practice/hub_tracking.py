@@ -59,13 +59,14 @@ def read_single_hub(hub_id: int):
         return target_hub
 
 
-@app.post('/hubs')
-def create_hub_endpoint(hub: Hub):
+@app.post('/hubs', response_model=HubRead)
+def create_hub_endpoint(hub_in: HubCreate):
     with Session(engine) as session:
-        session.add(hub)
+        db_hub = Hub(name=hub_in.name, city=hub_in.city)
+        session.add(db_hub)
         session.commit()
-        session.refresh(hub)
-        return hub
+        session.refresh(db_hub)
+        return db_hub
 
 
 @app.get('/parcels')
