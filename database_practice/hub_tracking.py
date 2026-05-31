@@ -23,6 +23,11 @@ class HubRead(SQLModel):
     city: str
 
 
+class HubCreate(SQLModel):
+    name: str
+    city: str
+
+
 class Parcel(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     tracking_number: str
