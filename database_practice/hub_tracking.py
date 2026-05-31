@@ -76,7 +76,7 @@ def create_hub_endpoint(hub_in: HubCreate):
         return db_hub
 
 
-@app.get('/parcels')
+@app.get('/parcels', response_model=list[ParcelRead])
 def read_parcels_data():
     with Session(engine) as session:
         query = select(Parcel)
@@ -85,7 +85,7 @@ def read_parcels_data():
         return all_parcels
 
 
-@app.get('/parcels/{parcel_id}')
+@app.get('/parcels/{parcel_id}', response_model=ParcelRead)
 def read_single_parcel(parcel_id: int):
     with Session(engine) as session:
         target_parcel = session.get(Parcel, parcel_id)
