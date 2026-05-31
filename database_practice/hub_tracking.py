@@ -43,6 +43,12 @@ class ParcelRead(SQLModel):
     hub_id: int
 
 
+class ParcelCreate(SQLModel):
+    tracking_number: str
+    weight: float
+    hub_id: int
+
+
 def init_db():
     SQLModel.metadata.create_all(engine)
     print('Database created successfully')
