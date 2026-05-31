@@ -36,7 +36,7 @@ def init_db():
     print('Database created successfully')
 
 
-@app.get('/hubs')
+@app.get('/hubs', response_model=list[HubRead])
 def read_hubs_data():
     with Session(engine) as session:
         query = select(Hub)
@@ -45,7 +45,7 @@ def read_hubs_data():
         return all_hubs
 
 
-@app.get('/hubs/{hub_id}')
+@app.get('/hubs/{hub_id}', response_model=HubRead)
 def read_single_hub(hub_id: int):
     with Session(engine) as session:
         target_hub = session.get(Hub, hub_id)
