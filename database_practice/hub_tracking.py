@@ -92,11 +92,13 @@ def create_hub_endpoint(hub_in: HubCreate):
 
 
 @app.get('/parcels', response_model=list[ParcelRead])
-def read_parcels_data(min_weight: float | None = None, limit: int | None = 10, offset: int | None = 0):
+def read_parcels_data(min_weight: float | None = None, max_weight: float | None = None, limit: int | None = 10, offset: int | None = 0):
     with Session(engine) as session:
         query = select(Parcel)
         if min_weight is not None:
             query = query.where(Parcel.weight >= min_weight)
+        if max_weight is not None:
+            query = query.where(Parcel.weight <= max_weight)
         result = session.exec(query.order_by(desc(Parcel.weight)).limit(limit).offset(offset))
         all_parcels = result.all()
         return all_parcels
