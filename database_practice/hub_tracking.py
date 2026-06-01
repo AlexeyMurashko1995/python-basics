@@ -43,6 +43,12 @@ class ParcelRead(SQLModel):
     hub_id: int
 
 
+class ParcelCourierRead(SQLModel):
+    id: int
+    tracking_number: str
+    hub_id: int
+
+
 class ParcelCreate(SQLModel):
     tracking_number: str
     weight: float
@@ -98,6 +104,15 @@ def read_single_parcel(parcel_id: int):
         if target_parcel is None:
             raise HTTPException(status_code=404, detail='Parcel not found')
         return target_parcel
+
+
+@app.get('/parcels/{parcel_id_courier}/public', response_model=ParcelCourierRead)
+def read_single_parcel_courier(parcel_id_courier: int):
+    with Session(engine) as session:
+        target_parcel_courier = session.get(Parcel, parcel_id_courier)
+        if target_parcel_courier is None:
+            raise HTTPException(status_code=404, detail='Parcel not found')
+        return target_parcel_courier
 
 
 @app.delete('/parcels/{parcel_id}')
