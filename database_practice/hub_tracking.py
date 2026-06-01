@@ -1,4 +1,4 @@
-from sqlmodel import SQLModel, Field, Session, create_engine, Relationship, select
+from sqlmodel import SQLModel, Field, Session, create_engine, Relationship, select, desc
 from fastapi import FastAPI, HTTPException
 
 
@@ -94,7 +94,7 @@ def read_parcels_data(min_weight: float | None = None, limit: int | None = 10, o
         query = select(Parcel)
         if min_weight is not None:
             query = query.where(Parcel.weight >= min_weight)
-        result = session.exec(query.limit(limit).offset(offset))
+        result = session.exec(query.order_by(desc(Parcel.weight)).limit(limit).offset(offset))
         all_parcels = result.all()
         return all_parcels
 
