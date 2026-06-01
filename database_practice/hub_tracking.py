@@ -61,9 +61,12 @@ def init_db():
 
 
 @app.get('/hubs', response_model=list[HubRead])
-def read_hubs_data(limit: int | None = 5, offset: int | None = 0):
+def read_hubs_data(city: str | None=None, limit: int | None = 5, offset: int | None = 0):
     with Session(engine) as session:
-        query = select(Hub).order_by(Hub.city).limit(limit).offset(offset)
+        query = select(Hub)
+        if city is not None:
+            query = query.where(Hub.city == city)
+        query = query.order_by(Hub.name).limit(limit).offset(offset)
         result = session.exec(query)
         all_hubs = result.all()
         return all_hubs
