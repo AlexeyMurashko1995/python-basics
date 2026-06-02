@@ -77,12 +77,11 @@ def read_hubs_data(city: str | None=None, limit: int | None = 5, offset: int | N
 
 
 @app.get('/hubs/{hub_id}', response_model=HubRead)
-def read_single_hub(hub_id: int):
-    with Session(engine) as session:
-        target_hub = session.get(Hub, hub_id)
-        if target_hub is None:
-            raise HTTPException(status_code=404, detail='Hub not found')
-        return target_hub
+def read_single_hub(hub_id: int, session: Session = Depends(get_session)):
+    target_hub = session.get(Hub, hub_id)
+    if target_hub is None:
+        raise HTTPException(status_code=404, detail='Hub not found')
+    return target_hub
 
 
 @app.post('/hubs', response_model=HubRead)
