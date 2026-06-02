@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel, Field, Session, create_engine, Relationship, select, desc
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 
 
 app = FastAPI()
@@ -60,16 +60,20 @@ def init_db():
     print('Database created successfully')
 
 
-@app.get('/hubs', response_model=list[HubRead])
-def read_hubs_data(city: str | None=None, limit: int | None = 5, offset: int | None = 0):
+def get_session():
     with Session(engine) as session:
-        query = select(Hub)
-        if city is not None:
-            query = query.where(Hub.city == city)
-        query = query.order_by(Hub.name).limit(limit).offset(offset)
-        result = session.exec(query)
-        all_hubs = result.all()
-        return all_hubs
+        yield session
+
+
+@app.get('/hubs', response_model=list[HubRead])
+def read_hubs_data(city: str | None=None, limit: int | None = 5, offset: int | None = 0, session: Session = Depends(get_session)):
+    query = select(Hub)
+    if city is not None:
+        query = query.where(Hub.city == city)
+    query = query.order_by(Hub.name).limit(limit).offset(offset)
+    result = session.exec(query)
+    all_hubs = result.all()
+    return all_hubs
 
 
 @app.get('/hubs/{hub_id}', response_model=HubRead)
