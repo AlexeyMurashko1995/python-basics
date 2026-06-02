@@ -94,56 +94,51 @@ def create_hub_endpoint(hub_in: HubCreate, session: Session = Depends(get_sessio
 
 
 @app.get('/parcels', response_model=list[ParcelRead])
-def read_parcels_data(min_weight: float | None = None, max_weight: float | None = None, limit: int | None = 10, offset: int | None = 0):
-    with Session(engine) as session:
-        query = select(Parcel)
-        if min_weight is not None:
-            query = query.where(Parcel.weight >= min_weight)
-        if max_weight is not None:
-            query = query.where(Parcel.weight <= max_weight)
-        result = session.exec(query.order_by(desc(Parcel.weight)).limit(limit).offset(offset))
-        all_parcels = result.all()
-        return all_parcels
+def read_parcels_data(min_weight: float | None = None, max_weight: float | None = None, limit: int | None = 10, offset: int | None = 0, session: Session = Depends(get_session)):
+    query = select(Parcel)
+    if min_weight is not None:
+        query = query.where(Parcel.weight >= min_weight)
+    if max_weight is not None:
+        query = query.where(Parcel.weight <= max_weight)
+    result = session.exec(query.order_by(desc(Parcel.weight)).limit(limit).offset(offset))
+    all_parcels = result.all()
+    return all_parcels
 
 
 @app.get('/parcels/{parcel_id}', response_model=ParcelRead)
-def read_single_parcel(parcel_id: int):
-    with Session(engine) as session:
-        target_parcel = session.get(Parcel, parcel_id)
-        if target_parcel is None:
-            raise HTTPException(status_code=404, detail='Parcel not found')
-        return target_parcel
+def read_single_parcel(parcel_id: int, session: Session = Depends(get_session)):
+    target_parcel = session.get(Parcel, parcel_id)
+    if target_parcel is None:
+        raise HTTPException(status_code=404, detail='Parcel not found')
+    return target_parcel
 
 
 @app.get('/parcels/{parcel_id_courier}/public', response_model=ParcelCourierRead)
-def read_single_parcel_courier(parcel_id_courier: int):
-    with Session(engine) as session:
-        target_parcel_courier = session.get(Parcel, parcel_id_courier)
-        if target_parcel_courier is None:
-            raise HTTPException(status_code=404, detail='Parcel not found')
-        return target_parcel_courier
+def read_single_parcel_courier(parcel_id_courier: int, session: Session = Depends(get_session)):
+    target_parcel_courier = session.get(Parcel, parcel_id_courier)
+    if target_parcel_courier is None:
+        raise HTTPException(status_code=404, detail='Parcel not found')
+    return target_parcel_courier
 
 
 @app.delete('/parcels/{parcel_id}')
-def delete_single_parcel(parcel_id: int):
-    with Session(engine) as session:
-        target_parcel = session.get(Parcel, parcel_id)
-        if target_parcel:
-            session.delete(target_parcel)
-            session.commit()
-            return {'status': 'success', 'message': f'Parcel {parcel_id} deleted successfully'}
-        else:
-            raise HTTPException(status_code=404, detail='Parcel not found')
+def delete_single_parcel(parcel_id: int, session: Session = Depends(get_session)):
+    target_parcel = session.get(Parcel, parcel_id)
+    if target_parcel:
+        session.delete(target_parcel)
+        session.commit()
+        return {'status': 'success', 'message': f'Parcel {parcel_id} deleted successfully'}
+    else:
+        raise HTTPException(status_code=404, detail='Parcel not found')
 
 
 @app.post('/parcels', response_model=ParcelRead)
-def create_parcel_endpoint(parcel_in: ParcelCreate):
-    with Session(engine) as session:
-        parcel_db = Parcel(tracking_number=parcel_in.tracking_number, weight=parcel_in.weight, hub_id=parcel_in.hub_id)
-        session.add(parcel_db)
-        session.commit()
-        session.refresh(parcel_db)
-        return parcel_db
+def create_parcel_endpoint(parcel_in: ParcelCreate, session: Session = Depends(get_session)):
+    parcel_db = Parcel(tracking_number=parcel_in.tracking_number, weight=parcel_in.weight, hub_id=parcel_in.hub_id)
+    session.add(parcel_db)
+    session.commit()
+    session.refresh(parcel_db)
+    return parcel_db
 
 
 if __name__ == '__main__':
