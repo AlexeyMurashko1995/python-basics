@@ -32,6 +32,8 @@ class Parcel(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     tracking_number: str
     weight: float
+    description: str
+    category: str | None = None
     hub_id: int = Field(foreign_key='hub.id')
     hub: 'Hub' = Relationship(back_populates='parcels')
 
@@ -40,18 +42,22 @@ class ParcelRead(SQLModel):
     id: int
     tracking_number: str
     weight: float
+    description: str
+    category: str | None
     hub_id: int
 
 
 class ParcelCourierRead(SQLModel):
     id: int
     tracking_number: str
+    description: str
     hub_id: int
 
 
 class ParcelCreate(SQLModel):
     tracking_number: str
     weight: float
+    description: str
     hub_id: int
 
 
