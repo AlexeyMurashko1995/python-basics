@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, Field, Session, create_engine, Relationship, select, desc
 from fastapi import FastAPI, HTTPException, Depends
+import requests
 
 
 app = FastAPI()
@@ -72,7 +73,13 @@ def get_session():
 
 
 def get_ai_category(description: str):
-    return 'Test category AI'
+    categories = ['electronics', 'clothes', 'food']
+    payload = {
+        'inputs': description,
+        'parameters': {
+            'candidate_labels': categories
+        }
+    }
 
 
 @app.get('/hubs', response_model=list[HubRead])
