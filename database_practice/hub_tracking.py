@@ -80,6 +80,16 @@ def get_ai_category(description: str):
             'candidate_labels': categories
         }
     }
+    url = 'https://api-inference.huggingface.co/models/facebook/bart-large-mnli'
+    try:
+        response = requests.post(url, json=payload)
+        if response.ok:
+            category = response.json()
+            return category['labels'][0]
+    except requests.exceptions.ConnectionError:
+        return 'Check your internet connection'
+    except requests.exceptions.ConnectTimeout:
+        return 'The server does not respond'
 
 
 @app.get('/hubs', response_model=list[HubRead])
