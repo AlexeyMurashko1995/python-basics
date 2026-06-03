@@ -71,6 +71,10 @@ def get_session():
         yield session
 
 
+def get_ai_category(description: str):
+    return 'Test category AI'
+
+
 @app.get('/hubs', response_model=list[HubRead])
 def read_hubs_data(city: str | None=None, limit: int | None = 5, offset: int | None = 0, session: Session = Depends(get_session)):
     query = select(Hub)
@@ -141,6 +145,7 @@ def delete_single_parcel(parcel_id: int, session: Session = Depends(get_session)
 @app.post('/parcels', response_model=ParcelRead)
 def create_parcel_endpoint(parcel_in: ParcelCreate, session: Session = Depends(get_session)):
     parcel_db = Parcel(tracking_number=parcel_in.tracking_number, weight=parcel_in.weight, hub_id=parcel_in.hub_id, description=parcel_in.description)
+    parcel_db.category = get_ai_category(parcel_db.description)
     session.add(parcel_db)
     session.commit()
     session.refresh(parcel_db)
