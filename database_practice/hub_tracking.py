@@ -140,7 +140,7 @@ def delete_single_parcel(parcel_id: int, session: Session = Depends(get_session)
 
 @app.post('/parcels', response_model=ParcelRead)
 def create_parcel_endpoint(parcel_in: ParcelCreate, session: Session = Depends(get_session)):
-    parcel_db = Parcel(tracking_number=parcel_in.tracking_number, weight=parcel_in.weight, hub_id=parcel_in.hub_id)
+    parcel_db = Parcel(tracking_number=parcel_in.tracking_number, weight=parcel_in.weight, hub_id=parcel_in.hub_id, description=parcel_in.description)
     session.add(parcel_db)
     session.commit()
     session.refresh(parcel_db)
