@@ -79,22 +79,26 @@ def get_session():
 
 
 def get_ai_category(description: str):
-    categories = ['electronics', 'clothes', 'food']
+    prompt = f'You are an automated warehouse parcel sorter. Your task is to read the item description and strictly determine its category from the following list: electronics, clothes, food. If the item does not fit any category, return the word unknown. Write ONLY one category name in lowercase letters in the response, without dots, quotes, or any explanations. Item description: {description}'
     payload = {
-        'inputs': description,
-        'parameters': {
-            'candidate_labels': categories
-        }
+        'model': 'mistral-small-latest',
+        'messages': [
+            {
+                'role': 'user',
+                'content': f'{prompt}'
+            }
+        ]
     }
+    url = 'https://api.mistral.ai/v1/chat/completions'
     headers = {
         'Authorization': f'Bearer {api_key}'
     }
-    url = 'https://api-inference.huggingface.co/models/facebook/bart-large-mnli'
     try:
-        response = requests.post(url, json=payload, headers=headers, timeout=5)
+        response = requests.post(url, json=payload, headers=headers, timeout=30)
         if response.ok:
-            category = response.json()
-            return category['labels'][0]
+            data = response.json()
+            category = data['choices'][0]['message']['content'].strip()
+            return category
         else:
             print(f"API Error: {response.status_code} - {response.text}")
             return 'unknown'
