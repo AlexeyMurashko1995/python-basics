@@ -1,7 +1,13 @@
 from sqlmodel import SQLModel, Field, Session, create_engine, Relationship, select, desc
 from fastapi import FastAPI, HTTPException, Depends
 import requests
+import os
+from dotenv import load_dotenv
 
+
+load_dotenv()
+
+api_key = os.getenv('API_KEY')
 
 app = FastAPI()
 
@@ -80,16 +86,21 @@ def get_ai_category(description: str):
             'candidate_labels': categories
         }
     }
+    headers = {
+        'Authorization': f'Bearer {api_key}'
+    }
     url = 'https://api-inference.huggingface.co/models/facebook/bart-large-mnli'
     try:
-        response = requests.post(url, json=payload)
+        response = requests.post(url, json=payload, headers=headers, timeout=5)
         if response.ok:
             category = response.json()
             return category['labels'][0]
-    except requests.exceptions.ConnectionError:
-        return 'Check your internet connection'
-    except requests.exceptions.ConnectTimeout:
-        return 'The server does not respond'
+        else:
+            print(f"API Error: {response.status_code} - {response.text}")
+            return 'unknown'
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
+        print("Network issue with Hugging Face API")
+        return 'unknown'
 
 
 @app.get('/hubs', response_model=list[HubRead])
