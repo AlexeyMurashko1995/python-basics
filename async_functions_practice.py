@@ -36,18 +36,39 @@ import httpx
 # ------------------------------------------
 
 
-async def download_file(file_name: str, download_time: int):
-    print(f'Downloading file {file_name}')
-    await asyncio.sleep(download_time)
-    print(f'{file_name} was successfully downloaded in {download_time} sec')
+# async def download_file(file_name: str, download_time: int):
+#     print(f'Downloading file {file_name}')
+#     await asyncio.sleep(download_time)
+#     print(f'{file_name} was successfully downloaded in {download_time} sec')
 
 
-async def main():
-        result = await asyncio.gather(
-            download_file('report_pdf', 2),
-            download_file('avatar.png', 1),
-            download_file('database.zip', 5)
-        )
+# async def main():
+#         result = await asyncio.gather(
+#             download_file('report_pdf', 2),
+#             download_file('avatar.png', 1),
+#             download_file('database.zip', 5)
+#         )
 
 
-asyncio.run(main())
+# asyncio.run(main())
+
+# ------------------------------------------
+# Task 3
+# ------------------------------------------
+
+
+async def get_status(url: str):
+      async with httpx.AsyncClient() as client:
+            response = await client.get(url)
+            return response.status_code
+
+
+async def run_checks():
+    result = await asyncio.gather(
+         get_status('https://httpbin.org/status/200'),
+         get_status('https://httpbin.org/status/404'),
+         get_status('https://httpbin.org/status/500')
+    )
+    print(result)
+
+asyncio.run(run_checks())
