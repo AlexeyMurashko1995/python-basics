@@ -2,31 +2,52 @@ import asyncio
 import httpx
 
 
+# # ------------------------------------------
+# # Task 1
+# # ------------------------------------------
+
+
+# async def send_mail(user: int):
+#     print(f'Sending mail to {user}')
+#     await asyncio.sleep(2)
+#     print(f'Email to {user} was sent')
+
+
+# async def get_ip():
+#     url = 'https://httpbin.org/ip'
+#     async with httpx.AsyncClient() as client:
+#         response = await client.get(url)
+#         return response.json()
+
+
+# async def run_all():
+#     result = await asyncio.gather(
+#         send_mail('Alexey'),
+#         get_ip()
+#     )
+#     return result[1]
+
+
+# result = asyncio.run(run_all())
+# print(result)
+
 # ------------------------------------------
-# Task 1
+# Task 2
 # ------------------------------------------
 
 
-async def send_mail(user: int):
-    print(f'Sending mail to {user}')
-    await asyncio.sleep(2)
-    print(f'Email to {user} was sent')
+async def download_file(file_name: str, download_time: int):
+    print(f'Downloading file {file_name}')
+    await asyncio.sleep(download_time)
+    print(f'{file_name} was successfully downloaded in {download_time} sec')
 
 
-async def get_ip():
-    url = 'https://httpbin.org/ip'
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url)
-        return response.json()
+async def main():
+        result = await asyncio.gather(
+            download_file('report_pdf', 2),
+            download_file('avatar.png', 1),
+            download_file('database.zip', 5)
+        )
 
 
-async def run_all():
-    result = await asyncio.gather(
-        send_mail('Alexey'),
-        get_ip()
-    )
-    return result[1]
-
-
-result = asyncio.run(run_all())
-print(result)
+asyncio.run(main())
