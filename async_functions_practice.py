@@ -78,19 +78,42 @@ import httpx
 # Task 4
 # ------------------------------------------
 
-async def fetch_data(endpoint: str):
-    async with httpx.AsyncClient() as client:
-        url = f'https://httpbin.org/{endpoint}'
-        response = await client.get(url)
-        data = response.json()
-        return data
+# async def fetch_data(endpoint: str):
+#     async with httpx.AsyncClient() as client:
+#         url = f'https://httpbin.org/{endpoint}'
+#         response = await client.get(url)
+#         data = response.json()
+#         return data
 
 
-async def main():
+# async def main():
+#     result = await asyncio.gather(
+#         fetch_data('user-agent'),
+#         fetch_data('headers')
+#     )
+#     print(result)
+
+# asyncio.run(main())
+
+
+# ------------------------------------------
+# Task 5
+# ------------------------------------------
+
+
+async def process_order(order_id: int, seconds: int):
+    print(f'Order {order_id} has been sent for processing')
+    await asyncio.sleep(seconds)
+    return f'Order {order_id} has been successfully processed'
+
+
+async def start_system():
     result = await asyncio.gather(
-        fetch_data('user-agent'),
-        fetch_data('headers')
+        process_order(101, 3),
+        process_order(102, 1),
+        process_order(103, 2)
     )
     print(result)
 
-asyncio.run(main())
+
+asyncio.run(start_system())
