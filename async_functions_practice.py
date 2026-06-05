@@ -57,18 +57,40 @@ import httpx
 # ------------------------------------------
 
 
-async def get_status(url: str):
-      async with httpx.AsyncClient() as client:
-            response = await client.get(url)
-            return response.status_code
+# async def get_status(url: str):
+#       async with httpx.AsyncClient() as client:
+#             response = await client.get(url)
+#             return response.status_code
 
 
-async def run_checks():
+# async def run_checks():
+#     result = await asyncio.gather(
+#          get_status('https://httpbin.org/status/200'),
+#          get_status('https://httpbin.org/status/404'),
+#          get_status('https://httpbin.org/status/500')
+#     )
+#     print(result)
+
+# asyncio.run(run_checks())
+
+
+# ------------------------------------------
+# Task 4
+# ------------------------------------------
+
+async def fetch_data(endpoint: str):
+    async with httpx.AsyncClient() as client:
+        url = f'https://httpbin.org/{endpoint}'
+        response = await client.get(url)
+        data = response.json()
+        return data
+
+
+async def main():
     result = await asyncio.gather(
-         get_status('https://httpbin.org/status/200'),
-         get_status('https://httpbin.org/status/404'),
-         get_status('https://httpbin.org/status/500')
+        fetch_data('user-agent'),
+        fetch_data('headers')
     )
     print(result)
 
-asyncio.run(run_checks())
+asyncio.run(main())
