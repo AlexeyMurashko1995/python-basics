@@ -101,19 +101,40 @@ import httpx
 # ------------------------------------------
 
 
-async def process_order(order_id: int, seconds: int):
-    print(f'Order {order_id} has been sent for processing')
-    await asyncio.sleep(seconds)
-    return f'Order {order_id} has been successfully processed'
+# async def process_order(order_id: int, seconds: int):
+#     print(f'Order {order_id} has been sent for processing')
+#     await asyncio.sleep(seconds)
+#     return f'Order {order_id} has been successfully processed'
 
 
-async def start_system():
+# async def start_system():
+#     result = await asyncio.gather(
+#         process_order(101, 3),
+#         process_order(102, 1),
+#         process_order(103, 2)
+#     )
+#     print(result)
+
+
+# asyncio.run(start_system())
+
+# ------------------------------------------
+# Task 6
+# ------------------------------------------
+
+async def process_contract(courier_name: str, delay: int):
+    print(f'[Start] Courier {courier_name} has started the registration process')
+    await asyncio.sleep(delay)
+    print(f'[Done] Courier {courier_name} has signed the contract')
+
+
+async def main():
     result = await asyncio.gather(
-        process_order(101, 3),
-        process_order(102, 1),
-        process_order(103, 2)
+        process_contract('Max', 3),
+        process_contract('Yan', 1),
+        process_contract('Tomasz', 1)
     )
-    print(result)
+    return result
 
 
-asyncio.run(start_system())
+asyncio.run(main())
