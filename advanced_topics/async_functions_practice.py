@@ -122,17 +122,44 @@ import httpx
 # Task 6
 # ------------------------------------------
 
-async def process_contract(courier_name: str, delay: int):
-    print(f'[Start] Courier {courier_name} has started the registration process')
-    await asyncio.sleep(delay)
-    print(f'[Done] Courier {courier_name} has signed the contract')
+# async def process_contract(courier_name: str, delay: int):
+#     print(f'[Start] Courier {courier_name} has started the registration process')
+#     await asyncio.sleep(delay)
+#     print(f'[Done] Courier {courier_name} has signed the contract')
+
+
+# async def main():
+#     result = await asyncio.gather(
+#         process_contract('Max', 3),
+#         process_contract('Yan', 1),
+#         process_contract('Tomasz', 1)
+#     )
+#     return result
+
+
+# asyncio.run(main())
+
+
+# ------------------------------------------
+# Task 7
+# ------------------------------------------
+
+
+async def courier_process(courier_name: str, semaphore):
+    async with semaphore:
+        print(f'[Start] {courier_name}')
+        await asyncio.sleep(2)
+        print(f'[Finish] {courier_name}')
 
 
 async def main():
+    semaphore = asyncio.Semaphore(2)
     result = await asyncio.gather(
-        process_contract('Max', 3),
-        process_contract('Yan', 1),
-        process_contract('Tomasz', 1)
+        courier_process('Courier 1', semaphore),
+        courier_process('Courier 2', semaphore),
+        courier_process('Courier 3', semaphore),
+        courier_process('Courier 4', semaphore),
+        courier_process('Courier 5', semaphore)
     )
     return result
 
