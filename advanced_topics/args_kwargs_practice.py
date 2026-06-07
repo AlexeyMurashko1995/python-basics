@@ -36,15 +36,32 @@
 # Task 4
 # --------------------------------
 
-def merge_strings(*args, uppercase=False):
-    result = ' '.join(args)
-    if uppercase:
-        result = result.upper()
-    return result
+# def merge_strings(*args, uppercase=False):
+#     result = ' '.join(args)
+#     if uppercase:
+#         result = result.upper()
+#     return result
 
 
-text1 = merge_strings("hello", "world", uppercase=False)
-text2 = merge_strings("python", "interview", "prep", uppercase=True)
+# text1 = merge_strings("hello", "world", uppercase=False)
+# text2 = merge_strings("python", "interview", "prep", uppercase=True)
 
-print(text1)
-print(text2)
+# print(text1)
+# print(text2)
+
+# --------------------------------
+# Task 5
+# --------------------------------
+
+def configure_settings(defaults, **custom):
+    new_defaults = defaults.copy()
+    new_defaults.update(custom)
+    return new_defaults
+
+
+default_config = {'theme': 'light', 'language': 'en', 'notifications': True}
+
+final_config = configure_settings(default_config, theme='dark', language='pl')
+
+print(default_config)
+print(final_config)
