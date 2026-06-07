@@ -27,7 +27,7 @@
 # def analyze_metrics(*args, **kwargs):
 #     for key, value in kwargs.items():
 #         print(f'- {key}: {value}')
-#     print(f'[Analytics] Average metric value: {sum(args)/len(args)}')
+#     print(f'[Analytics] Average metric value: {sum(args) / len(args)}')
 
 
 # analyze_metrics(120, 150, 180, department='IT', manager='Alexey')
@@ -70,7 +70,6 @@
 # Task 6
 # --------------------------------
 
-
 # def add_numbers(a, b):
 #     return a + b
 
@@ -96,7 +95,10 @@
 # --------------------------------
 
 def register_employee(first_name, last_name, role, salary):
-    return f'Employee {first_name} {last_name} registered as {role} (${salary}).'
+    return (
+        f'Employee {first_name} {last_name} '
+        f'registered as {role} (${salary}).'
+    )
 
 
 names_list = ['Ivan', 'Ivanov']
@@ -104,4 +106,3 @@ contract_details = {'role': 'Data Engineer', 'salary': 4500}
 
 result = register_employee(*names_list, **contract_details)
 print(result)
-
