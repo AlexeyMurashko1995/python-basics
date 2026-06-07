@@ -13,9 +13,21 @@
 # Task 2
 # --------------------------------
 
-def print_user_profile(**kwargs):
+# def print_user_profile(**kwargs):
+#     for key, value in kwargs.items():
+#         print(f'- {key}: {value}')
+
+
+# print_user_profile(username="alex_dev", age=30, email="alex@example.com")
+
+# --------------------------------
+# Task 3
+# --------------------------------
+
+def analyze_metrics(*args, **kwargs):
     for key, value in kwargs.items():
-        print(f'-{key}: {value}')
+        print(f'- {key}: {value}')
+    print(f'[Analytics] Average metric value: {sum(args)/len(args)}')
 
 
-print_user_profile(username="alex_dev", age=30, email="alex@example.com")
+analyze_metrics(120, 150, 180, department="IT", manager="Alexey")
