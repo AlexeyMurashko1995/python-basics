@@ -71,22 +71,37 @@
 # --------------------------------
 
 
-def add_numbers(a, b):
-    return a + b
+# def add_numbers(a, b):
+#     return a + b
 
 
-def greet_user(name, role='Developer'):
-    return f'Hello, {name}! Your role is {role}.'
+# def greet_user(name, role='Developer'):
+#     return f'Hello, {name}! Your role is {role}.'
 
 
-def execute_with_log(func, *args, **kwargs):
-    print(f'[Log] Executing function: {func.__name__}')
-    result = func(*args, **kwargs)
-    return result
+# def execute_with_log(func, *args, **kwargs):
+#     print(f'[Log] Executing function: {func.__name__}')
+#     result = func(*args, **kwargs)
+#     return result
 
 
-result1 = execute_with_log(add_numbers, 15, 35)
-result2 = execute_with_log(greet_user, name='Alexey', role='Data Engineer')
+# result1 = execute_with_log(add_numbers, 15, 35)
+# result2 = execute_with_log(greet_user, name='Alexey', role='Data Engineer')
 
-print(result1)
-print(result2)
+# print(result1)
+# print(result2)
+
+# --------------------------------
+# Task 7
+# --------------------------------
+
+def register_employee(first_name, last_name, role, salary):
+    return f'Employee {first_name} {last_name} registered as {role} (${salary}).'
+
+
+names_list = ['Ivan', 'Ivanov']
+contract_details = {'role': 'Data Engineer', 'salary': 4500}
+
+result = register_employee(*names_list, **contract_details)
+print(result)
+
