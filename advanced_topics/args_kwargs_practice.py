@@ -53,15 +53,40 @@
 # Task 5
 # --------------------------------
 
-def configure_settings(defaults, **custom):
-    new_defaults = defaults.copy()
-    new_defaults.update(custom)
-    return new_defaults
+# def configure_settings(defaults, **custom):
+#     new_defaults = defaults.copy()
+#     new_defaults.update(custom)
+#     return new_defaults
 
 
-default_config = {'theme': 'light', 'language': 'en', 'notifications': True}
+# default_config = {'theme': 'light', 'language': 'en', 'notifications': True}
 
-final_config = configure_settings(default_config, theme='dark', language='pl')
+# final_config = configure_settings(default_config, theme='dark', language='pl')
 
-print(default_config)
-print(final_config)
+# print(default_config)
+# print(final_config)
+
+# --------------------------------
+# Task 6
+# --------------------------------
+
+
+def add_numbers(a, b):
+    return a + b
+
+
+def greet_user(name, role='Developer'):
+    return f'Hello, {name}! Your role is {role}.'
+
+
+def execute_with_log(func, *args, **kwargs):
+    print(f'[Log] Executing function: {func.__name__}')
+    result = func(*args, **kwargs)
+    return result
+
+
+result1 = execute_with_log(add_numbers, 15, 35)
+result2 = execute_with_log(greet_user, name='Alexey', role='Data Engineer')
+
+print(result1)
+print(result2)
