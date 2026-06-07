@@ -24,10 +24,27 @@
 # Task 3
 # --------------------------------
 
-def analyze_metrics(*args, **kwargs):
-    for key, value in kwargs.items():
-        print(f'- {key}: {value}')
-    print(f'[Analytics] Average metric value: {sum(args)/len(args)}')
+# def analyze_metrics(*args, **kwargs):
+#     for key, value in kwargs.items():
+#         print(f'- {key}: {value}')
+#     print(f'[Analytics] Average metric value: {sum(args)/len(args)}')
 
 
-analyze_metrics(120, 150, 180, department="IT", manager="Alexey")
+# analyze_metrics(120, 150, 180, department='IT', manager='Alexey')
+
+# --------------------------------
+# Task 4
+# --------------------------------
+
+def merge_strings(*args, uppercase=False):
+    result = ' '.join(args)
+    if uppercase:
+        result = result.upper()
+    return result
+
+
+text1 = merge_strings("hello", "world", uppercase=False)
+text2 = merge_strings("python", "interview", "prep", uppercase=True)
+
+print(text1)
+print(text2)
