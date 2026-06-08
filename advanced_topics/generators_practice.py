@@ -78,8 +78,19 @@
 # Task 6.
 # -------------------------------
 
-my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-even_gen = (x for x in my_list if x % 2 == 0)
+# my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# even_gen = (x for x in my_list if x % 2 == 0)
 
-for number in even_gen:
-    print(number)
+# for number in even_gen:
+#     print(number)
+
+# -------------------------------
+# Task 7.
+# -------------------------------
+
+def read_file_lines(file_path):
+    with open(file_path, encoding='utf-8') as file:
+        for line in file:
+            yield line
+
+
