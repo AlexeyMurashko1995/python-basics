@@ -47,12 +47,29 @@
 # Task 4.
 # -------------------------------
 
-def custom_range(n):
-    for number in range(1, n + 1):
-        yield number
+# def custom_range(n):
+#     for number in range(1, n + 1):
+#         yield number
 
 
-result = custom_range(5)
+# result = custom_range(5)
+
+# for value in result:
+#     print(value)
+
+# -------------------------------
+# Task 5.
+# -------------------------------
+
+def filter_even(numbers):
+    for number in numbers:
+        if number % 2 == 0:
+            yield number
+
+
+my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+result = filter_even(my_list)
 
 for value in result:
     print(value)
