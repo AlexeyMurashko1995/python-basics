@@ -61,15 +61,25 @@
 # Task 5.
 # -------------------------------
 
-def filter_even(numbers):
-    for number in numbers:
-        if number % 2 == 0:
-            yield number
+# def filter_even(numbers):
+#     for number in numbers:
+#         if number % 2 == 0:
+#             yield number
 
+
+# my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# result = filter_even(my_list)
+
+# for value in result:
+#     print(value)
+
+# -------------------------------
+# Task 6.
+# -------------------------------
 
 my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+even_gen = (x for x in my_list if x % 2 == 0)
 
-result = filter_even(my_list)
-
-for value in result:
-    print(value)
+for number in even_gen:
+    print(number)
