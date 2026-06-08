@@ -84,6 +84,7 @@
 # for number in even_gen:
 #     print(number)
 
+
 # -------------------------------
 # Task 7.
 # -------------------------------
@@ -92,5 +93,3 @@ def read_file_lines(file_path):
     with open(file_path, encoding='utf-8') as file:
         for line in file:
             yield line
-
-
