@@ -89,7 +89,22 @@
 # Task 7.
 # -------------------------------
 
-def read_file_lines(file_path):
-    with open(file_path, encoding='utf-8') as file:
-        for line in file:
-            yield line
+# def read_file_lines(file_path):
+#     with open(file_path, encoding='utf-8') as file:
+#         for line in file:
+#             yield line
+
+# -------------------------------
+# Task 8.
+# -------------------------------
+
+def filtered_raw(data):
+    for string in data:
+        if len(string) >= 5:
+            yield string
+
+raw_data = ["Mokotów, 2 rooms", "", "Wola, close to metro", "Praga", "  ", "Gdańsk, sea view"]
+result = filtered_raw(raw_data)
+
+for filtered_string in result:
+    print(filtered_string)
