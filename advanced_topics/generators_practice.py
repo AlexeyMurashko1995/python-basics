@@ -113,14 +113,29 @@
 # Task 9.
 # -------------------------------
 
-def chunk_generator(data, chunk_size):
-    for i in range(0, len(data), chunk_size):
-        yield data[i:i + chunk_size]
+# def chunk_generator(data, chunk_size):
+#     for i in range(0, len(data), chunk_size):
+#         yield data[i:i + chunk_size]
 
 
+# parcel_ids = [101, 102, 103, 104, 105, 106, 107, 108, 109, 110]
+# result = chunk_generator(parcel_ids, 3)
 
-parcel_ids = [101, 102, 103, 104, 105, 106, 107, 108, 109, 110]
-result = chunk_generator(parcel_ids, 3)
+# for n in result:
+#     print(n)
 
-for n in result:
-    print(n)
+# -------------------------------
+# Task 10.
+# -------------------------------
+
+def tracking_number_generator(prefix, start_id):
+    n = start_id
+    while True:
+        yield f"{prefix}-{n}"
+        n += 1
+
+
+generator = tracking_number_generator("POL", 5000)
+print(next(generator))
+print(next(generator))
+print(next(generator))
