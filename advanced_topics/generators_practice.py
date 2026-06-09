@@ -98,13 +98,29 @@
 # Task 8.
 # -------------------------------
 
-def filtered_raw(data):
-    for string in data:
-        if len(string) >= 5:
-            yield string
+# def filtered_raw(data):
+#     for string in data:
+#         if len(string) >= 5:
+#             yield string
 
-raw_data = ["Mokotów, 2 rooms", "", "Wola, close to metro", "Praga", "  ", "Gdańsk, sea view"]
-result = filtered_raw(raw_data)
+# raw_data = ["Mokotów, 2 rooms", "", "Wola, close to metro", "Praga", "  ", "Gdańsk, sea view"]
+# result = filtered_raw(raw_data)
 
-for filtered_string in result:
-    print(filtered_string)
+# for filtered_string in result:
+#     print(filtered_string)
+
+# -------------------------------
+# Task 9.
+# -------------------------------
+
+def chunk_generator(data, chunk_size):
+    for i in range(0, len(data), chunk_size):
+        yield data[i:i + chunk_size]
+
+
+
+parcel_ids = [101, 102, 103, 104, 105, 106, 107, 108, 109, 110]
+result = chunk_generator(parcel_ids, 3)
+
+for n in result:
+    print(n)
