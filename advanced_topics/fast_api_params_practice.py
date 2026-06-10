@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 
 app = FastAPI()
 
@@ -13,7 +13,10 @@ fake_parcels_db = [
 ]
 
 @app.get('/parcels')
-def get_parcels(skip: int | None = 0, limit: int | None = 3, category: str | None = None):
+def get_parcels(skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=3, ge=1, le=5),
+    category: str | None = None
+):
     filtered_parcels = fake_parcels_db
     if category is not None:
         filtered_parcels = [p for p in filtered_parcels if p['category'] == category]
