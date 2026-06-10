@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
 
@@ -20,3 +20,11 @@ def get_parcels(skip: int | None = 0, limit: int | None = 3, category: str | Non
     start = skip
     end = skip + limit
     return filtered_parcels[start:end]
+
+
+@app.get('/parcels/{parcel_id}')
+def get_parcel_id(parcel_id: int):
+    for parcel in fake_parcels_db:
+        if parcel['id'] == parcel_id:
+            return parcel
+    raise HTTPException(status_code=404,detail='Parcel not found')
