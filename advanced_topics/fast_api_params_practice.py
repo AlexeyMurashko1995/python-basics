@@ -31,3 +31,13 @@ def get_parcel_id(parcel_id: int):
         if parcel['id'] == parcel_id:
             return parcel
     raise HTTPException(status_code=404,detail='Parcel not found')
+
+
+@app.delete('/parcels/{parcel_id}')
+def delete_parcel_id(parcel_id: int):
+    for parcel in fake_parcels_db:
+        if parcel_id == parcel['id']:
+            fake_parcels_db.remove(parcel)
+            return {'message': 'Parcel {parcel_id} deleted'}
+    else:
+        raise HTTPException(status_code=404, detail='Parcel not found')
