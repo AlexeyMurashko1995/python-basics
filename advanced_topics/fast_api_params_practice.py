@@ -1,13 +1,13 @@
 from fastapi import FastAPI, HTTPException, Query
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 app = FastAPI()
 
 
 class BikeCreate(BaseModel):
-    model: str
+    model: str = Field(min_length=2)
     type: str
-    price: int
+    price: int = Field(gt=0)
 
 
 fake_bikes_db = [
