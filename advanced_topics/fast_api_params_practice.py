@@ -53,7 +53,10 @@ def delete_bike_id(bike_id: int):
 
 @app.post('/bikes/')
 def create_bike(bike_in: BikeCreate):
-    uniq_id = fake_bikes_db[-1]['id'] + 1
+    if not fake_bikes_db:
+        uniq_id = 1
+    else:
+        uniq_id = fake_bikes_db[-1]['id'] + 1
     bike = bike_in.model_dump()
     bike['id'] = uniq_id
     fake_bikes_db.append(bike)
