@@ -1,6 +1,14 @@
 from fastapi import FastAPI, HTTPException, Query
+from pydantic import BaseModel
 
 app = FastAPI()
+
+
+class BikeCreate(BaseModel):
+    model: str
+    type: str
+    price: int
+
 
 fake_bikes_db = [
     {"id": 1, "model": "Duotts C29", "type": "electric", "price": 4500},
@@ -42,4 +50,12 @@ def delete_bike_id(bike_id: int):
     else:
         raise HTTPException(status_code=404, detail='Bike not found')
 
+
+@app.post('/bikes/')
+def create_bike(bike_in: BikeCreate):
+    uniq_id = fake_bikes_db[-1]['id'] + 1
+    bike = bike_in.model_dump()
+    bike['id'] = uniq_id
+    fake_bikes_db.append(bike)
+    return bike
 
