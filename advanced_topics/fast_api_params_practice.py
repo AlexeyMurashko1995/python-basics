@@ -24,4 +24,12 @@ def get_bikes(
     return filtered_bikes[start:finish]
 
 
+@app.get('/bikes/{bike_id}')
+def get_bike_id(bike_id: int):
+    for bike in fake_bikes_db:
+        if bike['id'] == bike_id:
+            return bike
+    else:
+        raise HTTPException(status_code=404, detail='Bike not found')
+
 
