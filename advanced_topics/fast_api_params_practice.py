@@ -33,3 +33,13 @@ def get_bike_id(bike_id: int):
         raise HTTPException(status_code=404, detail='Bike not found')
 
 
+@app.delete('/bikes/{bike_id}')
+def delete_bike_id(bike_id: int):
+    for bike in fake_bikes_db:
+        if bike['id'] == bike_id:
+            fake_bikes_db.remove(bike)
+            return {'message': 'Bike was deleted'}
+    else:
+        raise HTTPException(status_code=404, detail='Bike not found')
+
+
