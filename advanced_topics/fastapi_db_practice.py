@@ -25,3 +25,12 @@ def create_db_and_tables():
 @app.on_event('startup')
 def on_startup():
     create_db_and_tables()
+
+
+@app.post('/bikes')
+def create_bikes(bike_in: Bike):
+    with Session(engine) as session:
+        session.add(bike_in)
+        session.commit()
+        session.refresh(bike_in)
+        return bike_in
