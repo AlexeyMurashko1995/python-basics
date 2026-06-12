@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel, Session, create_engine, Field, select
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 
 app = FastAPI()
@@ -43,3 +43,13 @@ def get_bikes():
         result = session.exec(query)
         all_bikes = result.all()
         return all_bikes
+
+
+@app.get('/bikes/{bike_id}')
+def get_bike(bike_id: int):
+    with Session(engine) as session:
+        bike = session.get(Bike, bike_id)
+        if bike:
+            return bike
+        else:
+            raise HTTPException(status_code=404,detail='Bike not found')
