@@ -1,4 +1,4 @@
-from sqlmodel import SQLModel, Session, create_engine, Field
+from sqlmodel import SQLModel, Session, create_engine, Field, select
 from fastapi import FastAPI
 
 
@@ -34,3 +34,12 @@ def create_bikes(bike_in: Bike):
         session.commit()
         session.refresh(bike_in)
         return bike_in
+
+
+@app.get('/bikes')
+def get_bikes():
+    with Session(engine) as session:
+        query = select(Bike)
+        result = session.exec(query)
+        all_bikes = result.all()
+        return all_bikes
