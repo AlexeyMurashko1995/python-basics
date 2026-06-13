@@ -53,3 +53,18 @@ def get_bike(bike_id: int):
             return bike
         else:
             raise HTTPException(status_code=404,detail='Bike not found')
+
+
+@app.patch('/bikes/{bike_id}')
+def update_bike(bike_id: int, bike_data: Bike):
+    with Session(engine) as session:
+        target_bike = session.get(Bike, bike_id)
+        if not target_bike:
+            raise HTTPException(status_code=404, detail='Bike not found')
+        else:
+            target_bike.model = bike_data.model
+            target_bike.type = bike_data.type
+            target_bike.price = bike_data.price
+            session.commit()
+            session.refresh(target_bike)
+            return target_bike
