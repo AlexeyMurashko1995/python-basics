@@ -68,3 +68,15 @@ def update_bike(bike_id: int, bike_data: Bike):
             session.commit()
             session.refresh(target_bike)
             return target_bike
+
+
+@app.delete('/bikes/{bike_id}')
+def delete_bike(bike_id: int):
+    with Session(engine) as session:
+        target_bike = session.get(Bike, bike_id)
+        if target_bike:
+            session.delete(target_bike)
+            session.commit()
+            return {'message': 'Bike successfully deleted'}
+        else:
+            raise HTTPException(status_code=404, detail='Bike not found')
