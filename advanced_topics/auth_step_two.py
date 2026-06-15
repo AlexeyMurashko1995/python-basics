@@ -19,3 +19,13 @@ def verify_id(token: str):
     id = payload['sub']
     return int(id)
 
+
+@app.post('/login')
+def login(user_id: int):
+    token = create_token(user_id)
+    return {'access': token}
+
+
+@app.get('/profile')
+def profile(user_id: int = Depends(verify_id)):
+    return {'user id': user_id}
