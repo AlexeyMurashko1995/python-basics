@@ -19,3 +19,14 @@ def verify_token(token: str = Depends(oauth2_scheme)):
     payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
     return int(payload['sub'])
 
+
+@app.post('/login')
+def login(user_id: int):
+    token = create_token(user_id)
+    return {'access': token}
+
+
+@app.get('/profile')
+def profile(user_id: int = Depends(verify_token)):
+    return {'user_id': user_id}
+
