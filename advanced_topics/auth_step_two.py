@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Depends
-from fastapi.security import OAuth2PasswordBearer
+from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import jwt
 import bcrypt
 
@@ -41,8 +41,8 @@ def verify_token(token: str = Depends(oauth2_scheme)):
 
 
 @app.post('/login')
-def login(user_id: int):
-    token = create_token(user_id)
+def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    token = create_token(form_data)
     return {'access': token}
 
 
