@@ -1,13 +1,33 @@
 from fastapi import FastAPI, Depends
 from fastapi.security import OAuth2PasswordBearer
 import jwt
+import bcrypt
+
 
 app = FastAPI()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
+
+def get_password_hash(password: str):
+    password_bytes = password.encode('utf-8')
+    salt = bcrypt.gensalt()
+    hash_bytes = bcrypt.hashpw(password_bytes, salt)
+    hash_string = hash_bytes.decode('utf-8')
+    return hash_string
+
+
+def verify_password(password: str, hash_string: str):
+    password_bytes = password.encode('utf-8')
+    hash_bytes = hash_string.encode('utf-8')
+    comparison = bcrypt.checkpw(password_bytes, hash_bytes)
+    return comparison
+
+
 SECRET_KEY = 'my_secret_key'
 ALGORITHM = 'HS256'
+
+USERS_DB = {'alex':{'id': 1, 'password': get_password_hash('Alex123')}}
 
 
 def create_token(user_id: int):
