@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 import bcrypt
+import jwt
 
 
 app = FastAPI()
@@ -21,3 +22,12 @@ def verify_password(hash_string: str, password:str):
 
 
 USERS_DB = {'alex':{'id': 1, 'password': get_hash_password('Alex123')}}
+
+SECRET_KEY = 'my_secret_key'
+ALGORITHM = 'HS256'
+
+
+def create_token(user_id: int):
+    payload = {'sub': str(user_id)}
+    token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+    return token
