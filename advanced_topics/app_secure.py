@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 import bcrypt
 import jwt
+from fastapi.security import OAuth2PasswordRequestForm
 
 
 app = FastAPI()
@@ -31,3 +32,8 @@ def create_token(user_id: int):
     payload = {'sub': str(user_id)}
     token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
     return token
+
+
+@app.post('/login')
+def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    return {'username': form_data.username, 'password': form_data.password}
