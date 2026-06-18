@@ -12,3 +12,9 @@ def get_hash_password(password: str):
     hash_string = hash_bytes.decode('utf-8')
     return hash_string
 
+
+def verify_password(hash_string: str, password:str):
+    hash_bytes = hash_string.encode('utf-8')
+    password_bytes = password.encode('utf-8')
+    comparison = bcrypt.checkpw(password_bytes, hash_bytes)
+    return comparison
