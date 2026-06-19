@@ -38,3 +38,6 @@ def create_token(user_id: int):
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
     if form_data.username not in USERS_DB:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Incorrect username or password')
+    else:
+        user = USERS_DB[form_data.username]
+        user_hash = user['password']
