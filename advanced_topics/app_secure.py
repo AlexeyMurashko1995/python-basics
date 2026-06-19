@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 import bcrypt
 import jwt
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 
 
 app = FastAPI()
@@ -27,6 +27,7 @@ USERS_DB = {'alex':{'id': 1, 'password': get_hash_password('Alex123')}}
 SECRET_KEY = 'my_secret_key'
 ALGORITHM = 'HS256'
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 def create_token(user_id: int):
     payload = {'sub': str(user_id)}
