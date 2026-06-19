@@ -47,3 +47,8 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Incorrect username or password')
         token = create_token(user['id'])
         return {'access_token': token, 'token_type': 'bearer'}
+
+
+@app.get('/users/me')
+def get_user_me(token: str = Depends(oauth2_scheme)):
+    return {'caught_token' : token}
