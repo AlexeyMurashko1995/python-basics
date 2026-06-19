@@ -41,3 +41,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
     else:
         user = USERS_DB[form_data.username]
         user_hash = user['password']
+        result = verify_password(user_hash, form_data.password)
+        if not result:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Incorrect username or password')
+        return {'message': 'Successfull authorization'}
