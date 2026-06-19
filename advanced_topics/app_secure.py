@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException, status
 import bcrypt
 import jwt
 from fastapi.security import OAuth2PasswordRequestForm
@@ -36,4 +36,5 @@ def create_token(user_id: int):
 
 @app.post('/login')
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    return {'username': form_data.username, 'password': form_data.password}
+    if form_data.username not in USERS_DB:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Incorrect username or password')
