@@ -15,19 +15,20 @@ def get_hash_password(password: str):
     return hash_string
 
 
-def verify_password(hash_string: str, password:str):
+def verify_password(hash_string: str, password: str):
     hash_bytes = hash_string.encode('utf-8')
     password_bytes = password.encode('utf-8')
     comparison = bcrypt.checkpw(password_bytes, hash_bytes)
     return comparison
 
 
-USERS_DB = {'alex':{'id': 1, 'password': get_hash_password('Alex123')}}
+USERS_DB = {'alex': {'id': 1, 'password': get_hash_password('Alex123')}}
 
 SECRET_KEY = 'my_secret_key'
 ALGORITHM = 'HS256'
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
+
 
 def create_token(user_id: int):
     payload = {'sub': str(user_id)}
@@ -51,4 +52,4 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 @app.get('/users/me')
 def get_user_me(token: str = Depends(oauth2_scheme)):
-    return {'caught_token' : token}
+    return {'caught_token': token}
