@@ -18,3 +18,9 @@ def verify_password(hash_string: str, password: str):
     hash_bytes = hash_string.encode('utf-8')
     comparison = bcrypt.checkpw(password_bytes, hash_bytes)
     return comparison
+
+
+SECRET_KEY = 'my_secret_key'
+ALGORITHM = 'HS256'
+
+USERS_DB = {'alex':{'id': 1, 'password': get_hash_password('Alex123')}}
