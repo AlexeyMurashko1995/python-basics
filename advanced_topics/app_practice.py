@@ -43,13 +43,17 @@ def create_token(user_id: int):
 
 
 async def simulate_ai_model(prompt: str):
-    async with httpx.AsyncClient() as client:
-        response = await client.post('https://httpbin.org/post',
-        headers={'Authorization': 'Bearer fake-ai-key-999'},
-        json={'model': 'gpt-40', 'user_prompt': prompt})
-        response = response.json()
-        clean_prompt = response['json']['user_prompt']
-        return f'AI response to {clean_prompt}'
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.post('https://httpbin.org/post',
+            headers={'Authorization': 'Bearer fake-ai-key-999'},
+            json={'model': 'gpt-40', 'user_prompt': prompt},
+            timeout=5.0)
+            response = response.json()
+            clean_prompt = response['json']['user_prompt']
+            return f'AI response to {clean_prompt}'
+    except httpx.HTTPError:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail='AI Service is currently unavailable. Try again later.')
 
 
 def get_current_user(token: str = Depends(oauth2_scheme)):
