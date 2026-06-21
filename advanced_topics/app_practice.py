@@ -54,15 +54,11 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     except jwt.PyJWTError:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
 
+
 @app.post('/tg-ai/generate')
-async def generate_text(request_data: AIRequest, token: str = Depends(oauth2_scheme)):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id = payload['sub']
-        response = await simulate_ai_model(request_data.prompt)
-        return {'status': 'success', 'user_id': user_id, 'result': response}
-    except jwt.PyJWTError:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
+async def generate_text(request_data: AIRequest, user_id: str = Depends(get_current_user)):
+    response = await simulate_ai_model(request_data.prompt)
+    return {'status': 'success', 'user_id': user_id, 'result': response}
 
 
 @app.post('/login')
