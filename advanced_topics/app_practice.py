@@ -4,6 +4,7 @@ import bcrypt
 import jwt
 import asyncio
 from pydantic import BaseModel
+import httpx
 
 
 app = FastAPI()
@@ -42,8 +43,9 @@ def create_token(user_id: int):
 
 
 async def simulate_ai_model(prompt: str):
-    await asyncio.sleep(2)
-    return f'AI response to: {prompt}'
+    async with httpx.AsyncClient() as client:
+        response = await client.get('https://httpbin.org/get')
+        return response.json()
 
 
 def get_current_user(token: str = Depends(oauth2_scheme)):
