@@ -76,7 +76,6 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 @app.get('/users/me')
-def profile(token: str = Depends(oauth2_scheme)):
-    if token:
-        return {'caught_token': token}
+def profile(user_id: str = Depends(get_current_user)):
+    return {'current_user_id': user_id}
 
