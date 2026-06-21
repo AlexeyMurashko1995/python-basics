@@ -50,15 +50,18 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload['sub']
-        return user_id
+        for username, id_user in USERS_DB.items():
+            if int(user_id) == id_user['id']:
+                return username
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='User not found')
     except jwt.PyJWTError:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
 
 
 @app.post('/tg-ai/generate')
-async def generate_text(request_data: AIRequest, user_id: str = Depends(get_current_user)):
+async def generate_text(request_data: AIRequest, username: str = Depends(get_current_user)):
     response = await simulate_ai_model(request_data.prompt)
-    return {'status': 'success', 'user_id': user_id, 'result': response}
+    return {'status': 'success', 'username': username, 'result': response}
 
 
 @app.post('/login')
@@ -76,6 +79,6 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 @app.get('/users/me')
-def profile(user_id: str = Depends(get_current_user)):
-    return {'current_user_id': user_id}
+def profile(username: str = Depends(get_current_user)):
+    return {'current_username': username}
 
