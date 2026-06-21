@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 import bcrypt
@@ -25,7 +26,7 @@ def verify_password(hash_string: str, password: str):
     return comparison
 
 
-SECRET_KEY = 'my_secret_key'
+SECRET_KEY = os.getenv('SECRET_KEY', default='fallback_secret_key')
 ALGORITHM = 'HS256'
 
 USERS_DB = {'alex': {'id': 1, 'password': get_hash_password('Alex123')}}
@@ -46,7 +47,7 @@ async def simulate_ai_model(prompt: str):
     try:
         async with httpx.AsyncClient() as client:
             response = await client.post('https://httpbin.org/post',
-            headers={'Authorization': 'Bearer fake-ai-key-999'},
+            headers={'Authorization': f'Bearer {os.getenv('AI_API_KEY')}'},
             json={'model': 'gpt-40', 'user_prompt': prompt},
             timeout=5.0)
             response = response.json()
