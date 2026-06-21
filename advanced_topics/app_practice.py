@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 import bcrypt
 import jwt
+import asyncio
 
 
 app = FastAPI()
@@ -34,6 +35,22 @@ def create_token(user_id: int):
     payload = {'sub': str(user_id)}
     token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
     return token
+
+
+async def simulate_ai_model(prompt: str):
+    await asyncio.sleep(2)
+    return f'AI response to: {prompt}'
+
+
+@app.post('/tg-ai/generate')
+async def generate_text(prompt: str, token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload['sub']
+        response = await simulate_ai_model(prompt)
+        return {'status': 'success', 'user_id': user_id, 'result': response}
+    except jwt.PyJWTError:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
 
 
 @app.post('/login')
