@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 import bcrypt
 import jwt
 
@@ -31,3 +32,17 @@ def create_token(user_id: int):
     payload = {'sub': str(user_id)}
     token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
     return token
+
+
+@app.post('/login')
+def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    if form_data.username not in USERS_DB:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Incorrect username or password')
+    user = USERS_DB[form_data.username]
+    user_hash = user['password']
+    result = verify_password(user_hash, form_data.password)
+    if not result:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Incorrect username or password')
+    else:
+        token = create_token(user['id'])
+        return {'access_token': token, 'token_type': 'bearer'}
