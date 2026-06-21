@@ -47,7 +47,9 @@ async def simulate_ai_model(prompt: str):
         response = await client.post('https://httpbin.org/post',
         headers={'Authorization': 'Bearer fake-ai-key-999'},
         json={'model': 'gpt-40', 'user_prompt': prompt})
-        return response.json()
+        response = response.json()
+        clean_prompt = response['json']['user_prompt']
+        return f'AI response to {clean_prompt}'
 
 
 def get_current_user(token: str = Depends(oauth2_scheme)):
