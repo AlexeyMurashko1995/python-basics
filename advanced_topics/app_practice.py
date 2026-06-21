@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 import bcrypt
 import jwt
 
@@ -27,6 +27,8 @@ ALGORITHM = 'HS256'
 
 USERS_DB = {'alex':{'id': 1, 'password': get_hash_password('Alex123')}}
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
+
 
 def create_token(user_id: int):
     payload = {'sub': str(user_id)}
@@ -46,3 +48,10 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
     else:
         token = create_token(user['id'])
         return {'access_token': token, 'token_type': 'bearer'}
+
+
+@app.get('/users/me')
+def profile(token: str = Depends(oauth2_scheme)):
+    if token:
+        return {'caught_token': token}
+
