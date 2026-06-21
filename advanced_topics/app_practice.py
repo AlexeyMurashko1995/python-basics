@@ -3,6 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 import bcrypt
 import jwt
 import asyncio
+from pydantic import BaseModel
 
 
 app = FastAPI()
@@ -26,9 +27,12 @@ def verify_password(hash_string: str, password: str):
 SECRET_KEY = 'my_secret_key'
 ALGORITHM = 'HS256'
 
-USERS_DB = {'alex':{'id': 1, 'password': get_hash_password('Alex123')}}
+USERS_DB = {'alex': {'id': 1, 'password': get_hash_password('Alex123')}}
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
+
+class AIRequest(BaseModel):
+    prompt: str
 
 
 def create_token(user_id: int):
@@ -43,11 +47,11 @@ async def simulate_ai_model(prompt: str):
 
 
 @app.post('/tg-ai/generate')
-async def generate_text(prompt: str, token: str = Depends(oauth2_scheme)):
+async def generate_text(request_data: AIRequest, token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload['sub']
-        response = await simulate_ai_model(prompt)
+        response = await simulate_ai_model(request_data.prompt)
         return {'status': 'success', 'user_id': user_id, 'result': response}
     except jwt.PyJWTError:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
