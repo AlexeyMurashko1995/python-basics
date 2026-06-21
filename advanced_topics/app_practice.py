@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 import bcrypt
@@ -7,6 +8,8 @@ import asyncio
 from pydantic import BaseModel
 import httpx
 
+
+load_dotenv()
 
 app = FastAPI()
 
