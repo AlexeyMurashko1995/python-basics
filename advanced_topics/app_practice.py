@@ -44,7 +44,9 @@ def create_token(user_id: int):
 
 async def simulate_ai_model(prompt: str):
     async with httpx.AsyncClient() as client:
-        response = await client.get('https://httpbin.org/get')
+        response = await client.post('https://httpbin.org/post',
+        headers={'Authorization': 'Bearer fake-ai-key-999'},
+        json={'model': 'gpt-40', 'user_prompt': prompt})
         return response.json()
 
 
