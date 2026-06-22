@@ -41,8 +41,6 @@ def verify_password(hash_string: str, password: str):
 SECRET_KEY = os.getenv('SECRET_KEY', default='fallback_secret_key')
 ALGORITHM = 'HS256'
 
-USERS_DB = {'alex': {'id': 1, 'password': get_hash_password('Alex123')}}
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 class AIRequest(BaseModel):
@@ -69,14 +67,16 @@ async def simulate_ai_model(prompt: str):
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail='AI Service is currently unavailable. Try again later.')
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload['sub']
-        for username, id_user in USERS_DB.items():
-            if int(user_id) == id_user['id']:
-                return username
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='User not found')
+        query = select(User).where(User.id == int(user_id))
+        result = session.exec(query)
+        user = result.first()
+        if not user:
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='User not found')
+        return user.username
     except jwt.PyJWTError:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
 
