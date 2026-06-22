@@ -7,7 +7,7 @@ import jwt
 import asyncio
 from pydantic import BaseModel
 import httpx
-from sqlmodel import SQLModel, Session
+from sqlmodel import SQLModel, Session, select
 from app.database import engine, get_session
 from app.models import User
 from contextlib import asynccontextmanager
@@ -89,15 +89,17 @@ async def generate_text(request_data: AIRequest, username: str = Depends(get_cur
 
 @app.post('/login')
 def login(form_data: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)):
-    if form_data.username not in USERS_DB:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Incorrect username or password')
-    user = USERS_DB[form_data.username]
-    user_hash = user['password']
-    result = verify_password(user_hash, form_data.password)
-    if not result:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Incorrect username or password')
+    query = select(User).where(User.username == form_data.username)
+    result = session.exec(query)
+    user = result.first()
+    if not user:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='User not found')
     else:
-        token = create_token(user['id'])
+        user_hash = user.hashed_password
+        result = verify_password(user_hash, form_data.password)
+        if not result:
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Incorrect username or password')
+        token = create_token(user.id)
         return {'access_token': token, 'token_type': 'bearer'}
 
 
