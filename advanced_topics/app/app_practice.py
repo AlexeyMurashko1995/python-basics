@@ -7,11 +7,20 @@ import jwt
 import asyncio
 from pydantic import BaseModel
 import httpx
+from sqlmodel import SQLModel
+from app.database import engine
+from app.models import User
+from contextlib import asynccontextmanager
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    SQLModel.metadata.create_all(engine)
+    yield
 
 load_dotenv()
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 
 def get_hash_password(password: str):
@@ -95,4 +104,6 @@ def login(form_data: OAuth2PasswordRequestForm = Depends()):
 @app.get('/users/me')
 def profile(username: str = Depends(get_current_user)):
     return {'current_username': username}
+
+
 
