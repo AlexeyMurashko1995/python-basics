@@ -1,5 +1,7 @@
 from sqlmodel import SQLModel, Field, create_engine
 from pydantic import BaseModel
+from fastapi import FastAPI
+from contextlib import asynccontextmanager
 
 
 class Product(SQLModel, table=True):
@@ -16,3 +18,16 @@ filename = 'sandbox.db'
 url = f'sqlite:///{filename}'
 
 engine = create_engine(url)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    SQLModel.metadata.create_all(engine)
+    yield
+
+app = FastAPI(lifespan=lifespan)
+
+
+
+
+
+
