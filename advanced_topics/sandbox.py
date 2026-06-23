@@ -61,3 +61,17 @@ def read_product_by_id(product_id: int):
         if product_by_id:
             return product_by_id
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Product not found')
+
+
+@app.delete('/products/{product_id}')
+def delete_product_by_id(product_id: int):
+    with Session(engine) as session:
+        query = select(Product).where(Product.id==product_id)
+        result = session.exec(query)
+        target_product = result.first()
+        if not target_product:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Product not found')
+        session.delete(target_product)
+        session.commit()
+        return {'status': 'success', 'message': 'Product deleted'}
+
