@@ -43,6 +43,21 @@ def create_product(product: ProductCreate):
             return new_product
 
 
+@app.get('/products')
+def read_products():
+    with Session(engine) as session:
+        query = select(Product)
+        result = session.exec(query)
+        all_products = result.all()
+        return all_products
 
 
-
+@app.get('/products/{product_id}')
+def read_product_by_id(product_id: int):
+    with Session(engine) as session:
+        query = select(Product).where(Product.id==product_id)
+        result = session.exec(query)
+        product_by_id = result.first()
+        if product_by_id:
+            return product_by_id
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Product not found')
