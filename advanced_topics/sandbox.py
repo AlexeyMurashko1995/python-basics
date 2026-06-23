@@ -1,4 +1,4 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, create_engine
 from pydantic import BaseModel
 
 
@@ -10,3 +10,9 @@ class Product(SQLModel, table=True):
 class ProductCreate(BaseModel):
     title: str
     price: int
+
+
+filename = 'sandbox.db'
+url = f'sqlite:///{filename}'
+
+engine = create_engine(url)
