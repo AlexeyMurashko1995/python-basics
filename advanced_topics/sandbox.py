@@ -75,3 +75,17 @@ def delete_product_by_id(product_id: int):
         session.commit()
         return {'status': 'success', 'message': 'Product deleted'}
 
+
+@app.put('/products/{product_id}')
+def update_product(product_id: int, product_data: ProductCreate):
+    with Session(engine) as session:
+        query = select(Product).where(Product.id==product_id)
+        result = session.exec(query)
+        target_product = result.first()
+        if not target_product:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Product not found')
+        target_product.title = product_data.title
+        target_product.price = product_data.price
+        session.commit()
+        session.refresh(target_product)
+        return target_product
