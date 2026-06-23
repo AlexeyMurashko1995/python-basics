@@ -1,4 +1,5 @@
 from sqlmodel import SQLModel, Field
+from pydantic import BaseModel
 
 
 class Product(SQLModel, table=True):
@@ -6,3 +7,6 @@ class Product(SQLModel, table=True):
     title: str = Field(unique=True)
     price: int
 
+class ProductCreate(BaseModel):
+    title: str
+    price: int
