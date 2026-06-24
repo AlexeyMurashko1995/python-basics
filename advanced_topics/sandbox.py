@@ -3,6 +3,8 @@ from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException, status
 from contextlib import asynccontextmanager
 import bcrypt
+import jwt
+from datetime import datetime, timedelta, timezone
 
 
 class User(SQLModel, table=True):
@@ -28,6 +30,10 @@ filename = 'sandbox.db'
 url = f'sqlite:///{filename}'
 
 engine = create_engine(url)
+
+SECRET_KEY = 'my_secret_key'
+ALGORITHM = 'HS256'
+ACCESS_TOKEN_EXPIRES_MINUTES = 30
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -130,5 +136,8 @@ def login_user(user_data: UserCreate):
         hash_bytes = result.hashed_password.encode('utf-8')
         comparison = bcrypt.checkpw(password_bytes, hash_bytes)
         if comparison:
-            return {'status': 'success', 'message': 'You are logged in!'}
+            expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRES_MINUTES)
+            payload = {'sub': result.username, 'exp': expire}
+            token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+            return {'access_token': token, 'token_type': 'bearer'}
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid login or password')
