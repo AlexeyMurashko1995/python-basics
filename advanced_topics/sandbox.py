@@ -141,3 +141,16 @@ def login_user(user_data: UserCreate):
             token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
             return {'access_token': token, 'token_type': 'bearer'}
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid login or password')
+
+
+@app.get('/protected')
+def get_protected_data(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return {'sub': payload['sub']}
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='The token time is over')
+    except jwt.InvalidTokenError:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
+
+
