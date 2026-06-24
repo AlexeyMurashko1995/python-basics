@@ -99,3 +99,21 @@ def update_product(product_id: int, product_data: ProductCreate):
         session.commit()
         session.refresh(target_product)
         return target_product
+
+
+@app.post('/register')
+def register_user(user_data: UserCreate):
+    with Session(engine) as session:
+        query = select(User).where(User.username == user_data.username)
+        result = session.exec(query).first()
+        if result:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail='Username already registered')
+        password_bytes = user_data.password.encode('utf-8')
+        salt = bcrypt.gensalt()
+        password_hash = bcrypt.hashpw(password_bytes, salt)
+        hash_string = password_hash.decode('utf-8')
+        db_user = User(username=user_data.username, hashed_password=hash_string)
+        session.add(db_user)
+        session.commit()
+        session.refresh(db_user)
+        return db_user
