@@ -2,7 +2,17 @@ from sqlmodel import SQLModel, Field, create_engine, Session, select
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException, status
 from contextlib import asynccontextmanager
+import bcrypt
 
+
+class User(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    username: str = Field(unique=True)
+    hashed_password: str
+
+class UserCreate(BaseModel):
+    username: str
+    password: str
 
 class Product(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
