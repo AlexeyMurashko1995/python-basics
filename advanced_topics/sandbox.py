@@ -117,3 +117,18 @@ def register_user(user_data: UserCreate):
         session.commit()
         session.refresh(db_user)
         return db_user
+
+
+@app.post('/login')
+def login_user(user_data: UserCreate):
+    with Session(engine) as session:
+        query = select(User).where(User.username==user_data.username)
+        result = session.exec(query).first()
+        if not result:
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid login or password')
+        password_bytes = user_data.password.encode('utf-8')
+        hash_bytes = result.hashed_password.encode('utf-8')
+        comparison = bcrypt.checkpw(password_bytes, hash_bytes)
+        if comparison:
+            return {'status': 'success', 'message': 'You are logged in!'}
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid login or password')
