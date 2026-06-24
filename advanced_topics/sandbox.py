@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, Field, create_engine, Session, select
 from pydantic import BaseModel
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, status, Depends
+from fastapi.security import OAuth2PasswordBearer
 from contextlib import asynccontextmanager
 import bcrypt
 import jwt
@@ -33,7 +34,10 @@ engine = create_engine(url)
 
 SECRET_KEY = 'my_secret_key'
 ALGORITHM = 'HS256'
+
 ACCESS_TOKEN_EXPIRES_MINUTES = 30
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -144,7 +148,7 @@ def login_user(user_data: UserCreate):
 
 
 @app.get('/protected')
-def get_protected_data(token: str):
+def get_protected_data(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return {'sub': payload['sub']}
