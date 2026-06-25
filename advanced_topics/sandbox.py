@@ -167,10 +167,9 @@ def create_product(product: ProductCreate, current_user: User = Depends(get_curr
     query = select(Product).where(Product.title == product.title)
     target_product = session.exec(query).first()
     if target_product:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail='Bad Request')
-    else:
-        new_product = Product(title=product.title, price=product.price)
-        session.add(new_product)
-        session.commit()
-        session.refresh(new_product)
-        return new_product
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail='This product name already exists')
+    new_product = Product(title=product.title, price=product.price)
+    session.add(new_product)
+    session.commit()
+    session.refresh(new_product)
+    return new_product
