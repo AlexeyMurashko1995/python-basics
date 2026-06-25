@@ -158,7 +158,11 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
         target_user = payload['sub']
         if not target_user:
             raise HTTPException(status.HTTP_404_NOT_FOUND, detail='User not found')
-        return target_user
+        query = select(User).where(target_user == User.username)
+        result = session.exec(query).first()
+        if result:
+            return result
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='User not found')
     except jwt.ExpiredSignatureError:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Token expired')
     except jwt.InvalidTokenError:
