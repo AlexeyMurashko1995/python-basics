@@ -147,7 +147,12 @@ def login_user(user_data: UserCreate):
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid login or password')
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+def get_session():
+    with Session(engine) as session:
+        yield session
+
+
+def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         target_user = payload['sub']
