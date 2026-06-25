@@ -51,22 +51,6 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-@app.post('/product')
-def create_product(product: ProductCreate, current_user: User = Depends(get_current_user), session: Session = Depends(get_session)):
-    with Session(engine) as session:
-        query = select(Product).where(Product.title == product.title)
-        result = session.exec(query)
-        target_product = result.first()
-        if target_product:
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail='Bad Request')
-        else:
-            new_product = Product(title=product.title, price=product.price)
-            session.add(new_product)
-            session.commit()
-            session.refresh(new_product)
-            return new_product
-
-
 @app.get('/products')
 def read_products():
     with Session(engine) as session:
@@ -178,3 +162,15 @@ def get_protected_data(user_data: User = Depends(get_current_user)):
     return user_data
 
 
+@app.post('/product')
+def create_product(product: ProductCreate, current_user: User = Depends(get_current_user), session: Session = Depends(get_session)):
+    query = select(Product).where(Product.title == product.title)
+    target_product = session.exec(query).first()
+    if target_product:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail='Bad Request')
+    else:
+        new_product = Product(title=product.title, price=product.price)
+        session.add(new_product)
+        session.commit()
+        session.refresh(new_product)
+        return new_product
