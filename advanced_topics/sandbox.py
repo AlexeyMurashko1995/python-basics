@@ -147,25 +147,21 @@ def login_user(user_data: UserCreate):
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid login or password')
 
 
-@app.get('/protected')
-def get_protected_data(token: str = Depends(oauth2_scheme)):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return {'sub': payload['sub']}
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Token expired')
-    except jwt.InvalidTokenError:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
-
-
 def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         target_user = payload['sub']
         if not target_user:
             raise HTTPException(status.HTTP_404_NOT_FOUND, detail='User not found')
-        return {'username': target_user}
+        return target_user
     except jwt.ExpiredSignatureError:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Token expired')
     except jwt.InvalidTokenError:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
+
+
+@app.get('/protected')
+def get_protected_data(username: str = Depends(get_current_user)):
+    return {'sub': username}
+
+
