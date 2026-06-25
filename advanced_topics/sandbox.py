@@ -17,6 +17,10 @@ class UserCreate(BaseModel):
     username: str
     password: str
 
+class UserRead(BaseModel):
+    id: int
+    username: str
+
 class Product(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     title: str = Field(unique=True)
@@ -169,8 +173,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
 
 
-@app.get('/protected')
+@app.get('/protected', response_model=UserRead)
 def get_protected_data(user_data: User = Depends(get_current_user)):
-    return {'user_id': user_data.id, 'username': user_data.username}
+    return user_data
 
 
