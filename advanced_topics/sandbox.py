@@ -170,7 +170,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
 
 
 @app.get('/protected')
-def get_protected_data(username: str = Depends(get_current_user)):
-    return {'sub': username}
+def get_protected_data(user_data: User = Depends(get_current_user)):
+    return {'user_id': user_data.id, 'username': user_data.username}
 
 
