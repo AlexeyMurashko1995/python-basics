@@ -52,7 +52,7 @@ app = FastAPI(lifespan=lifespan)
 
 
 @app.post('/product')
-def create_product(product: ProductCreate):
+def create_product(product: ProductCreate, current_user: User = Depends(get_current_user), session: Session = Depends(get_session)):
     with Session(engine) as session:
         query = select(Product).where(Product.title == product.title)
         result = session.exec(query)
