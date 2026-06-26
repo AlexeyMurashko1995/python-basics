@@ -96,6 +96,8 @@ def read_product_by_id(product_id: int):
 
 @app.delete('/products/{product_id}')
 def delete_product_by_id(product_id: int, session: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
+    if current_user.role != 'admin':
+        raise HTTPException(status.HTTP_403_FORBIDDEN, detail='Only admins can delete products')
     query = select(Product).where(Product.id==product_id)
     result = session.exec(query)
     target_product = result.first()
