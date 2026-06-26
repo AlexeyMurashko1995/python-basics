@@ -51,6 +51,28 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
+def get_session():
+    with Session(engine) as session:
+        yield session
+
+
+def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        target_user = payload['sub']
+        if not target_user:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, detail='User not found')
+        query = select(User).where(target_user == User.username)
+        result = session.exec(query).first()
+        if result:
+            return result
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='User not found')
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Token expired')
+    except jwt.InvalidTokenError:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
+
+
 @app.get('/products')
 def read_products():
     with Session(engine) as session:
@@ -72,16 +94,15 @@ def read_product_by_id(product_id: int):
 
 
 @app.delete('/products/{product_id}')
-def delete_product_by_id(product_id: int):
-    with Session(engine) as session:
-        query = select(Product).where(Product.id==product_id)
-        result = session.exec(query)
-        target_product = result.first()
-        if not target_product:
-            raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Product not found')
-        session.delete(target_product)
-        session.commit()
-        return {'status': 'success', 'message': 'Product deleted'}
+def delete_product_by_id(product_id: int, session: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
+    query = select(Product).where(Product.id==product_id)
+    result = session.exec(query)
+    target_product = result.first()
+    if not target_product:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Product not found')
+    session.delete(target_product)
+    session.commit()
+    return {'status': 'success', 'message': 'Product deleted'}
 
 
 @app.put('/products/{product_id}')
@@ -133,28 +154,6 @@ def login_user(user_data: UserCreate):
             token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
             return {'access_token': token, 'token_type': 'bearer'}
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid login or password')
-
-
-def get_session():
-    with Session(engine) as session:
-        yield session
-
-
-def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        target_user = payload['sub']
-        if not target_user:
-            raise HTTPException(status.HTTP_404_NOT_FOUND, detail='User not found')
-        query = select(User).where(target_user == User.username)
-        result = session.exec(query).first()
-        if result:
-            return result
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='User not found')
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Token expired')
-    except jwt.InvalidTokenError:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
 
 
 @app.get('/protected', response_model=UserRead)
