@@ -31,6 +31,10 @@ class ProductCreate(BaseModel):
     title: str
     price: int
 
+class RoleChecker:
+    def __init__(self, allowed_roles: list[str]):
+        self.allowed_roles = allowed_roles
+
 
 filename = 'sandbox.db'
 url = f'sqlite:///{filename}'
