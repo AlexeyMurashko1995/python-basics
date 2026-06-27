@@ -1,11 +1,23 @@
-from sqlmodel import SQLModel, Field, create_engine, Session, select
-from pydantic import BaseModel
-from fastapi import FastAPI, HTTPException, status, Depends
-from fastapi.security import OAuth2PasswordBearer
 from contextlib import asynccontextmanager
+from datetime import datetime, timedelta, timezone
+
 import bcrypt
 import jwt
-from datetime import datetime, timedelta, timezone
+from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+from pydantic import BaseModel
+from sqlmodel import Field, Session, SQLModel, create_engine, select
+
+
+SECRET_KEY = 'my_secret_key'
+ALGORITHM = 'HS256'
+ACCESS_TOKEN_EXPIRES_MINUTES = 30
+
+filename = 'sandbox.db'
+url = f'sqlite:///{filename}'
+engine = create_engine(url)
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 
 class User(SQLModel, table=True):
@@ -14,22 +26,31 @@ class User(SQLModel, table=True):
     hashed_password: str
     role: str | None = Field(default='customer')
 
+
 class UserCreate(BaseModel):
     username: str
     password: str
 
+
 class UserRead(BaseModel):
     id: int
     username: str
+
 
 class Product(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     title: str = Field(unique=True)
     price: int
 
+
 class ProductCreate(BaseModel):
     title: str
     price: int
+
+
+def get_session():
+    with Session(engine) as session:
+        yield session
 
 
 def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
@@ -52,32 +73,18 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
 class RoleChecker:
     def __init__(self, allowed_roles: list[str]):
         self.allowed_roles = allowed_roles
-    def __call__(self, currrent_user: User = Depends(get_current_user)):
+
+    def __call__(self, current_user: User = Depends(get_current_user)):
         pass
 
-filename = 'sandbox.db'
-url = f'sqlite:///{filename}'
-
-engine = create_engine(url)
-
-SECRET_KEY = 'my_secret_key'
-ALGORITHM = 'HS256'
-
-ACCESS_TOKEN_EXPIRES_MINUTES = 30
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     SQLModel.metadata.create_all(engine)
     yield
 
+
 app = FastAPI(lifespan=lifespan)
-
-
-def get_session():
-    with Session(engine) as session:
-        yield session
 
 
 @app.get('/products')
@@ -92,7 +99,7 @@ def read_products():
 @app.get('/products/{product_id}')
 def read_product_by_id(product_id: int):
     with Session(engine) as session:
-        query = select(Product).where(Product.id==product_id)
+        query = select(Product).where(Product.id == product_id)
         result = session.exec(query)
         product_by_id = result.first()
         if product_by_id:
@@ -104,7 +111,7 @@ def read_product_by_id(product_id: int):
 def delete_product_by_id(product_id: int, session: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
     if current_user.role != 'admin':
         raise HTTPException(status.HTTP_403_FORBIDDEN, detail='Only admins can delete products')
-    query = select(Product).where(Product.id==product_id)
+    query = select(Product).where(Product.id == product_id)
     result = session.exec(query)
     target_product = result.first()
     if not target_product:
@@ -116,7 +123,7 @@ def delete_product_by_id(product_id: int, session: Session = Depends(get_session
 
 @app.put('/products/{product_id}')
 def update_product(product_id: int, product_data: ProductCreate, session: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
-    query = select(Product).where(Product.id==product_id)
+    query = select(Product).where(Product.id == product_id)
     result = session.exec(query)
     target_product = result.first()
     if not target_product:
@@ -149,7 +156,7 @@ def register_user(user_data: UserCreate):
 @app.post('/login')
 def login_user(user_data: UserCreate):
     with Session(engine) as session:
-        query = select(User).where(User.username==user_data.username)
+        query = select(User).where(User.username == user_data.username)
         result = session.exec(query).first()
         if not result:
             raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid login or password')
