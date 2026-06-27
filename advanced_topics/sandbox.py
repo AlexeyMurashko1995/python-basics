@@ -31,10 +31,29 @@ class ProductCreate(BaseModel):
     title: str
     price: int
 
+
+def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        target_user = payload['sub']
+        if not target_user:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, detail='User not found')
+        query = select(User).where(target_user == User.username)
+        result = session.exec(query).first()
+        if result:
+            return result
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='User not found')
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Token expired')
+    except jwt.InvalidTokenError:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
+
+
 class RoleChecker:
     def __init__(self, allowed_roles: list[str]):
         self.allowed_roles = allowed_roles
-
+    def __call__(self, currrent_user: User = Depends(get_current_user)):
+        pass
 
 filename = 'sandbox.db'
 url = f'sqlite:///{filename}'
@@ -59,23 +78,6 @@ app = FastAPI(lifespan=lifespan)
 def get_session():
     with Session(engine) as session:
         yield session
-
-
-def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        target_user = payload['sub']
-        if not target_user:
-            raise HTTPException(status.HTTP_404_NOT_FOUND, detail='User not found')
-        query = select(User).where(target_user == User.username)
-        result = session.exec(query).first()
-        if result:
-            return result
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='User not found')
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Token expired')
-    except jwt.InvalidTokenError:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail='Invalid Token')
 
 
 @app.get('/products')
