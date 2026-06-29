@@ -5,13 +5,14 @@ import asyncio
 import bcrypt
 import httpx
 import jwt
+import os
 from fastapi import Depends, FastAPI, Request, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
-SECRET_KEY = 'my_secret_key'
+SECRET_KEY = os.environ.get('SECRET_KEY','my_secret_key')
 ALGORITHM = 'HS256'
 ACCESS_TOKEN_EXPIRES_MINUTES = 30
 
@@ -201,7 +202,7 @@ def create_product(product: ProductCreate, current_user: User = Depends(get_curr
 
 @app.post('/products/{product_id}/generate-ai-description')
 async def get_ai_description(product_id: int, request: Request, session: Session = Depends(get_session), role_checker = Depends(RoleChecker(allowed_roles=['admin', 'manager']))):
-    client = request.app.state.http_client
+    client: httpx.AsyncClient = request.app.state.http_client
     response = await client.get('https://httpbin.org/delay/2')
     if response.status_code != 200:
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail='AI service is temporarily unavailable')
