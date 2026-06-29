@@ -90,7 +90,7 @@ async def lifespan(app: FastAPI):
     app.state.ai_model_name = 'GPT-4o-mini'
     app.state.http_client = httpx.AsyncClient()
     yield
-
+    await app.state.http_client.aclose()
 
 app = FastAPI(lifespan=lifespan)
 
