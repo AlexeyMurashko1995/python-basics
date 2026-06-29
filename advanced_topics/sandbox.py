@@ -1,9 +1,10 @@
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
 
-import bcrypt
-import jwt
 import asyncio
+import bcrypt
+import httpx
+import jwt
 from fastapi import Depends, FastAPI, Request, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
@@ -199,7 +200,8 @@ def create_product(product: ProductCreate, current_user: User = Depends(get_curr
 
 @app.post('/products/{product_id}/generate-ai-description')
 async def get_ai_description(product_id: int, request: Request, session: Session = Depends(get_session), role_checker = Depends(RoleChecker(allowed_roles=['admin', 'manager']))):
-    await asyncio.sleep(3)
+    async with httpx.AsyncClient() as client:
+        response = await client.get('https://httpbin.org/delay/2')
     query = select(Product).where(product_id == Product.id)
     target_product = session.exec(query).first()
     if not target_product:
