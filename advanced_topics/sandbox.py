@@ -201,11 +201,11 @@ def create_product(product: ProductCreate, current_user: User = Depends(get_curr
 
 @app.post('/products/{product_id}/generate-ai-description')
 async def get_ai_description(product_id: int, request: Request, session: Session = Depends(get_session), role_checker = Depends(RoleChecker(allowed_roles=['admin', 'manager']))):
-    async with httpx.AsyncClient() as client:
-        response = await client.get('https://httpbin.org/delay/2')
-        if response.status_code != 200:
-            raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail='AI service is temporarily unavailable')
-        data = response.json()
+    client = request.app.state.http_client
+    response = await client.get('https://httpbin.org/delay/2')
+    if response.status_code != 200:
+        raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail='AI service is temporarily unavailable')
+    data = response.json()
 
     query = select(Product).where(product_id == Product.id)
     target_product = session.exec(query).first()
