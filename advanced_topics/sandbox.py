@@ -6,11 +6,14 @@ import bcrypt
 import httpx
 import jwt
 import os
+from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, Request, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
+
+load_dotenv()
 
 SECRET_KEY = os.environ.get('SECRET_KEY','my_secret_key')
 ALGORITHM = 'HS256'
