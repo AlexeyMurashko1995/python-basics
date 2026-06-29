@@ -88,6 +88,7 @@ class RoleChecker:
 async def lifespan(app: FastAPI):
     SQLModel.metadata.create_all(engine)
     app.state.ai_model_name = 'GPT-4o-mini'
+    app.state.http_client = httpx.AsyncClient()
     yield
 
 
