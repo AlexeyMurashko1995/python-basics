@@ -11,23 +11,21 @@ from app.models.user import User
 router = APIRouter()
 
 @router.get('/products')
-def read_products():
-    with Session(engine) as session:
-        query = select(Product)
-        result = session.exec(query)
-        all_products = result.all()
-        return all_products
+def read_products(session: Session = Depends(get_session)):
+    query = select(Product)
+    result = session.exec(query)
+    all_products = result.all()
+    return all_products
 
 
 @router.get('/products/{product_id}')
-def read_product_by_id(product_id: int):
-    with Session(engine) as session:
-        query = select(Product).where(Product.id == product_id)
-        result = session.exec(query)
-        product_by_id = result.first()
-        if product_by_id:
-            return product_by_id
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Product not found')
+def read_product_by_id(product_id: int, session: Session = Depends(get_session)):
+    query = select(Product).where(Product.id == product_id)
+    result = session.exec(query)
+    product_by_id = result.first()
+    if product_by_id:
+        return product_by_id
+    raise HTTPException(status.HTTP_404_NOT_FOUND, detail='Product not found')
 
 
 @router.delete('/products/{product_id}')
