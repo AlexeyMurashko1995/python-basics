@@ -8,7 +8,7 @@ with open('sql_pr.sql', 'r', encoding='utf-8') as file:
 
 cursor.executescript(sql_script)
 
-query = 'SELECT * FROM orders'
+query = 'SELECT client_name, city, weight_kg FROM orders WHERE status= "delivered"'
 cursor.execute(query)
 rows = cursor.fetchall()
 
