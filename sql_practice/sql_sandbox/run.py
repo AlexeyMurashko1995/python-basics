@@ -8,7 +8,7 @@ with open('sql_pr.sql', 'r', encoding='utf-8') as file:
 
 cursor.executescript(sql_script)
 
-query = "SELECT city, COUNT(*) AS total_orders, SUM(weight_kg) AS total_weight FROM orders WHERE status = 'delivered' GROUP BY city"
+query = "SELECT city, COUNT(*) AS delivered_count, SUM(weight_kg) AS total_weight FROM orders WHERE status='delivered' GROUP BY city"
 cursor.execute(query)
 rows = cursor.fetchall()
 
