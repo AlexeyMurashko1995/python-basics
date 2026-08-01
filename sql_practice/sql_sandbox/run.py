@@ -8,9 +8,10 @@ with open('sql_pr.sql', 'r', encoding='utf-8') as file:
 
 cursor.executescript(sql_script)
 
-query = "SELECT branch, SUM(amount) AS total_profit FROM sales WHERE payment_type = 'card' GROUP BY branch HAVING SUM(amount) > 100"
+# query = "SELECT branch, SUM(amount) AS total_profit FROM sales WHERE payment_type = 'card' GROUP BY branch HAVING SUM(amount) > 100"
+query = "SELECT branch, COUNT(*), AVG(amount) as avg_price FROM sales WHERE payment_type = 'cash' GROUP BY branch HAVING AVG(amount) <= 40"
 
-connection.execute(query)
+cursor.execute(query)
 rows = cursor.fetchall()
 
 for row in rows:
