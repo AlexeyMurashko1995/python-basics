@@ -8,15 +8,10 @@ with open('sql_pr.sql', 'r', encoding='utf-8') as file:
 
 cursor.executescript(sql_script)
 
-# query = "SELECT city, COUNT(*) AS delivered_count, SUM(weight_kg) AS total_weight FROM orders WHERE status='delivered' GROUP BY city"
-# query = "SELECT client_name, city, weight_kg FROM orders WHERE status = 'in_transit'"
-# query = "SELECT city, SUM(weight_kg) AS total_weight FROM orders GROUP BY city HAVING SUM(weight_kg) > 100"
-# query = "SELECT city, SUM(weight_kg) AS total_weight FROM orders WHERE status = 'delivered' GROUP BY city HAVING SUM(weight_kg) > 100"
-query = "SELECT city, COUNT(*) AS total_count FROM orders WHERE weight_kg > 40 GROUP BY city HAVING COUNT(*) >= 2"
+query = "SELECT branch, SUM(amount) AS total_profit FROM sales WHERE payment_type = 'card' GROUP BY branch HAVING SUM(amount) > 100"
 
-cursor.execute(query)
+connection.execute(query)
 rows = cursor.fetchall()
 
 for row in rows:
     print(row)
-

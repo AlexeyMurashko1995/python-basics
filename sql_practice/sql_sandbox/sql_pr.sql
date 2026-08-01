@@ -1,16 +1,16 @@
-CREATE TABLE orders (
+CREATE TABLE sales (
     id INTEGER PRIMARY KEY,
-    client_name TEXT,
-    city TEXT,
-    weight_kg REAL,
-    status TEXT,
-    created_at TEXT
+    branch TEXT,
+    amount REAL,
+    payment_type TEXT
 );
 
-INSERT INTO orders (client_name, city, weight_kg, status, created_at)
+INSERT INTO sales (branch, amount, payment_type)
 VALUES
-('DHL', 'Warsaw', 150.5, 'delivered', '2026-03-01'),
-('Express', 'Krakow', 80.0, 'delivered', '2026-03-02'),
-('FastLog', 'Warsaw', 45.0, 'delivered', '2026-03-03'),
-('CargoPlus', 'Gdansk', 200.0, 'in_transit', '2026-03-04'),
-('EcoTrans', 'Krakow', 30, 'delivered', '2026-03-05');
+('Center', 15.0, 'card'),
+('Center', 120.0, 'card'),
+('North', 45.0, 'cash'),
+('North', 200.0, 'card'),
+('South', 30.0, 'cash'),
+('South', 150.0, 'card'),
+('Center', 10.0, 'cash');
