@@ -66,7 +66,8 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
         # query = select(Employee.name, func.sum(Sale.amount).label("total_sales")).join(Sale).group_by(Employee.name)
-        query = select(Department.name, func.sum(Sale.amount).label('department_sales')).join(Employee).join(Sale).group_by(Department.name)
+        # query = select(Department.name, func.sum(Sale.amount).label('department_sales')).join(Employee).join(Sale).group_by(Department.name)
+        query = select(Department.name, func.sum(Sale.amount).label("department_sales")).join(Employee).join(Sale).group_by(Department.name).having(func.sum(Sale.amount) > 500)
         result = await session.execute(query)
         summary = result.all()
         print(summary)
