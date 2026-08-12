@@ -68,7 +68,9 @@ async def main():
         # query = select(Employee.name, Employee.salary).where((Employee.id==1) | (Employee.id==3))
         # query = select(func.count(Sale.id))
         # query = select(Employee.name, Department.name).join(Employee.department)
-        query = select(Sale.amount, Employee.name).join(Sale.employee)
+        # query = select(Sale.amount, Employee.name).join(Sale.employee)
+        # query = select(Department.name, Employee.name, Sale.amount).join(Department.employees).join(Employee.sales)
+        query = select(Employee.name, func.sum(Sale.amount)).join(Employee.sales).group_by(Employee.name)
 
         result = await session.execute(query)
         rows = result.all()
