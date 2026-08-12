@@ -64,7 +64,11 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        query = select(Employee.name, Employee.salary).where(Employee.salary > 2800).order_by(Employee.salary.desc())
+        # query = select(Employee.name, Employee.salary).where(Employee.salary > 2800).order_by(Employee.salary.desc())
+        # query = select(Employee.name, Employee.salary).where((Employee.id==1) | (Employee.id==3))
+        # query = select(func.count(Sale.id))
+        # query = select(Employee.name, Department.name).join(Employee.department)
+        query = select(Sale.amount, Employee.name).join(Sale.employee)
 
         result = await session.execute(query)
         rows = result.all()
