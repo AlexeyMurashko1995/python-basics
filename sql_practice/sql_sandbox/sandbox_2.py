@@ -1,9 +1,7 @@
 import asyncio
-from datetime import datetime
 from decimal import Decimal
-from typing import Optional
 
-from sqlalchemy import ForeignKey, Numeric, String, select, func
+from sqlalchemy import ForeignKey, Numeric, select, func
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -65,22 +63,16 @@ async def main():
 
     async with async_session() as session:
         await seed_data(session)
-        # query = select(Employee.name, func.sum(Sale.amount).label("total_sales")).join(Sale).group_by(Employee.name)
-        # query = select(Department.name, func.sum(Sale.amount).label('department_sales')).join(Employee).join(Sale).group_by(Department.name)
-        # query = select(Department.name, func.sum(Sale.amount).label("department_sales")).join(Employee).join(Sale).group_by(Department.name).having(func.sum(Sale.amount) > 500)
-        query = (
-            select(Department.name, func.sum(Sale.amount).label("department_sales"))
-            .join(Employee)
-            .join(Sale)
-            .where(Sale.amount > 400)
-            .group_by(Department.name)
-            .having(func.sum(Sale.amount) > 1000)
-            .order_by(func.sum(Sale.amount).desc())
-            .limit(1)
-        )
+
+        query = select(Employee.name, Employee.salary).where(Employee.salary > 2800).order_by(Employee.salary.desc())
+
         result = await session.execute(query)
-        summary = result.all()
-        print(summary)
+        rows = result.all()
+
+        print("\n=== Result ===")
+        for row in rows:
+            print(row)
+        print("===========================\n")
 
 
 if __name__ == "__main__":
