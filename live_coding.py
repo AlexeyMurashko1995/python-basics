@@ -164,22 +164,63 @@
 
 # print(sum_revenue_by_category(sales))
 
-# ---------- Task 9 ----------
+# # ---------- Task 9 ----------
 
-def sum_scores_by_player(results: list[dict]) -> dict[str, int]:
-    filtered_results = {}
-    for result in results:
-        player_name = result.get("player", "unknown")
-        score = result.get("score", 0)
-        filtered_results[player_name] = filtered_results.get(player_name, 0) + score
-    return filtered_results
+# def sum_scores_by_player(results: list[dict]) -> dict[str, int]:
+#     filtered_results = {}
+#     for result in results:
+#         player_name = result.get("player", "unknown")
+#         score = result.get("score", 0)
+#         filtered_results[player_name] = filtered_results.get(player_name, 0) + score
+#     return filtered_results
 
-results = [
-    {"player": "Alex", "score": 10},
-    {"player": "Bob", "score": 5},
-    {"player": "Alex", "score": 15},
-    {"score": 20},
-    {"player": "Bob", "score": 10}
-]
+# results = [
+#     {"player": "Alex", "score": 10},
+#     {"player": "Bob", "score": 5},
+#     {"player": "Alex", "score": 15},
+#     {"score": 20},
+#     {"player": "Bob", "score": 10}
+# ]
 
-print(sum_scores_by_player(results))
+# print(sum_scores_by_player(results))
+
+# ---------- Task 10 ----------
+
+# def sum_duration_by_category(videos: list[dict]) -> dict[str, int]:
+#     filtered_videos = {}
+#     for video in videos:
+#         category = video.get("category", "unknown")
+#         duration = video.get("duration", 0)
+#         filtered_videos[category] = filtered_videos.get(category, 0) + duration
+#     return filtered_videos
+
+
+# videos = [
+#     {"category": "Python", "duration": 300},
+#     {"category": "English", "duration": 120},
+#     {"category": "Python", "duration": 450},
+#     {"duration": 200},
+#     {"category": "English", "duration": 180}
+# ]
+
+# print(sum_duration_by_category(videos))
+
+# ---------- Task 11 ----------
+
+def get_most_expensive_product(products: dict[str, float]) -> str:
+    max_price = 0.0
+    max_title = ""
+    for title, price in products.items():
+        if price >= max_price:
+            max_price = price
+            max_title = title
+    return (max_title)
+
+
+products = {
+    "Laptop": 1200.0,
+    "Mouse": 25.0,
+    "Monitor": 300.0
+}
+
+print(get_most_expensive_product(products))
