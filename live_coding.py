@@ -245,21 +245,90 @@
 
 # print(get_top_student(grades))
 
-# ---------- Task 13 ----------
+# # ---------- Task 13 ----------
 
-def filter_high_scores(scores: dict[str, int], threshold: int) -> list[str]:
-    winner_list = []
-    for name, score in scores.items():
-        if score >= threshold:
-            winner_list.append(name)
-    return winner_list
+# def filter_high_scores(scores: dict[str, int], threshold: int) -> list[str]:
+#     winner_list = []
+#     for name, score in scores.items():
+#         if score >= threshold:
+#             winner_list.append(name)
+#     return winner_list
 
-scores = {
-    "Alex": 85,
-    "Bob": 60,
-    "Eva": 92,
-    "Petr": 45
+# scores = {
+#     "Alex": 85,
+#     "Bob": 60,
+#     "Eva": 92,
+#     "Petr": 45
+# }
+# threshold = 80
+
+# print(filter_high_scores(scores, threshold))
+
+# # ---------- Task 14 ----------
+
+# def check_reorder_needed(stock: dict[str, int], thresholds: dict[str, int]) -> list[str]:
+#     filtered_products_list = []
+#     for item, count in stock.items():
+#         threshold = thresholds.get(item, 10)
+#         if count < threshold:
+#             filtered_products_list.append(item)
+#     return filtered_products_list
+
+# stock = {
+#     "Laptop": 3,
+#     "Mouse": 15,
+#     "Keyboard": 2,
+#     "Monitor": 12
+# }
+
+# thresholds = {
+#     "Laptop": 5,
+#     "Mouse": 10
+# }
+
+# print(check_reorder_needed(stock, thresholds))
+
+# # ---------- Task 15 ----------
+
+# def apply_discounts(prices: dict[str, float], discounts: dict[str, float]) -> dict[str, float]:
+#     final_prices = {}
+#     for name, price in prices.items():
+#         discount = discounts.get(name, 0)
+#         final_prices[name] = price - discount
+#     return final_prices
+
+# prices = {
+#     "Laptop": 1000.0,
+#     "Mouse": 25.0,
+#     "Monitor": 200.0
+# }
+
+# discounts = {
+#     "Laptop": 100.0,
+#     "Mouse": 5.0
+# }
+
+# print(apply_discounts(prices, discounts))
+
+# ---------- Task 16 ----------
+
+def calculate_item_totals(quantities: dict[str, int], prices: dict[str, float]) -> dict[str, float]:
+    final_data = {}
+    for name, quantity in quantities.items():
+        price = prices.get(name, 0.0)
+        final_data[name] = price * quantity
+    return final_data
+
+
+quantities = {
+    "Laptop": 2,
+    "Mouse": 5,
+    "Keyboard": 1
 }
-threshold = 80
 
-print(filter_high_scores(scores, threshold))
+prices = {
+    "Laptop": 1000.0,
+    "Mouse": 25.0
+}
+
+print(calculate_item_totals(quantities, prices))
