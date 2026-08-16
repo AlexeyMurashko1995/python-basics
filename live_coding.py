@@ -123,22 +123,63 @@
 
 # print(count_payment_method(payments))
 
-# ---------- Task 7 ----------
+# # ---------- Task 7 ----------
 
-def sum_payments_by_method(payments: list[dict]) -> dict[str, int]:
-    filtered_payments = {}
-    for payment in payments:
-        method = payment.get("method", "unknown")
-        amount = payment.get("amount", 0)
-        filtered_payments[method] = filtered_payments.get(method, 0) + amount
-    return filtered_payments
+# def sum_payments_by_method(payments: list[dict]) -> dict[str, int]:
+#     filtered_payments = {}
+#     for payment in payments:
+#         method = payment.get("method", "unknown")
+#         amount = payment.get("amount", 0)
+#         filtered_payments[method] = filtered_payments.get(method, 0) + amount
+#     return filtered_payments
 
-payments = [
-    {"amount": 100, "method": "card"},
-    {"amount": 50, "method": "cash"},
-    {"amount": 200, "method": "card"},
-    {"amount": 30, "method": "cash"},
-    {"amount": 10}
+# payments = [
+#     {"amount": 100, "method": "card"},
+#     {"amount": 50, "method": "cash"},
+#     {"amount": 200, "method": "card"},
+#     {"amount": 30, "method": "cash"},
+#     {"amount": 10}
+# ]
+
+# print(sum_payments_by_method(payments))
+
+# # ---------- Task 8 ----------
+
+# def sum_revenue_by_category(sales: list[dict]) -> dict[str, float]:
+#     filtered_sales = {}
+#     for sale in sales:
+#         category = sale.get("category", "other")
+#         price = sale.get("price")
+#         filtered_sales[category] = filtered_sales.get(category, 0) + price
+#     return filtered_sales
+
+
+# sales = [
+#     {"category": "electronics", "price": 200.0},
+#     {"category": "books", "price": 15.0},
+#     {"category": "electronics", "price": 50.0},
+#     {"category": "books", "price": 10.0},
+#     {"price": 5.0}
+# ]
+
+# print(sum_revenue_by_category(sales))
+
+# ---------- Task 9 ----------
+
+def sum_scores_by_player(results: list[dict]) -> dict[str, int]:
+    filtered_results = {}
+    for result in results:
+        player_name = result.get("player", "unknown")
+        score = result.get("score", 0)
+        filtered_results[player_name] = filtered_results.get(player_name, 0) + score
+    return filtered_results
+
+results = [
+    {"player": "Alex", "score": 10},
+    {"player": "Bob", "score": 5},
+    {"player": "Alex", "score": 15},
+    {"score": 20},
+    {"player": "Bob", "score": 10}
 ]
 
-print(sum_payments_by_method(payments))
+print(sum_scores_by_player(results))
