@@ -41,3 +41,23 @@
 
 # ---------- Task 3 ----------
 
+def filter_products_by_price(products: list[dict], max_price: float) -> list[str]:
+    filtered_list = []
+    for product in products:
+        title = product.get("title")
+        price = product.get("price")
+        is_available = product.get("is_available")
+        if title and price is not None and price <= max_price and is_available:
+            filtered_list.append(title)
+    return filtered_list
+
+products = [
+    {"title": "Laptop", "price": 1200.0, "is_available": True},
+    {"title": "Mouse", "price": 25.0, "is_available": True},
+    {"title": "Keyboard", "price": 80.0, "is_available": False},
+    {"title": "Monitor", "price": 300.0, "is_available": True},
+    {"price": 10.0, "is_available": True}
+]
+max_price = 100.0
+
+print(filter_products_by_price(products, max_price))
