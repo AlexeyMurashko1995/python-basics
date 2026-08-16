@@ -205,22 +205,61 @@
 
 # print(sum_duration_by_category(videos))
 
-# ---------- Task 11 ----------
+# # ---------- Task 11 ----------
 
-def get_most_expensive_product(products: dict[str, float]) -> str:
-    max_price = 0.0
-    max_title = ""
-    for title, price in products.items():
-        if price >= max_price:
-            max_price = price
-            max_title = title
-    return (max_title)
+# def get_most_expensive_product(products: dict[str, float]) -> str:
+#     max_price = 0.0
+#     max_title = ""
+#     for title, price in products.items():
+#         if price >= max_price:
+#             max_price = price
+#             max_title = title
+#     return (max_title)
 
 
-products = {
-    "Laptop": 1200.0,
-    "Mouse": 25.0,
-    "Monitor": 300.0
+# products = {
+#     "Laptop": 1200.0,
+#     "Mouse": 25.0,
+#     "Monitor": 300.0
+# }
+
+# print(get_most_expensive_product(products))
+
+# # ---------- Task 12 ----------
+
+# def get_top_student(grades: dict[str, float]) -> str:
+#     max_grade = 0.0
+#     max_name = ""
+#     for name, grade in grades.items():
+#         if grade >= max_grade:
+#             max_grade = grade
+#             max_name = name
+#     return max_name
+
+
+# grades = {
+#     "Alex": 4.5,
+#     "Elena": 4.9,
+#     "Petr": 3.8
+# }
+
+# print(get_top_student(grades))
+
+# ---------- Task 13 ----------
+
+def filter_high_scores(scores: dict[str, int], threshold: int) -> list[str]:
+    winner_list = []
+    for name, score in scores.items():
+        if score >= threshold:
+            winner_list.append(name)
+    return winner_list
+
+scores = {
+    "Alex": 85,
+    "Bob": 60,
+    "Eva": 92,
+    "Petr": 45
 }
+threshold = 80
 
-print(get_most_expensive_product(products))
+print(filter_high_scores(scores, threshold))
