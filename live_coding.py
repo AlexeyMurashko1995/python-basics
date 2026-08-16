@@ -1,14 +1,43 @@
-# ---------- Task 1 ----------
+# # ---------- Task 1 ----------
 
 
-def get_word_lengths(words: list[str]) -> dict[str, int]:
-    clean_dict = {}
-    for word in words:
-        if len(word) > 0:
-            clean_dict[word] = len(word)
-    return clean_dict
+# def get_word_lengths(words: list[str]) -> dict[str, int]:
+#     clean_dict = {}
+#     for word in words:
+#         if len(word) > 0:
+#             clean_dict[word] = len(word)
+#     return clean_dict
 
 
-our_list = ["python", "fastapi", "", "sql", "python"]
+# our_list = ["python", "fastapi", "", "sql", "python"]
 
-print(get_word_lengths(our_list))
+# print(get_word_lengths(our_list))
+
+# # ---------- Task 2 ----------
+
+
+# def filter_users_by_age(users: list[dict], min_age: int) -> list[str]:
+#     filtered_list = []
+#     for user in users:
+#         age = user.get("age")
+#         name = user.get("name")
+
+#         if age is not None and age >= min_age and name:
+#             filtered_list.append(name)
+
+#     return filtered_list
+
+
+# users = [
+#     {"name": "Alex", "age": 30},
+#     {"name": "Bob", "age": 17},
+#     {"name": "Eva", "age": 22},
+#     {"name": "Unknown"}
+# ]
+
+# min_age = 18
+
+# print(filter_users_by_age(users, min_age))
+
+# ---------- Task 3 ----------
+
