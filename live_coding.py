@@ -310,25 +310,47 @@
 
 # print(apply_discounts(prices, discounts))
 
-# ---------- Task 16 ----------
+# # ---------- Task 16 ----------
 
-def calculate_item_totals(quantities: dict[str, int], prices: dict[str, float]) -> dict[str, float]:
-    final_data = {}
-    for name, quantity in quantities.items():
-        price = prices.get(name, 0.0)
-        final_data[name] = price * quantity
-    return final_data
+# def calculate_item_totals(quantities: dict[str, int], prices: dict[str, float]) -> dict[str, float]:
+#     final_data = {}
+#     for name, quantity in quantities.items():
+#         price = prices.get(name, 0.0)
+#         final_data[name] = price * quantity
+#     return final_data
 
 
-quantities = {
-    "Laptop": 2,
-    "Mouse": 5,
-    "Keyboard": 1
+# quantities = {
+#     "Laptop": 2,
+#     "Mouse": 5,
+#     "Keyboard": 1
+# }
+
+# prices = {
+#     "Laptop": 1000.0,
+#     "Mouse": 25.0
+# }
+
+# print(calculate_item_totals(quantities, prices))
+
+# ---------- Task 17 ----------
+
+def calculate_final_scores(scores: dict[str, int], bonuses: dict[str, int]) -> dict[str, int]:
+    final_scores = {}
+    for student, score in scores.items():
+        bonus = bonuses.get(student, 0)
+        final_scores[student]= score + bonus
+    return final_scores
+
+scores = {
+    "Alex": 80,
+    "Bob": 75,
+    "Eva": 90
 }
 
-prices = {
-    "Laptop": 1000.0,
-    "Mouse": 25.0
+bonuses = {
+    "Alex": 10,
+    "Eva": 5
 }
 
-print(calculate_item_totals(quantities, prices))
+print(calculate_final_scores(scores, bonuses))
