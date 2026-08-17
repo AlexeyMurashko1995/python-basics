@@ -502,3 +502,28 @@
 # ]
 
 # print(group_events_by_city(events))
+
+# ---------- Task 25 ----------
+
+def group_users_by_age(users: list[dict]) -> dict[str, list[str]]:
+    sorted_users = {}
+    sorted_users["adult"] = []
+    sorted_users["minor"] = []
+    for user in users:
+        name = user.get("name")
+        age = user.get("age")
+        if age >= 18:
+            sorted_users["adult"].append(name)
+        else:
+            sorted_users["minor"].append(name)
+    return sorted_users
+
+
+users = [
+    {"name": "Alex", "age": 25},
+    {"name": "Bob", "age": 15},
+    {"name": "Eva", "age": 30},
+    {"name": "Dan", "age": 12}
+]
+
+print(group_users_by_age(users))
