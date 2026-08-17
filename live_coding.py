@@ -413,25 +413,47 @@
 
 # print(group_order_ids_by_status(orders))
 
-# ---------- Task 21 ----------
+# # ---------- Task 21 ----------
 
-def group_students_by_grade(students: list[dict]) -> dict[str, list[str]]:
-    students_by_class = {}
-    for student in students:
-        name = student.get("name")
-        grade = student.get("grade")
-        if grade not in students_by_class:
-            students_by_class[grade] = []
-        students_by_class[grade].append(name)
-    return students_by_class
+# def group_students_by_grade(students: list[dict]) -> dict[str, list[str]]:
+#     students_by_class = {}
+#     for student in students:
+#         name = student.get("name")
+#         grade = student.get("grade")
+#         if grade not in students_by_class:
+#             students_by_class[grade] = []
+#         students_by_class[grade].append(name)
+#     return students_by_class
 
 
-students = [
-    {"name": "Alice", "grade": "5A"},
-    {"name": "Bob", "grade": "5B"},
-    {"name": "Charlie", "grade": "5A"},
-    {"name": "David", "grade": "5C"},
-    {"name": "Eva", "grade": "5B"}
+# students = [
+#     {"name": "Alice", "grade": "5A"},
+#     {"name": "Bob", "grade": "5B"},
+#     {"name": "Charlie", "grade": "5A"},
+#     {"name": "David", "grade": "5C"},
+#     {"name": "Eva", "grade": "5B"}
+# ]
+
+# print(group_students_by_grade(students))
+
+# ---------- Task 22 ----------
+
+def group_by_author(books: list[dict]) -> dict[str, list[str]]:
+    author_books = {}
+    for book in books:
+        title = book.get("title")
+        author = book.get("author")
+        if author not in author_books:
+            author_books[author] = []
+        author_books[author].append(title)
+    return author_books
+
+books = [
+    {"title": "Dune", "author": "Frank Herbert"},
+    {"title": "1984", "author": "George Orwell"},
+    {"title": "Dune Messiah", "author": "Frank Herbert"},
+    {"title": "Animal Farm", "author": "George Orwell"},
+    {"title": "The Hobbit", "author": "J.R.R. Tolkien"}
 ]
 
-print(group_students_by_grade(students))
+print(group_by_author(books))
