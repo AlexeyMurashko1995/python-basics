@@ -391,24 +391,47 @@
 
 # print(group_employees_by_department(employees))
 
-# ---------- Task 20 ----------
+# # ---------- Task 20 ----------
 
-def group_order_ids_by_status(orders: list[dict]) -> dict[str, list[int]]:
-    orders_stat = {}
-    for order in orders:
-        status = order.get("status")
-        id = order.get("id")
-        if status not in orders_stat:
-            orders_stat[status] = []
-        orders_stat[status].append(id)
-    return orders_stat
+# def group_order_ids_by_status(orders: list[dict]) -> dict[str, list[int]]:
+#     orders_stat = {}
+#     for order in orders:
+#         status = order.get("status")
+#         id = order.get("id")
+#         if status not in orders_stat:
+#             orders_stat[status] = []
+#         orders_stat[status].append(id)
+#     return orders_stat
 
-orders = [
-    {"id": 101, "status": "completed"},
-    {"id": 102, "status": "pending"},
-    {"id": 103, "status": "completed"},
-    {"id": 104, "status": "cancelled"},
-    {"id": 105, "status": "pending"}
+# orders = [
+#     {"id": 101, "status": "completed"},
+#     {"id": 102, "status": "pending"},
+#     {"id": 103, "status": "completed"},
+#     {"id": 104, "status": "cancelled"},
+#     {"id": 105, "status": "pending"}
+# ]
+
+# print(group_order_ids_by_status(orders))
+
+# ---------- Task 21 ----------
+
+def group_students_by_grade(students: list[dict]) -> dict[str, list[str]]:
+    students_by_class = {}
+    for student in students:
+        name = student.get("name")
+        grade = student.get("grade")
+        if grade not in students_by_class:
+            students_by_class[grade] = []
+        students_by_class[grade].append(name)
+    return students_by_class
+
+
+students = [
+    {"name": "Alice", "grade": "5A"},
+    {"name": "Bob", "grade": "5B"},
+    {"name": "Charlie", "grade": "5A"},
+    {"name": "David", "grade": "5C"},
+    {"name": "Eva", "grade": "5B"}
 ]
 
-print(group_order_ids_by_status(orders))
+print(group_students_by_grade(students))
