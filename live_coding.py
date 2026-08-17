@@ -370,23 +370,45 @@
 
 # print(group_by_first_letter(words))
 
-# ---------- Task 19 ----------
+# # ---------- Task 19 ----------
 
-def group_employees_by_department(employees: list[dict]) -> dict[str, list[str]]:
-    department_list = {}
-    for employee in employees:
-        name = employee.get("name")
-        dep = employee.get("department")
-        if dep not in department_list:
-            department_list[dep] = []
-        department_list[dep].append(name)
-    return department_list
+# def group_employees_by_department(employees: list[dict]) -> dict[str, list[str]]:
+#     department_list = {}
+#     for employee in employees:
+#         name = employee.get("name")
+#         dep = employee.get("department")
+#         if dep not in department_list:
+#             department_list[dep] = []
+#         department_list[dep].append(name)
+#     return department_list
 
-employees = [
-    {"name": "Alex", "department": "IT"},
-    {"name": "Bob", "department": "HR"},
-    {"name": "Eva", "department": "IT"},
-    {"name": "Dan", "department": "Finance"}
+# employees = [
+#     {"name": "Alex", "department": "IT"},
+#     {"name": "Bob", "department": "HR"},
+#     {"name": "Eva", "department": "IT"},
+#     {"name": "Dan", "department": "Finance"}
+# ]
+
+# print(group_employees_by_department(employees))
+
+# ---------- Task 20 ----------
+
+def group_order_ids_by_status(orders: list[dict]) -> dict[str, list[int]]:
+    orders_stat = {}
+    for order in orders:
+        status = order.get("status")
+        id = order.get("id")
+        if status not in orders_stat:
+            orders_stat[status] = []
+        orders_stat[status].append(id)
+    return orders_stat
+
+orders = [
+    {"id": 101, "status": "completed"},
+    {"id": 102, "status": "pending"},
+    {"id": 103, "status": "completed"},
+    {"id": 104, "status": "cancelled"},
+    {"id": 105, "status": "pending"}
 ]
 
-print(group_employees_by_department(employees))
+print(group_order_ids_by_status(orders))
