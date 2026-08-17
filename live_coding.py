@@ -436,24 +436,46 @@
 
 # print(group_students_by_grade(students))
 
-# ---------- Task 22 ----------
+# # ---------- Task 22 ----------
 
-def group_by_author(books: list[dict]) -> dict[str, list[str]]:
-    author_books = {}
-    for book in books:
-        title = book.get("title")
-        author = book.get("author")
-        if author not in author_books:
-            author_books[author] = []
-        author_books[author].append(title)
-    return author_books
+# def group_by_author(books: list[dict]) -> dict[str, list[str]]:
+#     author_books = {}
+#     for book in books:
+#         title = book.get("title")
+#         author = book.get("author")
+#         if author not in author_books:
+#             author_books[author] = []
+#         author_books[author].append(title)
+#     return author_books
 
-books = [
-    {"title": "Dune", "author": "Frank Herbert"},
-    {"title": "1984", "author": "George Orwell"},
-    {"title": "Dune Messiah", "author": "Frank Herbert"},
-    {"title": "Animal Farm", "author": "George Orwell"},
-    {"title": "The Hobbit", "author": "J.R.R. Tolkien"}
+# books = [
+#     {"title": "Dune", "author": "Frank Herbert"},
+#     {"title": "1984", "author": "George Orwell"},
+#     {"title": "Dune Messiah", "author": "Frank Herbert"},
+#     {"title": "Animal Farm", "author": "George Orwell"},
+#     {"title": "The Hobbit", "author": "J.R.R. Tolkien"}
+# ]
+
+# print(group_by_author(books))
+
+# ---------- Task 23 ----------
+
+def group_movies_by_genre(movies: list[dict]) -> dict[str, list[str]]:
+    sorted_movies = {}
+    for movie in movies:
+        title = movie.get("title")
+        genre = movie.get("genre")
+        if genre not in sorted_movies:
+            sorted_movies[genre] = []
+        sorted_movies[genre].append(title)
+    return sorted_movies
+
+movies = [
+    {"title": "Inception", "genre": "Sci-Fi"},
+    {"title": "The Godfather", "genre": "Crime"},
+    {"title": "Interstellar", "genre": "Sci-Fi"},
+    {"title": "Pulp Fiction", "genre": "Crime"},
+    {"title": "The Dark Knight", "genre": "Action"}
 ]
 
-print(group_by_author(books))
+print(group_movies_by_genre(movies))
