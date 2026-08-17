@@ -458,24 +458,47 @@
 
 # print(group_by_author(books))
 
-# ---------- Task 23 ----------
+# # ---------- Task 23 ----------
 
-def group_movies_by_genre(movies: list[dict]) -> dict[str, list[str]]:
-    sorted_movies = {}
-    for movie in movies:
-        title = movie.get("title")
-        genre = movie.get("genre")
-        if genre not in sorted_movies:
-            sorted_movies[genre] = []
-        sorted_movies[genre].append(title)
-    return sorted_movies
+# def group_movies_by_genre(movies: list[dict]) -> dict[str, list[str]]:
+#     sorted_movies = {}
+#     for movie in movies:
+#         title = movie.get("title")
+#         genre = movie.get("genre")
+#         if genre not in sorted_movies:
+#             sorted_movies[genre] = []
+#         sorted_movies[genre].append(title)
+#     return sorted_movies
 
-movies = [
-    {"title": "Inception", "genre": "Sci-Fi"},
-    {"title": "The Godfather", "genre": "Crime"},
-    {"title": "Interstellar", "genre": "Sci-Fi"},
-    {"title": "Pulp Fiction", "genre": "Crime"},
-    {"title": "The Dark Knight", "genre": "Action"}
-]
+# movies = [
+#     {"title": "Inception", "genre": "Sci-Fi"},
+#     {"title": "The Godfather", "genre": "Crime"},
+#     {"title": "Interstellar", "genre": "Sci-Fi"},
+#     {"title": "Pulp Fiction", "genre": "Crime"},
+#     {"title": "The Dark Knight", "genre": "Action"}
+# ]
 
-print(group_movies_by_genre(movies))
+# print(group_movies_by_genre(movies))
+
+# # ---------- Task 24 ----------
+
+# def group_events_by_city(events: list[dict]) -> dict[str, list[str]]:
+#     sorted_events = {}
+#     for event in events:
+#         name = event.get("name")
+#         city = event.get("city")
+#         if city not in sorted_events:
+#             sorted_events[city] = []
+#         sorted_events[city].append(name)
+#     return sorted_events
+
+
+# events = [
+#     {"name": "Tech Conference", "city": "Warsaw"},
+#     {"name": "Music Festival", "city": "Krakow"},
+#     {"name": "AI Meetup", "city": "Warsaw"},
+#     {"name": "Art Exhibition", "city": "Gdansk"},
+#     {"name": "Backend Summit", "city": "Krakow"}
+# ]
+
+# print(group_events_by_city(events))
