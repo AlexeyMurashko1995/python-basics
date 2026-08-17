@@ -355,17 +355,38 @@
 
 # print(calculate_final_scores(scores, bonuses))
 
-# ---------- Task 18 ----------
+# # ---------- Task 18 ----------
 
-def group_by_first_letter(words: list[str]) -> dict[str, list[str]]:
-    result = {}
-    for word in words:
-        letter = word[0]
-        if letter not in result:
-            result[letter] = []
-        result[letter].append(word)
-    return result
+# def group_by_first_letter(words: list[str]) -> dict[str, list[str]]:
+#     result = {}
+#     for word in words:
+#         letter = word[0]
+#         if letter not in result:
+#             result[letter] = []
+#         result[letter].append(word)
+#     return result
 
-words = ["apple", "banana", "apricot", "blueberry", "car"]
+# words = ["apple", "banana", "apricot", "blueberry", "car"]
 
-print(group_by_first_letter(words))
+# print(group_by_first_letter(words))
+
+# ---------- Task 19 ----------
+
+def group_employees_by_department(employees: list[dict]) -> dict[str, list[str]]:
+    department_list = {}
+    for employee in employees:
+        name = employee.get("name")
+        dep = employee.get("department")
+        if dep not in department_list:
+            department_list[dep] = []
+        department_list[dep].append(name)
+    return department_list
+
+employees = [
+    {"name": "Alex", "department": "IT"},
+    {"name": "Bob", "department": "HR"},
+    {"name": "Eva", "department": "IT"},
+    {"name": "Dan", "department": "Finance"}
+]
+
+print(group_employees_by_department(employees))
