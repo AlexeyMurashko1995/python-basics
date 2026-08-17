@@ -333,24 +333,39 @@
 
 # print(calculate_item_totals(quantities, prices))
 
-# ---------- Task 17 ----------
+# # ---------- Task 17 ----------
 
-def calculate_final_scores(scores: dict[str, int], bonuses: dict[str, int]) -> dict[str, int]:
-    final_scores = {}
-    for student, score in scores.items():
-        bonus = bonuses.get(student, 0)
-        final_scores[student]= score + bonus
-    return final_scores
+# def calculate_final_scores(scores: dict[str, int], bonuses: dict[str, int]) -> dict[str, int]:
+#     final_scores = {}
+#     for student, score in scores.items():
+#         bonus = bonuses.get(student, 0)
+#         final_scores[student]= score + bonus
+#     return final_scores
 
-scores = {
-    "Alex": 80,
-    "Bob": 75,
-    "Eva": 90
-}
+# scores = {
+#     "Alex": 80,
+#     "Bob": 75,
+#     "Eva": 90
+# }
 
-bonuses = {
-    "Alex": 10,
-    "Eva": 5
-}
+# bonuses = {
+#     "Alex": 10,
+#     "Eva": 5
+# }
 
-print(calculate_final_scores(scores, bonuses))
+# print(calculate_final_scores(scores, bonuses))
+
+# ---------- Task 18 ----------
+
+def group_by_first_letter(words: list[str]) -> dict[str, list[str]]:
+    result = {}
+    for word in words:
+        letter = word[0]
+        if letter not in result:
+            result[letter] = []
+        result[letter].append(word)
+    return result
+
+words = ["apple", "banana", "apricot", "blueberry", "car"]
+
+print(group_by_first_letter(words))
