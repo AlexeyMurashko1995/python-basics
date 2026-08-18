@@ -638,12 +638,22 @@
 
 # print(find_duplicates(emails))
 
-# ---------- Task 31 ----------
+# # ---------- Task 31 ----------
 
-def find_common_elements(list1: list[str], list2: list[str]) -> list[str]:
-    return list(set(list1) & set(list2))
+# def find_common_elements(list1: list[str], list2: list[str]) -> list[str]:
+#     return list(set(list1) & set(list2))
 
-list1 = ["alex", "bob", "charlie", "david"]
-list2 = ["eva", "bob", "david", "frank"]
+# list1 = ["alex", "bob", "charlie", "david"]
+# list2 = ["eva", "bob", "david", "frank"]
 
-print(find_common_elements(list1, list2))
+# print(find_common_elements(list1, list2))
+
+# ---------- Task 32 ----------
+
+def find_unique_to_first(list1: list[str], list2: list[str]) -> list[str]:
+    return list(set(list1) - set(list2))
+
+list1 = ["apple", "banana", "cherry", "date"]
+list2 = ["banana", "date", "fig"]
+
+print(find_unique_to_first(list1, list2))
