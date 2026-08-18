@@ -594,23 +594,46 @@
 
 # print(invert_students_courses(student_courses))
 
-# ---------- Task 29 ----------
+# # ---------- Task 29 ----------
 
-def invert_employee_roles(employee_roles: dict[str, str]) -> dict[str, list[str]]:
-    employee_department = {}
-    for name, department in employee_roles.items():
-        if department not in employee_department:
-            employee_department[department] = []
-        employee_department[department].append(name)
-    return employee_department
+# def invert_employee_roles(employee_roles: dict[str, str]) -> dict[str, list[str]]:
+#     employee_department = {}
+#     for name, department in employee_roles.items():
+#         if department not in employee_department:
+#             employee_department[department] = []
+#         employee_department[department].append(name)
+#     return employee_department
 
-employee_roles = {
-    "Alex": "Backend",
-    "Bob": "Frontend",
-    "Charlie": "Backend",
-    "David": "QA",
-    "Eva": "DevOps",
-    "Frank": "Frontend"
-}
+# employee_roles = {
+#     "Alex": "Backend",
+#     "Bob": "Frontend",
+#     "Charlie": "Backend",
+#     "David": "QA",
+#     "Eva": "DevOps",
+#     "Frank": "Frontend"
+# }
 
-print(invert_employee_roles(employee_roles))
+# print(invert_employee_roles(employee_roles))
+
+# ---------- Task 30 ----------
+
+def find_duplicates(emails: list[str]) -> list[str]:
+    seen = set()
+    duplicates = set()
+    for email in emails:
+        if email not in seen:
+            seen.add(email)
+        else:
+            duplicates.add(email)
+    return list(duplicates)
+
+emails = [
+    "alex@gmail.com",
+    "bob@yahoo.com",
+    "alex@gmail.com",
+    "eva@hotmail.com",
+    "bob@yahoo.com",
+    "john@gmail.com"
+]
+
+print(find_duplicates(emails))
