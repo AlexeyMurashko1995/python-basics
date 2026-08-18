@@ -551,25 +551,45 @@
 
 # print(group_by_price_category(products, threshold))
 
-# ---------- Task 27 ----------
+# # ---------- Task 27 ----------
 
-def group_tasks_by_priority(tasks: list[dict]) -> dict[str, list[str]]:
-    sorted_tasks = {"urgent": [], "regular": []}
-    for task in tasks:
-        title = task.get("title")
-        is_urgent = task.get("is_urgent")
-        if is_urgent:
-            sorted_tasks["urgent"].append(title)
-        else:
-            sorted_tasks["regular"].append(title)
-    return sorted_tasks
+# def group_tasks_by_priority(tasks: list[dict]) -> dict[str, list[str]]:
+#     sorted_tasks = {"urgent": [], "regular": []}
+#     for task in tasks:
+#         title = task.get("title")
+#         is_urgent = task.get("is_urgent")
+#         if is_urgent:
+#             sorted_tasks["urgent"].append(title)
+#         else:
+#             sorted_tasks["regular"].append(title)
+#     return sorted_tasks
 
 
-tasks = [
-    {"title": "Fix bug", "is_urgent": True},
-    {"title": "Write docs", "is_urgent": False},
-    {"title": "Deploy update", "is_urgent": True},
-    {"title": "Clean logs", "is_urgent": False}
-]
+# tasks = [
+#     {"title": "Fix bug", "is_urgent": True},
+#     {"title": "Write docs", "is_urgent": False},
+#     {"title": "Deploy update", "is_urgent": True},
+#     {"title": "Clean logs", "is_urgent": False}
+# ]
 
-print(group_tasks_by_priority(tasks))
+# print(group_tasks_by_priority(tasks))
+
+# ---------- Task 28 ----------
+
+def invert_students_courses(student_courses: dict[str, str]) -> dict[str,list[str]]:
+    invert_students = {}
+    for student, course in student_courses.items():
+        if course not in invert_students:
+            invert_students[course] = []
+        invert_students[course].append(student)
+    return invert_students
+
+student_courses = {
+    "Alex": "Python",
+    "Bob": "JavaScript",
+    "Charlie": "Python",
+    "David": "C++",
+    "Eva": "JavaScript"
+}
+
+print(invert_students_courses(student_courses))
