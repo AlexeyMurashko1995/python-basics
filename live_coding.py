@@ -528,25 +528,48 @@
 
 # print(group_users_by_age(users))
 
-# ---------- Task 26 ----------
+# # ---------- Task 26 ----------
 
-def group_by_price_category(products: list[dict], threshold: float) -> dict[str,list[str]]:
-    sorted_products = {"expensive": [], "cheap": []}
-    for product in products:
-        title = product.get("title")
-        price = product.get("price")
-        if price >= threshold:
-            sorted_products["expensive"].append(title)
+# def group_by_price_category(products: list[dict], threshold: float) -> dict[str,list[str]]:
+#     sorted_products = {"expensive": [], "cheap": []}
+#     for product in products:
+#         title = product.get("title")
+#         price = product.get("price")
+#         if price >= threshold:
+#             sorted_products["expensive"].append(title)
+#         else:
+#             sorted_products["cheap"].append(title)
+#     return sorted_products
+
+# products = [
+#     {"title": "Laptop", "price": 1200.0},
+#     {"title": "Mouse", "price": 25.0},
+#     {"title": "Monitor", "price": 300.0},
+#     {"title": "Cable", "price": 10.0}
+# ]
+# threshold = 100.0
+
+# print(group_by_price_category(products, threshold))
+
+# ---------- Task 27 ----------
+
+def group_tasks_by_priority(tasks: list[dict]) -> dict[str, list[str]]:
+    sorted_tasks = {"urgent": [], "regular": []}
+    for task in tasks:
+        title = task.get("title")
+        is_urgent = task.get("is_urgent")
+        if is_urgent:
+            sorted_tasks["urgent"].append(title)
         else:
-            sorted_products["cheap"].append(title)
-    return sorted_products
+            sorted_tasks["regular"].append(title)
+    return sorted_tasks
 
-products = [
-    {"title": "Laptop", "price": 1200.0},
-    {"title": "Mouse", "price": 25.0},
-    {"title": "Monitor", "price": 300.0},
-    {"title": "Cable", "price": 10.0}
+
+tasks = [
+    {"title": "Fix bug", "is_urgent": True},
+    {"title": "Write docs", "is_urgent": False},
+    {"title": "Deploy update", "is_urgent": True},
+    {"title": "Clean logs", "is_urgent": False}
 ]
-threshold = 100.0
 
-print(group_by_price_category(products, threshold))
+print(group_tasks_by_priority(tasks))
