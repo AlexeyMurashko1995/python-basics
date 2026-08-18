@@ -574,22 +574,43 @@
 
 # print(group_tasks_by_priority(tasks))
 
-# ---------- Task 28 ----------
+# # ---------- Task 28 ----------
 
-def invert_students_courses(student_courses: dict[str, str]) -> dict[str,list[str]]:
-    invert_students = {}
-    for student, course in student_courses.items():
-        if course not in invert_students:
-            invert_students[course] = []
-        invert_students[course].append(student)
-    return invert_students
+# def invert_students_courses(student_courses: dict[str, str]) -> dict[str,list[str]]:
+#     invert_students = {}
+#     for student, course in student_courses.items():
+#         if course not in invert_students:
+#             invert_students[course] = []
+#         invert_students[course].append(student)
+#     return invert_students
 
-student_courses = {
-    "Alex": "Python",
-    "Bob": "JavaScript",
-    "Charlie": "Python",
-    "David": "C++",
-    "Eva": "JavaScript"
+# student_courses = {
+#     "Alex": "Python",
+#     "Bob": "JavaScript",
+#     "Charlie": "Python",
+#     "David": "C++",
+#     "Eva": "JavaScript"
+# }
+
+# print(invert_students_courses(student_courses))
+
+# ---------- Task 29 ----------
+
+def invert_employee_roles(employee_roles: dict[str, str]) -> dict[str, list[str]]:
+    employee_department = {}
+    for name, department in employee_roles.items():
+        if department not in employee_department:
+            employee_department[department] = []
+        employee_department[department].append(name)
+    return employee_department
+
+employee_roles = {
+    "Alex": "Backend",
+    "Bob": "Frontend",
+    "Charlie": "Backend",
+    "David": "QA",
+    "Eva": "DevOps",
+    "Frank": "Frontend"
 }
 
-print(invert_students_courses(student_courses))
+print(invert_employee_roles(employee_roles))
