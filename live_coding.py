@@ -648,12 +648,22 @@
 
 # print(find_common_elements(list1, list2))
 
-# ---------- Task 32 ----------
+# # ---------- Task 32 ----------
 
-def find_unique_to_first(list1: list[str], list2: list[str]) -> list[str]:
-    return list(set(list1) - set(list2))
+# def find_unique_to_first(list1: list[str], list2: list[str]) -> list[str]:
+#     return list(set(list1) - set(list2))
 
-list1 = ["apple", "banana", "cherry", "date"]
-list2 = ["banana", "date", "fig"]
+# list1 = ["apple", "banana", "cherry", "date"]
+# list2 = ["banana", "date", "fig"]
 
-print(find_unique_to_first(list1, list2))
+# print(find_unique_to_first(list1, list2))
+
+# ---------- Task 33 ----------
+
+def find_unique_in_either(list1: list[str], list2: list[str]) -> list[str]:
+    return list(set(list1) ^ set(list2))
+
+list1 = ["apple", "banana", "cherry"]
+list2 = ["banana", "date", "cherry"]
+
+print(find_unique_in_either(list1, list2))
