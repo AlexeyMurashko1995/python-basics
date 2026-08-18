@@ -615,25 +615,35 @@
 
 # print(invert_employee_roles(employee_roles))
 
-# ---------- Task 30 ----------
+# # ---------- Task 30 ----------
 
-def find_duplicates(emails: list[str]) -> list[str]:
-    seen = set()
-    duplicates = set()
-    for email in emails:
-        if email not in seen:
-            seen.add(email)
-        else:
-            duplicates.add(email)
-    return list(duplicates)
+# def find_duplicates(emails: list[str]) -> list[str]:
+#     seen = set()
+#     duplicates = set()
+#     for email in emails:
+#         if email not in seen:
+#             seen.add(email)
+#         else:
+#             duplicates.add(email)
+#     return list(duplicates)
 
-emails = [
-    "alex@gmail.com",
-    "bob@yahoo.com",
-    "alex@gmail.com",
-    "eva@hotmail.com",
-    "bob@yahoo.com",
-    "john@gmail.com"
-]
+# emails = [
+#     "alex@gmail.com",
+#     "bob@yahoo.com",
+#     "alex@gmail.com",
+#     "eva@hotmail.com",
+#     "bob@yahoo.com",
+#     "john@gmail.com"
+# ]
 
-print(find_duplicates(emails))
+# print(find_duplicates(emails))
+
+# ---------- Task 31 ----------
+
+def find_common_elements(list1: list[str], list2: list[str]) -> list[str]:
+    return list(set(list1) & set(list2))
+
+list1 = ["alex", "bob", "charlie", "david"]
+list2 = ["eva", "bob", "david", "frank"]
+
+print(find_common_elements(list1, list2))
