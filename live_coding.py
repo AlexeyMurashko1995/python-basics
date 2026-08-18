@@ -503,27 +503,50 @@
 
 # print(group_events_by_city(events))
 
-# ---------- Task 25 ----------
+# # ---------- Task 25 ----------
 
-def group_users_by_age(users: list[dict]) -> dict[str, list[str]]:
-    sorted_users = {}
-    sorted_users["adult"] = []
-    sorted_users["minor"] = []
-    for user in users:
-        name = user.get("name")
-        age = user.get("age")
-        if age >= 18:
-            sorted_users["adult"].append(name)
+# def group_users_by_age(users: list[dict]) -> dict[str, list[str]]:
+#     sorted_users = {}
+#     sorted_users["adult"] = []
+#     sorted_users["minor"] = []
+#     for user in users:
+#         name = user.get("name")
+#         age = user.get("age")
+#         if age >= 18:
+#             sorted_users["adult"].append(name)
+#         else:
+#             sorted_users["minor"].append(name)
+#     return sorted_users
+
+
+# users = [
+#     {"name": "Alex", "age": 25},
+#     {"name": "Bob", "age": 15},
+#     {"name": "Eva", "age": 30},
+#     {"name": "Dan", "age": 12}
+# ]
+
+# print(group_users_by_age(users))
+
+# ---------- Task 26 ----------
+
+def group_by_price_category(products: list[dict], threshold: float) -> dict[str,list[str]]:
+    sorted_products = {"expensive": [], "cheap": []}
+    for product in products:
+        title = product.get("title")
+        price = product.get("price")
+        if price >= threshold:
+            sorted_products["expensive"].append(title)
         else:
-            sorted_users["minor"].append(name)
-    return sorted_users
+            sorted_products["cheap"].append(title)
+    return sorted_products
 
-
-users = [
-    {"name": "Alex", "age": 25},
-    {"name": "Bob", "age": 15},
-    {"name": "Eva", "age": 30},
-    {"name": "Dan", "age": 12}
+products = [
+    {"title": "Laptop", "price": 1200.0},
+    {"title": "Mouse", "price": 25.0},
+    {"title": "Monitor", "price": 300.0},
+    {"title": "Cable", "price": 10.0}
 ]
+threshold = 100.0
 
-print(group_users_by_age(users))
+print(group_by_price_category(products, threshold))
