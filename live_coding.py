@@ -708,19 +708,50 @@
 
 # print(get_pending_notifications(target, sent))
 
-# ---------- Task 38 ----------
+# # ---------- Task 38 ----------
 
-def find_target_pair(numbers: list[int], target: int) -> tuple[int, int] | None:
+# def find_target_pair(numbers: list[int], target: int) -> tuple[int, int] | None:
+#     seen = set()
+#     for num in numbers:
+#         needed = target - num
+#         if needed in seen:
+#             return (needed, num)
+#         seen.add(num)
+#     return None
+
+
+# numbers = [2, 11, 7, 15]
+# target = 9
+
+# print(find_target_pair(numbers, target))
+
+# # ---------- Task 39a ----------
+
+# def find_first_duplicate(numbers: list[int]) -> int | None:
+#     seen = set()
+#     for number in numbers:
+#         if number in seen:
+#             return number
+#         seen.add(number)
+#     return None
+
+# numbers = [2, 5, 1, 3, 5, 2, 6]
+
+# print(find_first_duplicate(numbers))
+
+# ---------- Task 39b ----------
+
+def find_pair_with_diff(numbers: list[int], diff: int) -> tuple[int, int] | None:
     seen = set()
-    for num in numbers:
-        needed = target - num
+    for number in numbers:
+        needed = number - diff
         if needed in seen:
-            return (needed, num)
-        seen.add(num)
+            return (number, needed)
+        seen.add(number)
     return None
 
 
-numbers = [2, 11, 7, 15]
-target = 9
+numbers = [1, 5, 2, 7, 9]
+diff = 4
 
-print(find_target_pair(numbers, target))
+print(find_pair_with_diff(numbers, diff))
