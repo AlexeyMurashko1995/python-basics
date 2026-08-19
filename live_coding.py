@@ -756,12 +756,22 @@
 
 # print(find_pair_with_diff(numbers, diff))
 
-# ---------- Task 40 ----------
+# # ---------- Task 40 ----------
 
-def get_squares_dict(numbers: list[int]) -> dict[int, int]:
-    square_dict = {num: num**2 for num in numbers}
-    return square_dict
+# def get_squares_dict(numbers: list[int]) -> dict[int, int]:
+#     square_dict = {num: num**2 for num in numbers}
+#     return square_dict
 
-numbers = [1, 2, 3, 4]
+# numbers = [1, 2, 3, 4]
 
-print(get_squares_dict(numbers))
+# print(get_squares_dict(numbers))
+
+# ---------- Task 41 ----------
+
+def get_word_lengths_dict(words: list[str]) -> dict[str, int]:
+    lengths_words = {word: len(word) for word in words}
+    return lengths_words
+
+words = ["python", "fastapi", "django"]
+
+print(get_word_lengths_dict(words))
