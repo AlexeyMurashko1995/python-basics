@@ -668,12 +668,22 @@
 
 # print(find_unique_in_either(list1, list2))
 
-# ---------- Task 34 ----------
+# # ---------- Task 34 ----------
 
-def get_inactive_users(day1: list[str], day2: list[str]) -> list[str]:
-    return list(set(day1) - set(day2))
+# def get_inactive_users(day1: list[str], day2: list[str]) -> list[str]:
+#     return list(set(day1) - set(day2))
 
-day1 = ["alex", "bob", "eva", "john"]
-day2 = ["bob", "john", "marta"]
+# day1 = ["alex", "bob", "eva", "john"]
+# day2 = ["bob", "john", "marta"]
 
-print(get_inactive_users(day1, day2))
+# print(get_inactive_users(day1, day2))
+
+# # ---------- Task 35 ----------
+
+# def get_unique_skills(dev1: list[str], dev2: list[str]) -> list[str]:
+#     return list(set(dev1) ^ set(dev2))
+
+# dev1 = ["python", "docker", "postgres"]
+# dev2 = ["postgres", "react", "fastapi"]
+
+# print(get_unique_skills(dev1, dev2))
