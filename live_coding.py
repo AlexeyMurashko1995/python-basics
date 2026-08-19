@@ -687,3 +687,13 @@
 # dev2 = ["postgres", "react", "fastapi"]
 
 # print(get_unique_skills(dev1, dev2))
+
+# ---------- Task 36 ----------
+
+def get_shared_permissions(role1: list[str], role2: list[str]) -> list[str]:
+    return list(set(role1) & set(role2))
+
+role1 = ["read", "write", "delete"]
+role2 = ["read", "execute", "write"]
+
+print(get_shared_permissions(role1, role2))
