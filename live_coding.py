@@ -658,12 +658,22 @@
 
 # print(find_unique_to_first(list1, list2))
 
-# ---------- Task 33 ----------
+# # ---------- Task 33 ----------
 
-def find_unique_in_either(list1: list[str], list2: list[str]) -> list[str]:
-    return list(set(list1) ^ set(list2))
+# def find_unique_in_either(list1: list[str], list2: list[str]) -> list[str]:
+#     return list(set(list1) ^ set(list2))
 
-list1 = ["apple", "banana", "cherry"]
-list2 = ["banana", "date", "cherry"]
+# list1 = ["apple", "banana", "cherry"]
+# list2 = ["banana", "date", "cherry"]
 
-print(find_unique_in_either(list1, list2))
+# print(find_unique_in_either(list1, list2))
+
+# ---------- Task 34 ----------
+
+def get_inactive_users(day1: list[str], day2: list[str]) -> list[str]:
+    return list(set(day1) - set(day2))
+
+day1 = ["alex", "bob", "eva", "john"]
+day2 = ["bob", "john", "marta"]
+
+print(get_inactive_users(day1, day2))
