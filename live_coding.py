@@ -741,17 +741,27 @@
 
 # ---------- Task 39b ----------
 
-def find_pair_with_diff(numbers: list[int], diff: int) -> tuple[int, int] | None:
-    seen = set()
-    for number in numbers:
-        needed = number - diff
-        if needed in seen:
-            return (number, needed)
-        seen.add(number)
-    return None
+# def find_pair_with_diff(numbers: list[int], diff: int) -> tuple[int, int] | None:
+#     seen = set()
+#     for number in numbers:
+#         needed = number - diff
+#         if needed in seen:
+#             return (number, needed)
+#         seen.add(number)
+#     return None
 
 
-numbers = [1, 5, 2, 7, 9]
-diff = 4
+# numbers = [1, 5, 2, 7, 9]
+# diff = 4
 
-print(find_pair_with_diff(numbers, diff))
+# print(find_pair_with_diff(numbers, diff))
+
+# ---------- Task 40 ----------
+
+def get_squares_dict(numbers: list[int]) -> dict[int, int]:
+    square_dict = {num: num**2 for num in numbers}
+    return square_dict
+
+numbers = [1, 2, 3, 4]
+
+print(get_squares_dict(numbers))
