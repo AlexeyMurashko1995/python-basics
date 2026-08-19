@@ -688,12 +688,22 @@
 
 # print(get_unique_skills(dev1, dev2))
 
-# ---------- Task 36 ----------
+# # ---------- Task 36 ----------
 
-def get_shared_permissions(role1: list[str], role2: list[str]) -> list[str]:
-    return list(set(role1) & set(role2))
+# def get_shared_permissions(role1: list[str], role2: list[str]) -> list[str]:
+#     return list(set(role1) & set(role2))
 
-role1 = ["read", "write", "delete"]
-role2 = ["read", "execute", "write"]
+# role1 = ["read", "write", "delete"]
+# role2 = ["read", "execute", "write"]
 
-print(get_shared_permissions(role1, role2))
+# print(get_shared_permissions(role1, role2))
+
+# # ---------- Task 37 ----------
+
+# def get_pending_notifications(target: list[str], sent: list[str]) -> list[str]:
+#     return list(set(target) - set(sent))
+
+# target = ["user1", "user2", "user3", "user4"]
+# sent = ["user2", "user4", "user5"]
+
+# print(get_pending_notifications(target, sent))
