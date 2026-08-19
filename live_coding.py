@@ -707,3 +707,20 @@
 # sent = ["user2", "user4", "user5"]
 
 # print(get_pending_notifications(target, sent))
+
+# ---------- Task 38 ----------
+
+def find_target_pair(numbers: list[int], target: int) -> tuple[int, int] | None:
+    seen = set()
+    for num in numbers:
+        needed = target - num
+        if needed in seen:
+            return (needed, num)
+        seen.add(num)
+    return None
+
+
+numbers = [2, 11, 7, 15]
+target = 9
+
+print(find_target_pair(numbers, target))
