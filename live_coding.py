@@ -766,12 +766,22 @@
 
 # print(get_squares_dict(numbers))
 
-# ---------- Task 41 ----------
+# # ---------- Task 41 ----------
 
-def get_word_lengths_dict(words: list[str]) -> dict[str, int]:
-    lengths_words = {word: len(word) for word in words}
-    return lengths_words
+# def get_word_lengths_dict(words: list[str]) -> dict[str, int]:
+#     lengths_words = {word: len(word) for word in words}
+#     return lengths_words
 
-words = ["python", "fastapi", "django"]
+# words = ["python", "fastapi", "django"]
 
-print(get_word_lengths_dict(words))
+# print(get_word_lengths_dict(words))
+
+# ---------- Task 42 ----------
+
+def uppercase_keys_dict(data: dict[str, int]) -> dict[str, int]:
+    sorted_dict = {letter.upper(): number for letter, number in data.items() if len(letter) >= 3}
+    return sorted_dict
+
+data = {"a": 1, "cat": 2, "python": 3, "it": 4}
+
+print(uppercase_keys_dict(data))
