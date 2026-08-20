@@ -776,12 +776,22 @@
 
 # print(get_word_lengths_dict(words))
 
-# ---------- Task 42 ----------
+# # ---------- Task 42 ----------
 
-def uppercase_keys_dict(data: dict[str, int]) -> dict[str, int]:
-    sorted_dict = {letter.upper(): number for letter, number in data.items() if len(letter) >= 3}
-    return sorted_dict
+# def uppercase_keys_dict(data: dict[str, int]) -> dict[str, int]:
+#     sorted_dict = {letter.upper(): number for letter, number in data.items() if len(letter) >= 3}
+#     return sorted_dict
 
-data = {"a": 1, "cat": 2, "python": 3, "it": 4}
+# data = {"a": 1, "cat": 2, "python": 3, "it": 4}
 
-print(uppercase_keys_dict(data))
+# print(uppercase_keys_dict(data))
+
+# # ---------- Task 43 ----------
+
+# def get_domains(emails: list[str]) -> set[str]:
+#     domain_set = {word.split("@")[1] for word in emails if "@" in word}
+#     return domain_set
+
+# emails = ["alex@gmail.com", "bob@yahoo.com", "eva@gmail.com", "admin_invalid"]
+
+# print(get_domains(emails))
