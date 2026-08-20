@@ -77,7 +77,7 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        query = select(Employee.name, Employee.salary, Department.name).join(Department)
+        query = select(func.count(Sale.id).label("total_count"), func.sum(Sale.amount).label("total_amount"))
 
         result = await session.execute(query)
         rows = result.all()
