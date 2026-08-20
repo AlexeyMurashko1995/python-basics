@@ -795,3 +795,17 @@
 # emails = ["alex@gmail.com", "bob@yahoo.com", "eva@gmail.com", "admin_invalid"]
 
 # print(get_domains(emails))
+
+# ---------- Task 44 ----------
+
+def get_active_emails(users: list[tuple[str, str, bool]]) -> list[str]:
+    active_users = [email for name, email, is_active in users if is_active]
+    return active_users
+
+users = [
+    ("Alex", "alex@gmail.com", True),
+    ("Bob", "bob@yahoo.com", False),
+    ("Eva", "eva@hotmail.com", True),
+]
+
+print(get_active_emails(users))
