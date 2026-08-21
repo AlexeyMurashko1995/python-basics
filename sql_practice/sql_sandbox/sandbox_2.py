@@ -72,7 +72,8 @@ async def main():
         await seed_data(session)
 
         # query = select(Product.title, Product.price).where(Product.in_stock==True, Product.price < 100)
-        query = select(Product.title, Category.name).join(Category).where(Product.in_stock==False)
+        # query = select(Product.title, Category.name).join(Category).where(Product.in_stock==False)
+        query = select(Product.title, func.sum(Order.total_amount)).join(Order).group_by(Product.title)
 
         result = await session.execute(query)
         rows = result.all()
