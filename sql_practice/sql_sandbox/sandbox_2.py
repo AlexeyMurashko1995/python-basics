@@ -78,7 +78,8 @@ async def main():
         await seed_data(session)
 
         # query = select(func.count(Sale.id).label("total_count"), func.sum(Sale.amount).label("total_amount"))
-        query = select(Sale.category, func.count(Sale.category), func.sum(Sale.amount)).group_by(Sale.category)
+        # query = select(Sale.category, func.count(Sale.category), func.sum(Sale.amount)).group_by(Sale.category)
+        query = select(func.avg(Sale.amount)).where(Sale.category == "Software")
 
         result = await session.execute(query)
         rows = result.all()
