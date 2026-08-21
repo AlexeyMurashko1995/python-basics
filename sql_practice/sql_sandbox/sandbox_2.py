@@ -1,8 +1,7 @@
 import asyncio
-from datetime import date
 from decimal import Decimal
 
-from sqlalchemy import Boolean, Date, ForeignKey, Numeric, String, func, select
+from sqlalchemy import Boolean, ForeignKey, Numeric, String, func, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -14,59 +13,54 @@ class Base(DeclarativeBase):
     pass
 
 
-class Department(Base):
-    __tablename__ = "departments"
+class Category(Base):
+    __tablename__ = "categories"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(50))
-    budget: Mapped[Decimal] = mapped_column(Numeric(12, 2))
 
-    employees: Mapped[list["Employee"]] = relationship(back_populates="department")
+    products: Mapped[list["Product"]] = relationship(back_populates="category")
 
 
-class Employee(Base):
-    __tablename__ = "employees"
+class Product(Base):
+    __tablename__ = "products"
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(50))
-    salary: Mapped[Decimal] = mapped_column(Numeric(10, 2))
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
-    department_id: Mapped[int] = mapped_column(ForeignKey("departments.id"))
+    title: Mapped[str] = mapped_column(String(100))
+    price: Mapped[Decimal] = mapped_column(Numeric(10, 2))
+    in_stock: Mapped[bool] = mapped_column(Boolean, default=True)
+    category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"))
 
-    department: Mapped["Department"] = relationship(back_populates="employees")
-    sales: Mapped[list["Sale"]] = relationship(back_populates="employee")
+    category: Mapped["Category"] = relationship(back_populates="products")
+    orders: Mapped[list["Order"]] = relationship(back_populates="product")
 
 
-class Sale(Base):
-    __tablename__ = "sales"
+class Order(Base):
+    __tablename__ = "orders"
     id: Mapped[int] = mapped_column(primary_key=True)
-    amount: Mapped[Decimal] = mapped_column(Numeric(10, 2))
-    category: Mapped[str] = mapped_column(String(50))
-    employee_id: Mapped[int] = mapped_column(ForeignKey("employees.id"))
+    quantity: Mapped[int] = mapped_column(default=1)
+    total_amount: Mapped[Decimal] = mapped_column(Numeric(10, 2))
+    product_id: Mapped[int] = mapped_column(ForeignKey("products.id"))
 
-    employee: Mapped["Employee"] = relationship(back_populates="sales")
+    product: Mapped["Product"] = relationship(back_populates="orders")
 
 
 async def seed_data(session: AsyncSession):
-    d_it = Department(name="IT", budget=Decimal("100000.00"))
-    d_sales = Department(name="Sales", budget=Decimal("150000.00"))
-    d_support = Department(name="Support", budget=Decimal("50000.00"))
+    c_tech = Category(name="Electronics")
+    c_books = Category(name="Books")
+    c_home = Category(name="Home")
 
-    e1 = Employee(name="Alex", salary=Decimal("3000.00"), is_active=True, department=d_it)
-    e2 = Employee(name="Maria", salary=Decimal("4500.00"), is_active=True, department=d_sales)
-    e3 = Employee(name="Ivan", salary=Decimal("2500.00"), is_active=False, department=d_sales)
-    e4 = Employee(name="Elena", salary=Decimal("5000.00"), is_active=True, department=d_sales)
-    e5 = Employee(name="Petr", salary=Decimal("2000.00"), is_active=True, department=d_support)
+    p1 = Product(title="Smartphone", price=Decimal("800.00"), in_stock=True, category=c_tech)
+    p2 = Product(title="Laptop", price=Decimal("1500.00"), in_stock=True, category=c_tech)
+    p3 = Product(title="Python Course Book", price=Decimal("50.00"), in_stock=True, category=c_books)
+    p4 = Product(title="SQL Guide", price=Decimal("40.00"), in_stock=False, category=c_books)
+    p5 = Product(title="Coffee Maker", price=Decimal("150.00"), in_stock=True, category=c_home)
 
-    s1 = Sale(amount=Decimal("500.00"), category="Software", employee=e2)
-    s2 = Sale(amount=Decimal("1500.00"), category="Hardware", employee=e2)
-    s3 = Sale(amount=Decimal("700.00"), category="Software", employee=e3)
-    s4 = Sale(amount=Decimal("300.00"), category="Services", employee=e1)
-    s5 = Sale(amount=Decimal("2200.00"), category="Hardware", employee=e4)
-    s6 = Sale(amount=Decimal("1200.00"), category="Software", employee=e4)
-    s7 = Sale(amount=Decimal("400.00"), category="Services", employee=e5)
-    s8 = Sale(amount=Decimal("800.00"), category="Services", employee=e2)
-    s9 = Sale(amount=Decimal("3000.00"), category="Hardware", employee=e4)
+    o1 = Order(quantity=2, total_amount=Decimal("1600.00"), product=p1)
+    o2 = Order(quantity=1, total_amount=Decimal("1500.00"), product=p2)
+    o3 = Order(quantity=5, total_amount=Decimal("250.00"), product=p3)
+    o4 = Order(quantity=1, total_amount=Decimal("800.00"), product=p1)
+    o5 = Order(quantity=3, total_amount=Decimal("450.00"), product=p5)
 
-    session.add_all([d_it, d_sales, d_support, e1, e2, e3, e4, e5, s1, s2, s3, s4, s5, s6, s7, s8, s9])
+    session.add_all([c_tech, c_books, c_home, p1, p2, p3, p4, p5, o1, o2, o3, o4, o5])
     await session.commit()
 
 
@@ -77,11 +71,7 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        # query = select(func.count(Sale.id).label("total_count"), func.sum(Sale.amount).label("total_amount"))
-        # query = select(Sale.category, func.count(Sale.category), func.sum(Sale.amount)).group_by(Sale.category)
-        # query = select(func.avg(Sale.amount)).where(Sale.category == "Software")
-        # query = select(Employee.name, func.sum(Sale.amount).label("total_price")).join(Sale).group_by(Employee.name).having(func.sum(Sale.amount) > 2000)
-        query = select(Department.name, func.count(Employee.id)).join(Employee).where(Employee.is_active==True).group_by(Department.name).having(func.count(Employee.id) > 1)
+        query = select(Product.title, Product.price).where(Product.in_stock==True, Product.price < 100)
 
         result = await session.execute(query)
         rows = result.all()
