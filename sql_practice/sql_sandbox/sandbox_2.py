@@ -80,8 +80,8 @@ async def main():
         # query = select(func.count(Sale.id).label("total_count"), func.sum(Sale.amount).label("total_amount"))
         # query = select(Sale.category, func.count(Sale.category), func.sum(Sale.amount)).group_by(Sale.category)
         # query = select(func.avg(Sale.amount)).where(Sale.category == "Software")
-        query = select(Employee.name, func.sum(Sale.amount).label("total_price")).join(Sale).group_by(Employee.name).having(func.sum(Sale.amount) > 2000)
-
+        # query = select(Employee.name, func.sum(Sale.amount).label("total_price")).join(Sale).group_by(Employee.name).having(func.sum(Sale.amount) > 2000)
+        query = select(Department.name, func.count(Employee.id)).join(Employee).where(Employee.is_active==True).group_by(Department.name).having(func.count(Employee.id) > 1)
 
         result = await session.execute(query)
         rows = result.all()
