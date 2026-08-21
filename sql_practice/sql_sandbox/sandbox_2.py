@@ -71,7 +71,8 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        query = select(Product.title, Product.price).where(Product.in_stock==True, Product.price < 100)
+        # query = select(Product.title, Product.price).where(Product.in_stock==True, Product.price < 100)
+        query = select(Product.title, Category.name).join(Category).where(Product.in_stock==False)
 
         result = await session.execute(query)
         rows = result.all()
