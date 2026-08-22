@@ -74,13 +74,15 @@ async def main():
         # query = select(Product.title, Product.price).where(Product.in_stock==True, Product.price < 100)
         # query = select(Product.title, Category.name).join(Category).where(Product.in_stock==False)
         # query = select(Product.title, func.sum(Order.total_amount)).join(Order).group_by(Product.title)
-        query = (
-        select(Category.name, func.sum(Order.quantity))
-        .select_from(Category)
-        .join(Product).join(Order)
-        .group_by(Category.name).
-        having(func.sum(Order.quantity) > 2)
-        )
+        # query = (
+        # select(Category.name, func.sum(Order.quantity))
+        # .select_from(Category)
+        # .join(Product).join(Order)
+        # .group_by(Category.name).
+        # having(func.sum(Order.quantity) > 2)
+        # )
+        query = select(Category.name, func.avg(Product.price).label("avg_price")).join(Product).group_by(Category.name)
+
         result = await session.execute(query)
         rows = result.all()
 
