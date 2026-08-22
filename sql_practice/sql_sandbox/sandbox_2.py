@@ -102,13 +102,23 @@ async def main():
         #     .where(Order.quantity >= 2)
         #     .group_by(Product.title)
         # )
+        # query = (
+        #     select(Product.title, func.sum(Order.total_amount))
+        #     .join(Order)
+        #     .where(Product.in_stock)
+        #     .group_by(Product.title)
+        #     .having(func.sum(Order.total_amount) > 1000)
+        # )
         query = (
-            select(Product.title, func.sum(Order.total_amount))
+            select(Category.name, func.sum(Order.total_amount))
+            .select_from(Category)
+            .join(Product)
             .join(Order)
-            .where(Product.in_stock)
-            .group_by(Product.title)
+            .where(Order.quantity > 1)
+            .group_by(Category.name)
             .having(func.sum(Order.total_amount) > 1000)
         )
+
 
         result = await session.execute(query)
         rows = result.all()
