@@ -83,12 +83,18 @@ async def main():
         # )
         # query = select(Category.name, func.avg(Product.price).label("avg_price")).join(Product).group_by(Category.name)
         # query = select(Product.title, func.sum(Order.quantity)).join(Order).where(Product.in_stock).group_by(Product.title)
+        # query = (
+        #     select(Category.name, func.sum(Order.total_amount))
+        #     .select_from(Category)
+        #     .join(Product).join(Order)
+        #     .group_by(Category.name)
+        #     .order_by(func.sum(Order.total_amount).desc())
+        # )
         query = (
-            select(Category.name, func.sum(Order.total_amount))
-            .select_from(Category)
-            .join(Product).join(Order)
-            .group_by(Category.name)
-            .order_by(func.sum(Order.total_amount).desc())
+            select(Product.title, func.sum(Order.id), func.avg(Order.total_amount))
+            .join(Order)
+            .where(Order.quantity >= 2)
+            .group_by(Product.title)
         )
 
         result = await session.execute(query)
