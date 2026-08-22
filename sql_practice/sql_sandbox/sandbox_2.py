@@ -109,16 +109,20 @@ async def main():
         #     .group_by(Product.title)
         #     .having(func.sum(Order.total_amount) > 1000)
         # )
+        # query = (
+        #     select(Category.name, func.sum(Order.total_amount))
+        #     .select_from(Category)
+        #     .join(Product)
+        #     .join(Order)
+        #     .where(Order.quantity > 1)
+        #     .group_by(Category.name)
+        #     .having(func.sum(Order.total_amount) > 1000)
+        # )
+        avg_price = select(func.avg(Product.price)).scalar_subquery()
         query = (
-            select(Category.name, func.sum(Order.total_amount))
-            .select_from(Category)
-            .join(Product)
-            .join(Order)
-            .where(Order.quantity > 1)
-            .group_by(Category.name)
-            .having(func.sum(Order.total_amount) > 1000)
+            select(Product.title, Product.price)
+            .where(Product.price > avg_price)
         )
-
 
         result = await session.execute(query)
         rows = result.all()
