@@ -81,7 +81,8 @@ async def main():
         # .group_by(Category.name).
         # having(func.sum(Order.quantity) > 2)
         # )
-        query = select(Category.name, func.avg(Product.price).label("avg_price")).join(Product).group_by(Category.name)
+        # query = select(Category.name, func.avg(Product.price).label("avg_price")).join(Product).group_by(Category.name)
+        query = select(Product.title, func.sum(Order.quantity)).join(Order).where(Product.in_stock).group_by(Product.title)
 
         result = await session.execute(query)
         rows = result.all()
