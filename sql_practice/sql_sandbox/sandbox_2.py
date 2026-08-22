@@ -90,8 +90,14 @@ async def main():
         #     .group_by(Category.name)
         #     .order_by(func.sum(Order.total_amount).desc())
         # )
+        # query = (
+        #     select(Product.title, func.sum(Order.id), func.avg(Order.total_amount))
+        #     .join(Order)
+        #     .where(Order.quantity >= 2)
+        #     .group_by(Product.title)
+        # )
         query = (
-            select(Product.title, func.sum(Order.id), func.avg(Order.total_amount))
+            select(Product.title, func.avg(Order.total_amount))
             .join(Order)
             .where(Order.quantity >= 2)
             .group_by(Product.title)
