@@ -138,9 +138,14 @@ async def main():
         #         (Product.price == subq.c.max_price)
         #     )
         # )
-        avg_total_price = select(func.avg(Order.total_amount).label("avg_price")).scalar_subquery()
-        query = select(Order.id, Order.total_amount).where(Order.total_amount > avg_total_price)
-
+        # avg_total_price = select(func.avg(Order.total_amount).label("avg_price")).scalar_subquery()
+        # query = select(Order.id, Order.total_amount).where(Order.total_amount > avg_total_price)
+        subq = select(Order.product_id, func.sum(Order.total_amount).label("total_price")).group_by(Order.product_id).subquery()
+        query = (
+            select(Product.title, subq.c.total_price)
+            .join(subq, Product.id == subq.c.product_id)
+            .where(subq.c.total_price > 1000)
+        )
 
         result = await session.execute(query)
         rows = result.all()
