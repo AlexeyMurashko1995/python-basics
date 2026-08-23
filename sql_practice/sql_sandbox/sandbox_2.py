@@ -64,8 +64,21 @@ async def main():
         #         (Employee.salary == subq.c.max_salary)
         #     )
         # )
+        # subq = (
+        #     select(Employee.department_id, func.avg(Employee.salary).label("average_salary"))
+        #     .group_by(Employee.department_id)
+        #     .subquery()
+        # )
+        # query = (
+        #     select(Employee.name, Employee.salary)
+        #     .join(
+        #         subq,
+        #         (Employee.department_id == subq.c.department_id) &
+        #         (Employee.salary > subq.c.average_salary)
+        #     )
+        # )
         subq = (
-            select(Employee.department_id, func.avg(Employee.salary).label("average_salary"))
+            select(Employee.department_id, func.min(Employee.salary).label("min_dep_salary"))
             .group_by(Employee.department_id)
             .subquery()
         )
@@ -74,9 +87,10 @@ async def main():
             .join(
                 subq,
                 (Employee.department_id == subq.c.department_id) &
-                (Employee.salary > subq.c.average_salary)
+                (Employee.salary == subq.c.min_dep_salary)
             )
         )
+
 
 
         result = await session.execute(query)
