@@ -56,8 +56,24 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        avg_time = select(func.avg(Task.hours_spent)).scalar_subquery()
-        query = select(Task.title, Task.hours_spent).where(Task.hours_spent > avg_time)
+        # avg_time = select(func.avg(Task.hours_spent)).scalar_subquery()
+        # query = select(Task.title, Task.hours_spent).where(Task.hours_spent > avg_time)
+        subq = (
+            select(Task.project_id, func.max(Task.hours_spent).label("max_hours_spent"))
+            .group_by(Task.project_id)
+            .subquery()
+        )
+        query = (
+            select(Project.name, Task.title, Task.hours_spent)
+            .select_from(Task)
+            .join(Project)
+            .join(
+                subq,
+                (Project.id == subq.c.project_id) &
+                (Task.hours_spent == subq.c.max_hours_spent)
+            )
+        )
+
 
         result = await session.execute(query)
         rows = result.all()
