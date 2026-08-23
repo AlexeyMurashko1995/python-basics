@@ -53,9 +53,17 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        avg_salary = select(func.avg(Employee.salary)).scalar_subquery()
-        query = select(Employee.name, Employee.salary).where(Employee.salary > avg_salary)
-
+        # avg_salary = select(func.avg(Employee.salary)).scalar_subquery()
+        # query = select(Employee.name, Employee.salary).where(Employee.salary > avg_salary)
+        subq = select(Employee.department_id, func.max(Employee.salary).label("max_salary")).group_by(Employee.department_id).subquery()
+        query = (
+            select(Employee.name, Employee.salary)
+            .join(
+                subq,
+                (Employee.department_id == subq.c.department_id) &
+                (Employee.salary == subq.c.max_salary)
+            )
+        )
         result = await session.execute(query)
         rows = result.all()
 
