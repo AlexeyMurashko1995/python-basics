@@ -56,10 +56,25 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        avg_score = select(func.avg(Student.score).label("avg_score")).scalar_subquery()
+        # avg_score = select(func.avg(Student.score).label("avg_score")).scalar_subquery()
+        # query = (
+        #     select(Student.name, Student.score)
+        #     .where(Student.score > avg_score)
+        # )
+        subq = (
+            select(Student.course_id, func.min(Student.score).label("min_score"))
+            .group_by(Student.course_id)
+            .subquery()
+        )
         query = (
-            select(Student.name, Student.score)
-            .where(Student.score > avg_score)
+            select(Course.title, Student.name, Student.score)
+            .select_from(Student)
+            .join(Course)
+            .join(
+                subq,
+                (Course.id == subq.c.course_id) &
+                (Student.score == subq.c.min_score)
+            )
         )
 
         result = await session.execute(query)
