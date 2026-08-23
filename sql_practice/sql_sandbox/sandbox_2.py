@@ -123,21 +123,24 @@ async def main():
         #     select(Product.title, Product.price)
         #     .where(Product.price > avg_price)
         # )
-        subq = (
-            select(Product.category_id,
-            func.max(Product.price).label("max_price")
-            )
-            .group_by(Product.category_id)
-            .subquery()
-        )
-        query = (
-            select(Product.title, Product.price)
-            .join(
-                subq,
-                (Product.category_id == subq.c.category_id) &
-                (Product.price == subq.c.max_price)
-            )
-        )
+        # subq = (
+        #     select(Product.category_id,
+        #     func.max(Product.price).label("max_price")
+        #     )
+        #     .group_by(Product.category_id)
+        #     .subquery()
+        # )
+        # query = (
+        #     select(Product.title, Product.price)
+        #     .join(
+        #         subq,
+        #         (Product.category_id == subq.c.category_id) &
+        #         (Product.price == subq.c.max_price)
+        #     )
+        # )
+        avg_total_price = select(func.avg(Order.total_amount).label("avg_price")).scalar_subquery()
+        query = select(Order.id, Order.total_amount).where(Order.total_amount > avg_total_price)
+
 
         result = await session.execute(query)
         rows = result.all()
