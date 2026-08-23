@@ -12,40 +12,40 @@ class Base(DeclarativeBase):
     pass
 
 
-class Project(Base):
-    __tablename__ = "projects"
+class Course(Base):
+    __tablename__ = "courses"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    title: Mapped[str] = mapped_column(String(50))
+
+    students: Mapped[list["Student"]] = relationship(back_populates="course")
+
+
+class Student(Base):
+    __tablename__ = "students"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(50))
+    score: Mapped[int] = mapped_column(Integer)
+    course_id: Mapped[int] = mapped_column(ForeignKey("courses.id"))
 
-    tasks: Mapped[list["Task"]] = relationship(back_populates="project")
-
-
-class Task(Base):
-    __tablename__ = "tasks"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    title: Mapped[str] = mapped_column(String(100))
-    hours_spent: Mapped[int] = mapped_column(Integer)
-    project_id: Mapped[int] = mapped_column(ForeignKey("projects.id"))
-
-    project: Mapped["Project"] = relationship(back_populates="tasks")
+    course: Mapped["Course"] = relationship(back_populates="students")
 
 
 async def seed_data(session: AsyncSession):
-    p_backend = Project(name="Backend Development")
-    p_mobile = Project(name="Mobile App")
-    p_devops = Project(name="DevOps Setup")
+    c_python = Course(title="Python Developer")
+    c_ds = Course(title="Data Science")
+    c_qa = Course(title="QA Automation")
 
-    t1 = Task(title="Database Schema Design", hours_spent=10, project=p_backend)
-    t2 = Task(title="API Auth Endpoint", hours_spent=25, project=p_backend)
-    t3 = Task(title="ORM Optimization", hours_spent=40, project=p_backend)
+    s1 = Student(name="Alex", score=85, course=c_python)
+    s2 = Student(name="Max", score=95, course=c_python)
+    s3 = Student(name="Olga", score=60, course=c_python)
 
-    t4 = Task(title="UI Login Screen", hours_spent=5, project=p_mobile)
-    t5 = Task(title="Push Notifications", hours_spent=15, project=p_mobile)
+    s4 = Student(name="Elena", score=90, course=c_ds)
+    s5 = Student(name="Ivan", score=70, course=c_ds)
 
-    t6 = Task(title="Docker Setup", hours_spent=12, project=p_devops)
-    t7 = Task(title="CI/CD Pipeline", hours_spent=33, project=p_devops)
+    s6 = Student(name="Dmitriy", score=50, course=c_qa)
+    s7 = Student(name="Anna", score=80, course=c_qa)
 
-    session.add_all([p_backend, p_mobile, p_devops, t1, t2, t3, t4, t5, t6, t7])
+    session.add_all([c_python, c_ds, c_qa, s1, s2, s3, s4, s5, s6, s7])
     await session.commit()
 
 
@@ -56,24 +56,11 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        # avg_time = select(func.avg(Task.hours_spent)).scalar_subquery()
-        # query = select(Task.title, Task.hours_spent).where(Task.hours_spent > avg_time)
-        subq = (
-            select(Task.project_id, func.max(Task.hours_spent).label("max_hours_spent"))
-            .group_by(Task.project_id)
-            .subquery()
-        )
+        avg_score = select(func.avg(Student.score).label("avg_score")).scalar_subquery()
         query = (
-            select(Project.name, Task.title, Task.hours_spent)
-            .select_from(Task)
-            .join(Project)
-            .join(
-                subq,
-                (Project.id == subq.c.project_id) &
-                (Task.hours_spent == subq.c.max_hours_spent)
-            )
+            select(Student.name, Student.score)
+            .where(Student.score > avg_score)
         )
-
 
         result = await session.execute(query)
         rows = result.all()
