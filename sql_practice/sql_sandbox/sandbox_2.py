@@ -1,7 +1,7 @@
 import asyncio
 from decimal import Decimal
 
-from sqlalchemy import Boolean, ForeignKey, Numeric, String, func, select
+from sqlalchemy import ForeignKey, Numeric, String, func, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -13,54 +13,36 @@ class Base(DeclarativeBase):
     pass
 
 
-class Category(Base):
-    __tablename__ = "categories"
+class Department(Base):
+    __tablename__ = "departments"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(50))
 
-    products: Mapped[list["Product"]] = relationship(back_populates="category")
+    employees: Mapped[list["Employee"]] = relationship(back_populates="department")
 
 
-class Product(Base):
-    __tablename__ = "products"
+class Employee(Base):
+    __tablename__ = "employees"
     id: Mapped[int] = mapped_column(primary_key=True)
-    title: Mapped[str] = mapped_column(String(100))
-    price: Mapped[Decimal] = mapped_column(Numeric(10, 2))
-    in_stock: Mapped[bool] = mapped_column(Boolean, default=True)
-    category_id: Mapped[int] = mapped_column(ForeignKey("categories.id"))
+    name: Mapped[str] = mapped_column(String(50))
+    salary: Mapped[Decimal] = mapped_column(Numeric(10, 2))
+    department_id: Mapped[int] = mapped_column(ForeignKey("departments.id"))
 
-    category: Mapped["Category"] = relationship(back_populates="products")
-    orders: Mapped[list["Order"]] = relationship(back_populates="product")
-
-
-class Order(Base):
-    __tablename__ = "orders"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    quantity: Mapped[int] = mapped_column(default=1)
-    total_amount: Mapped[Decimal] = mapped_column(Numeric(10, 2))
-    product_id: Mapped[int] = mapped_column(ForeignKey("products.id"))
-
-    product: Mapped["Product"] = relationship(back_populates="orders")
+    department: Mapped["Department"] = relationship(back_populates="employees")
 
 
 async def seed_data(session: AsyncSession):
-    c_tech = Category(name="Electronics")
-    c_books = Category(name="Books")
-    c_home = Category(name="Home")
+    d_it = Department(name="IT")
+    d_hr = Department(name="HR")
+    d_sales = Department(name="Sales")
 
-    p1 = Product(title="Smartphone", price=Decimal("800.00"), in_stock=True, category=c_tech)
-    p2 = Product(title="Laptop", price=Decimal("1500.00"), in_stock=True, category=c_tech)
-    p3 = Product(title="Python Course Book", price=Decimal("50.00"), in_stock=True, category=c_books)
-    p4 = Product(title="SQL Guide", price=Decimal("40.00"), in_stock=False, category=c_books)
-    p5 = Product(title="Coffee Maker", price=Decimal("150.00"), in_stock=True, category=c_home)
+    e1 = Employee(name="Alice", salary=Decimal("3000.00"), department=d_it)
+    e2 = Employee(name="Bob", salary=Decimal("5000.00"), department=d_it)
+    e3 = Employee(name="Charlie", salary=Decimal("2000.00"), department=d_hr)
+    e4 = Employee(name="David", salary=Decimal("250.00"), department=d_hr)
+    e5 = Employee(name="Eve", salary=Decimal("4000.00"), department=d_sales)
 
-    o1 = Order(quantity=2, total_amount=Decimal("1600.00"), product=p1)
-    o2 = Order(quantity=1, total_amount=Decimal("1500.00"), product=p2)
-    o3 = Order(quantity=5, total_amount=Decimal("250.00"), product=p3)
-    o4 = Order(quantity=1, total_amount=Decimal("800.00"), product=p1)
-    o5 = Order(quantity=3, total_amount=Decimal("450.00"), product=p5)
-
-    session.add_all([c_tech, c_books, c_home, p1, p2, p3, p4, p5, o1, o2, o3, o4, o5])
+    session.add_all([d_it, d_hr, d_sales, e1, e2, e3, e4, e5])
     await session.commit()
 
 
@@ -71,81 +53,8 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        # query = select(Product.title, Product.price).where(Product.in_stock==True, Product.price < 100)
-        # query = select(Product.title, Category.name).join(Category).where(Product.in_stock==False)
-        # query = select(Product.title, func.sum(Order.total_amount)).join(Order).group_by(Product.title)
-        # query = (
-        # select(Category.name, func.sum(Order.quantity))
-        # .select_from(Category)
-        # .join(Product).join(Order)
-        # .group_by(Category.name).
-        # having(func.sum(Order.quantity) > 2)
-        # )
-        # query = select(Category.name, func.avg(Product.price).label("avg_price")).join(Product).group_by(Category.name)
-        # query = select(Product.title, func.sum(Order.quantity)).join(Order).where(Product.in_stock).group_by(Product.title)
-        # query = (
-        #     select(Category.name, func.sum(Order.total_amount))
-        #     .select_from(Category)
-        #     .join(Product).join(Order)
-        #     .group_by(Category.name)
-        #     .order_by(func.sum(Order.total_amount).desc())
-        # )
-        # query = (
-        #     select(Product.title, func.sum(Order.id), func.avg(Order.total_amount))
-        #     .join(Order)
-        #     .where(Order.quantity >= 2)
-        #     .group_by(Product.title)
-        # )
-        # query = (
-        #     select(Product.title, func.avg(Order.total_amount))
-        #     .join(Order)
-        #     .where(Order.quantity >= 2)
-        #     .group_by(Product.title)
-        # )
-        # query = (
-        #     select(Product.title, func.sum(Order.total_amount))
-        #     .join(Order)
-        #     .where(Product.in_stock)
-        #     .group_by(Product.title)
-        #     .having(func.sum(Order.total_amount) > 1000)
-        # )
-        # query = (
-        #     select(Category.name, func.sum(Order.total_amount))
-        #     .select_from(Category)
-        #     .join(Product)
-        #     .join(Order)
-        #     .where(Order.quantity > 1)
-        #     .group_by(Category.name)
-        #     .having(func.sum(Order.total_amount) > 1000)
-        # )
-        # avg_price = select(func.avg(Product.price)).scalar_subquery()
-        # query = (
-        #     select(Product.title, Product.price)
-        #     .where(Product.price > avg_price)
-        # )
-        # subq = (
-        #     select(Product.category_id,
-        #     func.max(Product.price).label("max_price")
-        #     )
-        #     .group_by(Product.category_id)
-        #     .subquery()
-        # )
-        # query = (
-        #     select(Product.title, Product.price)
-        #     .join(
-        #         subq,
-        #         (Product.category_id == subq.c.category_id) &
-        #         (Product.price == subq.c.max_price)
-        #     )
-        # )
-        # avg_total_price = select(func.avg(Order.total_amount).label("avg_price")).scalar_subquery()
-        # query = select(Order.id, Order.total_amount).where(Order.total_amount > avg_total_price)
-        subq = select(Order.product_id, func.sum(Order.total_amount).label("total_price")).group_by(Order.product_id).subquery()
-        query = (
-            select(Product.title, subq.c.total_price)
-            .join(subq, Product.id == subq.c.product_id)
-            .where(subq.c.total_price > 1000)
-        )
+        avg_salary = select(func.avg(Employee.salary)).scalar_subquery()
+        query = select(Employee.name, Employee.salary).where(Employee.salary > avg_salary)
 
         result = await session.execute(query)
         rows = result.all()
