@@ -1,19 +1,19 @@
 import asyncio
 
 
-async def get_delay(id_source: int, is_error: bool):
-    print(f"Starting {id_source} id")
-    await asyncio.sleep(1)
-    if not is_error:
-        return f"Finishing {id_source} id"
-    raise ValueError("Error")
+async def get_transaction(transaction_id: int, failed_transaction: bool):
+    print(f"Starting transaction #{transaction_id}")
+    await asyncio.sleep(2)
+    if failed_transaction:
+        raise ValueError("Error")
+    return f"id {transaction_id}"
 
 
 async def main():
-    result = await asyncio.gather(get_delay(1, False), get_delay(2, True), get_delay(3, False), return_exceptions=True)
+    result = await asyncio.gather(get_transaction(1, True), get_transaction(2, False), get_transaction(3, False), get_transaction(4, True), return_exceptions=True)
     for item in result:
         if isinstance(item, Exception):
-            print(f"Failed: {item}")
+            print(f"Error: {item}")
         else:
             print(f"Success: {item}")
 
