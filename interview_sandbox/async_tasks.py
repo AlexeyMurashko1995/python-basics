@@ -1,17 +1,17 @@
 import asyncio
 
-async def fetch_data(db_name: str, delay: int):
-    print(f"Request to {db_name}")
+async def worker(name: str, delay: int):
+    print(f"Start: {name}")
     await asyncio.sleep(delay)
-    return f"Data from {db_name}"
+    return f"Finish: {name}"
 
 async def main():
-    task1 = asyncio.create_task(fetch_data("Users", 2))
-    task2 = asyncio.create_task(fetch_data("Orders", 1))
-    print("Event Loop is working...")
-    resul1 = await task1
+    task1 = asyncio.create_task(worker("A", 3))
+    task2 = asyncio.create_task(worker("B", 1))
+    print("Control to the Event Loop")
     result2 = await task2
-    print(resul1, result2)
-
+    print(result2)
+    result1 = await task1
+    print(result1)
 
 asyncio.run(main())
