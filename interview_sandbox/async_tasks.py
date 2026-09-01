@@ -21,18 +21,43 @@ import time
 
 # asyncio.run(main())
 
-def sync_heavy_task():
-    print("Sync task started")
-    time.sleep(2)
-    print("Sync task finished")
+# def sync_heavy_task():
+#     print("Sync task started")
+#     time.sleep(2)
+#     print("Sync task finished")
 
 
-async def fast_async_task():
+# async def fast_async_task():
+#     await asyncio.sleep(1)
+#     print("Fast task .....")
+
+
+# async def main():
+#     result = await asyncio.gather(asyncio.to_thread(sync_heavy_task), fast_async_task())
+
+
+# asyncio.run(main())
+
+
+async def fetch_user_from_db(user_id: int):
+    print(f"Session with id {user_id}")
     await asyncio.sleep(1)
-    print("Fast task .....")
-
+    if user_id < 0:
+        raise ValueError("Invalid ID")
+    elif user_id == 0:
+        raise ConnectionError("Connection failed")
+    return {"user_id": user_id, "status": "active"}
 
 async def main():
-    result = await asyncio.gather(asyncio.to_thread(sync_heavy_task), fast_async_task())
+    user_id = [10, 0, -5]
+    for id in user_id:
+        try:
+            result = await fetch_user_from_db(id)
+            print(f"Success: {result}")
+        except ValueError as e:
+            print(f"[VALIDATION ERROR]: {e}")
+        except ConnectionError as e:
+            print(f"[DB ERROR]: {e}")
+
 
 asyncio.run(main())
