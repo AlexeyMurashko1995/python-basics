@@ -39,25 +39,45 @@ import time
 # asyncio.run(main())
 
 
-async def fetch_user_from_db(user_id: int):
-    print(f"Session with id {user_id}")
-    await asyncio.sleep(1)
-    if user_id < 0:
-        raise ValueError("Invalid ID")
-    elif user_id == 0:
-        raise ConnectionError("Connection failed")
-    return {"user_id": user_id, "status": "active"}
+# async def fetch_user_from_db(user_id: int):
+#     print(f"Session with id {user_id}")
+#     await asyncio.sleep(1)
+#     if user_id < 0:
+#         raise ValueError("Invalid ID")
+#     elif user_id == 0:
+#         raise ConnectionError("Connection failed")
+#     return {"user_id": user_id, "status": "active"}
+
+# async def main():
+#     user_id = [10, 0, -5]
+#     for id in user_id:
+#         try:
+#             result = await fetch_user_from_db(id)
+#             print(f"Success: {result}")
+#         except ValueError as e:
+#             print(f"[VALIDATION ERROR]: {e}")
+#         except ConnectionError as e:
+#             print(f"[DB ERROR]: {e}")
+
+
+# asyncio.run(main())
+
+async def fetch_service_data(service_name: str, delay: int):
+    print(f"Starting {service_name}")
+    await asyncio.sleep(delay)
+    if service_name == "analytics":
+        raise TimeoutError("Service analytics is not responding")
+    return f"Payload from {service_name}"
+
 
 async def main():
-    user_id = [10, 0, -5]
-    for id in user_id:
-        try:
-            result = await fetch_user_from_db(id)
-            print(f"Success: {result}")
-        except ValueError as e:
-            print(f"[VALIDATION ERROR]: {e}")
-        except ConnectionError as e:
-            print(f"[DB ERROR]: {e}")
+    result = await asyncio.gather(fetch_service_data("users", 2), fetch_service_data("analytics", 1), fetch_service_data("billing", 3), return_exceptions=True)
+    for item in result:
+        final = isinstance(item, Exception)
+        if final:
+            print(f"[SERVICE FAILED]:{item}")
+        else:
+            print(f"[SUCCESS]:{item}")
 
 
 asyncio.run(main())
