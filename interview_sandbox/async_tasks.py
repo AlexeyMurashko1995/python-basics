@@ -1,17 +1,21 @@
 import asyncio
 
-async def worker(name: str, delay: int):
-    print(f"Start: {name}")
+async def process_payload(payload_id: int, delay: int):
+    print(f"Starting: id {payload_id}")
     await asyncio.sleep(delay)
-    return f"Finish: {name}"
+    if payload_id % 2 == 0:
+        raise ValueError(f"Error: id {payload_id}")
+    return f"Success: id {payload_id}"
+
 
 async def main():
-    task1 = asyncio.create_task(worker("A", 3))
-    task2 = asyncio.create_task(worker("B", 1))
-    print("Control to the Event Loop")
-    result2 = await task2
-    print(result2)
-    result1 = await task1
-    print(result1)
+    result = await asyncio.gather(process_payload(1, 2), process_payload(2, 2), process_payload(3,3), process_payload(4,1), return_exceptions=True)
+    for item in result:
+        final = isinstance(item, Exception)
+        if final:
+            print(f"Error: {item}")
+        else:
+            print(f"Success: {item}")
+
 
 asyncio.run(main())
