@@ -11,5 +11,6 @@ async def get_db():
 async def main():
     async for session in get_db():
         print(f"Our session: {session}")
+        raise ValueError("Error in the endpoint")
 
 asyncio.run(main())
