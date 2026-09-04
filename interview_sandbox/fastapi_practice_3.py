@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession, create_async_engine
 from fastapi import FastAPI
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -8,6 +9,15 @@ engine = create_async_engine("sqlite+aiosqlite:///:memory:")
 
 async_session_factory = async_sessionmaker(bind=engine, expire_on_commit=False)
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+        yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 class Base(DeclarativeBase):
     pass
@@ -45,3 +55,5 @@ async def create_payment_in_db(account_id: int, amount: float, session: AsyncSes
     await session.commit()
     await session.refresh(new_payment)
     return new_payment
+
+
