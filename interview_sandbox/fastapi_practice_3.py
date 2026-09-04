@@ -35,3 +35,13 @@ class PaymentResponse(BaseModel):
 async def get_db():
     async with async_session_factory() as session:
         yield session
+
+
+async def create_payment_in_db(account_id: int, amount: float, session: AsyncSession):
+    if amount <= 0:
+        raise ValueError("Amount must be positive")
+    new_payment = PaymentDB(account_id=account_id, amount=amount)
+    session.add(new_payment)
+    await session.commit()
+    await session.refresh(new_payment)
+    return new_payment
