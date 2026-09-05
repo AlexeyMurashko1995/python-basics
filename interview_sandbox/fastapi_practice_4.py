@@ -27,8 +27,8 @@ async def lifespan(app: FastAPI):
         await conn.run_sync(Base.metadata.create_all)
         yield
 
-app = FastAPI(lifespan=lifespan)
 
+app = FastAPI(lifespan=lifespan)
 
 class PaymentCreate(BaseModel):
     account_id: int
@@ -56,3 +56,12 @@ async def create_payment_in_db(account_id: int, amount: float, session: AsyncSes
     await session.commit()
     await session.refresh(new_payment)
     return new_payment
+
+
+@app.post("/payments", response_model=PaymentResponse)
+async def create_payment(payment: PaymentCreate, session: AsyncSession = Depends(get_db)):
+    try:
+        new_payment = await create_payment_in_db(account_id=payment.account_id, amount=payment.amount, session=session)
+        return new_payment
+    except ValueError as err:
+        raise HTTPException(status_code=400, detail=str(err))
