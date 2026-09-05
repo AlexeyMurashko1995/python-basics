@@ -1,10 +1,9 @@
 from fastapi import FastAPI, Depends, HTTPException
+from contextlib import asynccontextmanager
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from pydantic import BaseModel, ConfigDict
 
-
-app = FastAPI()
 
 engine = create_async_engine("sqlite+aiosqlite:///:memory:")
 
@@ -20,6 +19,15 @@ class PaymentDB(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     account_id: Mapped[int]
     amount: Mapped[float]
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+        yield
+
+app = FastAPI(lifespan=lifespan)
 
 
 class PaymentCreate(BaseModel):
