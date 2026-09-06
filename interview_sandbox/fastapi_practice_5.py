@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from pydantic import BaseModel, ConfigDict
@@ -58,3 +58,10 @@ async def create_order_in_db(user_id: int, total_price: float, session: AsyncSes
     return new_order
 
 
+@app.post("/orders", response_model=OrderResponse)
+async def create_order(order_data: OrderCreate, session: AsyncSession = Depends(get_db)):
+    try:
+        new_order = await create_order_in_db(user_id=order_data.user_id, total_price=order_data.total_price, session=session)
+        return new_order
+    except ValueError as err:
+        raise HTTPException(status_code=400, detail=str(err))
