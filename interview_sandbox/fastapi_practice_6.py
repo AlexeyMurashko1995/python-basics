@@ -48,3 +48,15 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+
+async def create_product_in_db(title: str, price: float, is_available: bool, session: AsyncSession):
+    if len(title.strip()) < 3:
+        raise ValueError("At least 3 symbols")
+    if price <= 0:
+        raise ValueError("Price must be positive")
+    new_product = ProductDB(title=title, price=price, is_available=is_available)
+    session.add(new_product)
+    await session.commit()
+    await session.refresh(new_product)
+    return new_product
