@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from pydantic import BaseModel, ConfigDict
@@ -57,6 +58,10 @@ async def create_order_in_db(user_id: int, total_price: float, session: AsyncSes
     await session.refresh(new_order)
     return new_order
 
+
+async def get_order_by_id(order_id: int, session: AsyncSession):
+    result = await session.get(OrdersDB, order_id)
+    return result
 
 @app.post("/orders", response_model=OrderResponse)
 async def create_order(order_data: OrderCreate, session: AsyncSession = Depends(get_db)):
