@@ -3,6 +3,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from pydantic import BaseModel, ConfigDict
+from sqlalchemy import select
 
 
 engine = create_async_engine("sqlite+aiosqlite:///:memory:")
@@ -60,6 +61,32 @@ async def create_product_in_db(title: str, price: float, is_available: bool, ses
     await session.commit()
     await session.refresh(new_product)
     return new_product
+
+
+async def get_product_by_id(product_id: int, session: AsyncSession):
+    current_product = await session.get(ProductDB, product_id)
+    return current_product
+
+
+async def get_all_products(session: AsyncSession):
+    query = select(ProductDB)
+    result = await session.execute(query)
+    all_products = result.scalars().all()
+    return all_products
+
+
+@app.get("/products", response_model=list[ProductResponse])
+async def get_products(session: AsyncSession = Depends(get_db)):
+    all_products = await get_all_products(session=session)
+    return all_products
+
+
+@app.get("/products/{product_id}", response_model=ProductResponse)
+async def get_current_product(product_id: int, session: AsyncSession = Depends(get_db)):
+    current_product = await get_product_by_id(product_id=product_id, session=session)
+    if current_product is None:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return current_product
 
 
 @app.post("/products", response_model=ProductResponse)
