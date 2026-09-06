@@ -86,3 +86,9 @@ async def get_order(order_id: int, session: AsyncSession = Depends(get_db)):
     if target_order is None:
         raise HTTPException(status_code=404, detail="Order not found")
     return target_order
+
+
+@app.get("/orders", response_model=list[OrderResponse])
+async def get_orders(session: AsyncSession = Depends(get_db)):
+    all_orders = await get_all_orders(session=session)
+    return all_orders
