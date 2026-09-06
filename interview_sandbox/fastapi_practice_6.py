@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from pydantic import BaseModel, ConfigDict
@@ -60,3 +60,12 @@ async def create_product_in_db(title: str, price: float, is_available: bool, ses
     await session.commit()
     await session.refresh(new_product)
     return new_product
+
+
+@app.post("/products", response_model=ProductResponse)
+async def create_product(product_data: ProductCreate, session: AsyncSession = Depends(get_db)):
+    try:
+        new_product = await create_product_in_db(title=product_data.title, price=product_data.price, is_available=product_data.is_available, session=session)
+        return new_product
+    except ValueError as err:
+        raise HTTPException(status_code=400, detail=str(err))
