@@ -70,3 +70,11 @@ async def create_order(order_data: OrderCreate, session: AsyncSession = Depends(
         return new_order
     except ValueError as err:
         raise HTTPException(status_code=400, detail=str(err))
+
+
+@app.get("/orders/{order_id}", response_model=OrderResponse)
+async def get_order(order_id: int, session: AsyncSession = Depends(get_db)):
+    target_order = await get_order_by_id(order_id=order_id, session=session)
+    if target_order is None:
+        raise HTTPException(status_code=404, detail="Order not found")
+    return target_order
