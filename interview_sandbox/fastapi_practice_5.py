@@ -63,6 +63,14 @@ async def get_order_by_id(order_id: int, session: AsyncSession):
     result = await session.get(OrdersDB, order_id)
     return result
 
+
+async def get_all_orders(session: AsyncSession):
+    query = select(OrdersDB)
+    result = await session.execute(query)
+    all_orders = result.scalars().all()
+    return all_orders
+
+
 @app.post("/orders", response_model=OrderResponse)
 async def create_order(order_data: OrderCreate, session: AsyncSession = Depends(get_db)):
     try:
