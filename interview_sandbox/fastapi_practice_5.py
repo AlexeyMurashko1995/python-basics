@@ -48,3 +48,13 @@ async def get_db():
         yield session
 
 
+async def create_order_in_db(user_id: int, total_price: float, session: AsyncSession):
+    if total_price <= 0:
+        raise ValueError("Total price must be positive")
+    new_order = OrdersDB(user_id=user_id, total_price=total_price)
+    session.add(new_order)
+    await session.commit()
+    await session.refresh(new_order)
+    return new_order
+
+
