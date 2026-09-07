@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import select
@@ -83,3 +83,34 @@ async def delete_parcel_by_id(parcel_id: int, session: AsyncSession):
         await session.commit()
         return True
     return False
+
+
+@app.post("/parcels", response_model=ParcelResponse, status_code=201)
+async def create_parcel(parcel_data: ParcelCreate, session: AsyncSession = Depends(get_db)):
+    try:
+        result = await create_parcel_in_db(tracking_code=parcel_data.tracking_code, weight=parcel_data.weight, is_delivered=parcel_data.is_delivered, session=session)
+        return result
+    except ValueError as err:
+        raise HTTPException(status_code=400, detail=str(err))
+
+
+@app.get("/parcels", response_model=list[ParcelResponse], status_code=200)
+async def get_parcels(session: AsyncSession = Depends(get_db)):
+    parcels = await get_all_parcels(session=session)
+    return parcels
+
+
+@app.get("/parcels/{parcel_id}", response_model=ParcelResponse, status_code=200)
+async def get_parcel(parcel_id: int, session: AsyncSession = Depends(get_db)):
+    parcel = await get_parcel_by_id(parcel_id=parcel_id, session=session)
+    if parcel is None:
+        raise HTTPException(status_code=404, detail="Parcel not found")
+    return parcel
+
+
+@app.delete("/parcels/{parcel_id}", status_code=200)
+async def delete_parcel(parcel_id: int, session: AsyncSession = Depends(get_db)):
+    result = await delete_parcel_by_id(parcel_id=parcel_id, session=session)
+    if result is False:
+        raise HTTPException(status_code=404, detail="Parcel not found")
+    return {"status": "success"}
