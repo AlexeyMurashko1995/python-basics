@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import select
 from pydantic import BaseModel, ConfigDict
 
 engine = create_async_engine("sqlite+aiosqlite:///:memory:")
@@ -49,3 +50,36 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+
+async def create_parcel_in_db(tracking_code: str, weight: float, is_delivered: bool, session: AsyncSession):
+    if len(tracking_code.strip()) < 5:
+        raise ValueError("At least 5 symbols")
+    if weight <= 0:
+        raise ValueError("Weight must be only positive")
+    new_parcel = ParcelDB(tracking_code=tracking_code, weight=weight, is_delivered=is_delivered)
+    session.add(new_parcel)
+    await session.commit()
+    await session.refresh(new_parcel)
+    return new_parcel
+
+
+async def get_parcel_by_id(parcel_id: int, session: AsyncSession):
+    target_parcel = await session.get(ParcelDB, parcel_id)
+    return target_parcel
+
+
+async def get_all_parcels(session: AsyncSession):
+    query = select(ParcelDB)
+    result = await session.execute(query)
+    all_parcels = result.scalars().all()
+    return all_parcels
+
+
+async def delete_parcel_by_id(parcel_id: int, session: AsyncSession):
+    target_parcel = await session.get(ParcelDB, parcel_id)
+    if target_parcel is not None:
+        result = session.delete(target_parcel)
+        await session.commit()
+        return True
+    return False
