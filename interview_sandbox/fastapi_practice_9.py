@@ -2,7 +2,7 @@ import asyncio
 from typing import List
 from sqlalchemy import ForeignKey, String, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, selectinload
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, selectinload, joinedload
 
 DATABASE_URL = "sqlite+aiosqlite:///:memory:"
 
@@ -45,11 +45,11 @@ async def init_db():
         await session.commit()
 
 
-async def get_author_selectinload(author_id: int, session: AsyncSession) -> Author:
+async def get_book_joinedload(book_id: int, session: AsyncSession) -> Book:
     query = (
-        select(Author)
-        .options(selectinload(Author.books))
-        .where(Author.id==author_id)
+        select(Book)
+        .options(joinedload(Book.author))
+        .where(Book.id==book_id)
     )
     result = await session.execute(query)
     return result.scalar_one()
@@ -59,9 +59,9 @@ async def main():
     await init_db()
 
     async with async_session() as session:
-        author = await get_author_selectinload(1, session)
-        print(f"Author:{author.name}")
-        print(f"Books: {[book.title for book in author.books]}")
+        book = await get_book_joinedload(1, session)
+        print(f"Book:{book.title}")
+        print(f"Author: {book.author.name}")
 
 
 if __name__ == "__main__":
