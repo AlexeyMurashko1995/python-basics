@@ -2,7 +2,7 @@ import asyncio
 from typing import List
 from sqlalchemy import ForeignKey, String, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, selectinload
 
 DATABASE_URL = "sqlite+aiosqlite:///:memory:"
 
@@ -45,8 +45,12 @@ async def init_db():
         await session.commit()
 
 
-async def get_author_lazy(author_id: int, session: AsyncSession) -> Author:
-    query = select(Author).where(Author.id == author_id)
+async def get_author_selectinload(author_id: int, session: AsyncSession) -> Author:
+    query = (
+        select(Author)
+        .options(selectinload(Author.books))
+        .where(Author.id==author_id)
+    )
     result = await session.execute(query)
     return result.scalar_one()
 
@@ -55,12 +59,9 @@ async def main():
     await init_db()
 
     async with async_session() as session:
-        author = await get_author_lazy(1, session)
-
-        try:
-            print(author.books)
-        except Exception as err:
-            print(f"Error text: {str(err)}")
+        author = await get_author_selectinload(1, session)
+        print(f"Author:{author.name}")
+        print(f"Books: {[book.title for book in author.books]}")
 
 
 if __name__ == "__main__":
