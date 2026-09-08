@@ -55,7 +55,12 @@ async def main():
     await init_db()
 
     async with async_session() as session:
-        pass
+        author = await get_author_lazy(1, session)
+
+        try:
+            print(author.books)
+        except Exception as err:
+            print(f"Error text: {str(err)}")
 
 
 if __name__ == "__main__":
