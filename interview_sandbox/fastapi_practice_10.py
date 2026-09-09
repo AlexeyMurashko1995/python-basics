@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, selectinload
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship, selectinload, joinedload
 from sqlalchemy import ForeignKey, select
 
 engine = create_async_engine("sqlite+aiosqlite:///:memory:")
@@ -36,3 +36,9 @@ async def get_author_with_books(author_id: int, session: AsyncSession):
     result = await session.execute(query)
     final = result.scalar_one_or_none()
     return final
+
+
+async def get_books_with_authors(session: AsyncSession) -> list[Book]:
+    query = select(Book).options(joinedload(Book.author))
+    result = await session.execute(query)
+    return result.scalars().all()
