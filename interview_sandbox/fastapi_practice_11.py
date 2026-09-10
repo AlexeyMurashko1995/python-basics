@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 import httpx
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 app = FastAPI()
@@ -8,7 +8,7 @@ app = FastAPI()
 
 class UserPortfelResponse(BaseModel):
     id: int
-    firstName: str
+    first_name: str = Field(validation_alias="firstName")
     email: str
     age: int
 
