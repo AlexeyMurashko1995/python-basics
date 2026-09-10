@@ -1,30 +1,31 @@
-from fastapi import FastAPI, HTTPException
 import httpx
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
+
+
+class RecipeResponse(BaseModel):
+    id: int
+    name: str
+    prep_time_minutes: int = Field(validation_alias="prepTimeMinutes")
+    cook_time_minutes: int = Field(validation_alias="cookTimeMinutes")
+    rating: float
 
 
 app = FastAPI()
 
 
-class UserPortfelResponse(BaseModel):
-    id: int
-    first_name: str = Field(validation_alias="firstName")
-    email: str
-    age: int
-
-
-async def get_user_portfel(user_id: int) -> dict:
+async def get_external_recipe(recipe_id: int) -> dict:
     async with httpx.AsyncClient() as client:
-        response = await client.get(url=f"https://dummyjson.com/users/{user_id}")
+        response = await client.get(url=f"https://dummyjson.com/recipes/{recipe_id}")
         if response.status_code == 404:
-            raise ValueError("User not found")
+            raise ValueError("Recipe not found")
         return response.json()
 
 
-@app.get("/external-users/{user_id}", response_model=UserPortfelResponse)
-async def get_portfel(user_id: int):
+@app.get("/recipes/{recipe_id}", response_model=RecipeResponse)
+async def get_recipe(recipe_id: int):
     try:
-        result = await get_user_portfel(user_id=user_id)
-        return result
+        recipe = await get_external_recipe(recipe_id=recipe_id)
+        return recipe
     except ValueError as err:
         raise HTTPException(status_code=404, detail=str(err))
