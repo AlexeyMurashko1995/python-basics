@@ -5,24 +5,26 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-class ExternalProductResponse(BaseModel):
+
+class UserPortfelResponse(BaseModel):
     id: int
-    title: str
-    price: float
+    firstName: str
+    email: str
+    age: int
 
 
-async def fetch_external_product(product_id: int) -> dict:
+async def get_user_portfel(user_id: int) -> dict:
     async with httpx.AsyncClient() as client:
-        response = await client.get(url=f"https://dummyjson.com/products/{product_id}")
+        response = await client.get(url=f"https://dummyjson.com/users/{user_id}")
         if response.status_code == 404:
-            raise ValueError("External product not found")
+            raise ValueError("User not found")
         return response.json()
 
 
-@app.get("/external-products/{product_id}", response_model=ExternalProductResponse)
-async def get_external_product(product_id: int):
+@app.get("/external-users/{user_id}", response_model=UserPortfelResponse)
+async def get_portfel(user_id: int):
     try:
-        ext_product = await fetch_external_product(product_id=product_id)
-        return ext_product
+        result = await get_user_portfel(user_id=user_id)
+        return result
     except ValueError as err:
         raise HTTPException(status_code=404, detail=str(err))
