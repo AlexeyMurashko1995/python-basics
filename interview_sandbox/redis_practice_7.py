@@ -21,3 +21,21 @@ async def read_product(product_id: int, ttl_seconds: int = 4):
     product = await get_product_from_db(product_id=product_id)
     SIMULATED_REDIS[product_id] = {"data": product, "created_at": time.time()}
     return product
+
+
+async def update_product_price(product_id: int, new_price: float):
+    await asyncio.sleep(1)
+    FAKE_PRODUCTS_DB[product_id]["price"] = new_price
+    if product_id in SIMULATED_REDIS:
+        del SIMULATED_REDIS[product_id]
+    return FAKE_PRODUCTS_DB[product_id]
+
+
+async def main():
+    await read_product(1)
+    await read_product(1)
+    await update_product_price(1, 150)
+    await read_product(1)
+
+
+asyncio.run(main())
