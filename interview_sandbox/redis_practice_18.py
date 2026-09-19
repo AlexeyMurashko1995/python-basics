@@ -1,7 +1,14 @@
 import asyncio
+import random
 import redis.asyncio
 
 SIMULATED_DB = {"laptop": 1500, "mouse": 25}
+
+
+async def set_with_jitter(client: redis.asyncio.Redis, key: str, value: int, base_ttl: int = 10, max_jitter: int = 5):
+    random_ttl = base_ttl + random.randint(1, max_jitter)
+    await client.set(key, value, ex=random_ttl)
+    print(f"[JITTER SET] Key: {key}, TTL: {random_ttl}s")
 
 
 async def get_product_price(product_name: str, client: redis.asyncio.Redis):
@@ -11,7 +18,7 @@ async def get_product_price(product_name: str, client: redis.asyncio.Redis):
         return price
     print("[CACHE MISS]")
     price = SIMULATED_DB[product_name]
-    await client.set(product_name, price, ex=10)
+    await set_with_jitter(client, product_name, price)
     return price
 
 
