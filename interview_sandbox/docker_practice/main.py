@@ -5,4 +5,4 @@ app = FastAPI()
 
 @app.get("/")
 async def get_message():
-    return {"message": "practice"}
+    return {"message": "live reload works"}
