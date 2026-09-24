@@ -2,5 +2,7 @@ import pytest
 
 
 @pytest.fixture
-def user_data():
-    return {"name": "Ivan", "role": "backend engineer"}
+def db_session():
+    print("Opening database connection...")
+    yield {"status": "connected", "user_id": 42}
+    print("Closing databse connection")
