@@ -1,8 +1,8 @@
 import pytest
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def db_session():
-    print("Opening database connection...")
+    print("\n[SETUP] Opening database connection...")
     yield {"status": "connected", "user_id": 42}
-    print("Closing databse connection")
+    print("\n[TEARDOWN] Closing database connection...")
