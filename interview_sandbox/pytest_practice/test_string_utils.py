@@ -1,8 +1,14 @@
 import pytest
 from string_utils import reverse_string
 
-def test_reverse_success():
-    assert reverse_string("python") == "nohtyp"
+
+@pytest.mark.parametrize("text, expected", [
+    ("python", "nohtyp"),
+    ("", ""),
+    ("radar", "radar"),
+])
+def test_reverse(text, expected):
+    assert reverse_string(text) == expected
 
 
 def test_reverse_failure():
