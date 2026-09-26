@@ -2,5 +2,5 @@ import pytest
 
 
 @pytest.fixture
-def base_price():
-    return 100.0
+def initial_tasks():
+    return ["Buy groceries", "Read book"]
