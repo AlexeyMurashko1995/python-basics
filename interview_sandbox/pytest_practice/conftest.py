@@ -1,6 +1,10 @@
 import pytest
+from db_utils import DatabaseConnection
 
 
-@pytest.fixture
-def initial_tasks():
-    return ["Buy groceries", "Read book"]
+@pytest.fixture(scope="module")
+def db_session():
+    db = DatabaseConnection()
+    db.connect()
+    yield db
+    db.disconnect()
