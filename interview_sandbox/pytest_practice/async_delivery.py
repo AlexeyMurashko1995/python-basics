@@ -1,3 +1,5 @@
-async def calculate_delivery_cost(cost: float, distance: int, add_cost):
-    additional_cost = await add_cost(distance)
-    return cost + additional_cost
+async def calculate_delivery(weight: float, user_id: int, get_user_tier) -> float:
+    tier = await get_user_tier(user_id)
+    if tier == "VIP":
+        return weight * 5
+    return weight * 10
