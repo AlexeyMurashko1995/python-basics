@@ -1,3 +1,8 @@
-async def calculate_cashback(amount: float, user_id: int, cashback_func) -> float:
-    rate = await cashback_func(user_id)
-    return amount * rate / 100
+async def get_cashback(amount: float, user_id: int, get_coeff):
+    coeff = await get_coeff(user_id)
+    if coeff == "PLATINUM":
+        return amount * 0.10
+    elif coeff == "GOLD":
+        return amount * 0.05
+    else:
+        return amount * 0.01
