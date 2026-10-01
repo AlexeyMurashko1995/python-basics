@@ -1,7 +1,3 @@
-async def get_discount(user_id: int) -> float:
-    return 10
-
-
-async def get_final_price(user_id: int, amount) -> float:
-    discount = await get_discount(user_id)
-    return amount - (discount * amount / 100)
+async def apply_user_discount(price: float, user_id: int, fetch_discount) -> float:
+    discount = await fetch_discount(user_id)
+    return price - discount
