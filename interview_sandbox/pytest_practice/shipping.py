@@ -1,7 +1,8 @@
-def get_distance(city: str) -> float:
-    return 100
-
-
-def calculate_shipping(city: str, weight: float) -> float:
-    distance = get_distance(city)
-    return weight * distance
+async def calculate_shipping_cost(weight: float, user_id: int, get_status):
+    status = await get_status(user_id)
+    if status == "GOLD":
+        return weight * 5
+    elif status == "SILVER":
+        return weight * 8
+    else:
+        return weight * 10
