@@ -1,9 +1,9 @@
 import pytest
-from async_discount import apply_user_discount
+from async_discount import calculate_final_price
 
 
 @pytest.mark.asyncio
-async def test_user_discount(mocker):
-    mocker_discount = mocker.AsyncMock(return_value=15)
-    assert await apply_user_discount(100, 1, mocker_discount) == 85
-    mocker_discount.assert_called_once_with(1)
+async def test_final_price(mocker):
+    mocker_discount = mocker.patch("async_discount.get_discount", return_value=0.2)
+    assert await calculate_final_price(100, 42) == 80
+    mocker_discount.assert_called_once_with(42)
