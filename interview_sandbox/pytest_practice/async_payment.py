@@ -1,9 +1,6 @@
-async def get_status(payment_id: int) -> bool:
-    return True
-
-
-async def get_payment_confirmation(payment_id: int) -> bool:
-    status = await get_status(payment_id)
-    if not status:
-        raise ValueError("Payment not confirmed")
-    return True
+async def make_payment(balance: float, amount: float) -> float:
+    if amount <= 0:
+        raise ValueError("Amount must be positive")
+    elif amount > balance:
+        raise ValueError("Insufficient funds")
+    return balance - amount
