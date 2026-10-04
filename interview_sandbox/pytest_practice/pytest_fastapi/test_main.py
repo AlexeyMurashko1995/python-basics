@@ -30,7 +30,20 @@ async def test_add_item_parametrize(get_client, name, price):
 
 
 @pytest.mark.asyncio
-async def test_add_user_parametrize(get_client, name, email, age):
+async def test_add_user_parametrize_success(get_client, name, email, age):
     response = await get_client.post(url="/api/v1/users", json={"username": name, "email": email, "age": age})
     assert response.status_code == 200
     assert response.json() == {"status": "created", "data": {"username": name, "email": email, "age": age}}
+
+
+@pytest.mark.parametrize("name, email, age", [
+    ("Alex", "am@gmail.com", ""),
+    ("Elena", "em@mail.com", "eighteen"),
+    ("", "", ""),
+])
+
+
+@pytest.mark.asyncio
+async def test_add_user_invalid_data(get_client, name, email, age):
+    response = await get_client.post(url="/api/v1/users", json={"username": name, "email": email, "age": age})
+    assert response.status_code == 422
