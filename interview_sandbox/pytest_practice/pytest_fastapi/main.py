@@ -1,7 +1,12 @@
 from fastapi import FastAPI
-
+from pydantic import BaseModel
 
 app = FastAPI()
+
+
+class CreateItem(BaseModel):
+    name: str
+    price: float
 
 
 @app.get("/health")
@@ -9,11 +14,6 @@ async def get_dict():
     return {"status": "ok"}
 
 
-@app.get("/version")
-async def get_version():
-    return {"version": "1.0.0"}
-
-
-@app.get("/api/v1/status")
-async def get_status():
-    return {"service": "auth_service", "online": True}
+@app.post("/items")
+async def add_item(item_data: CreateItem):
+    return {"status": "created", "data": {"name": item_data.name, "price": item_data.price}}
