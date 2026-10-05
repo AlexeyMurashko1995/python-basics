@@ -10,6 +10,6 @@ async def get_client():
 
 
 @pytest.fixture(autouse=True)
-def clear_dependency_overrides():
+def clear_overrides():
     yield
     app.dependency_overrides.clear()
