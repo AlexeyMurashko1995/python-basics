@@ -12,3 +12,10 @@ async def test_add_items_success(get_client):
 async def test_add_items_validation_error(get_client):
     response = await get_client.post(url="/api/v1/items", json={"title":"Phone", "price": "price"})
     assert response.status_code == 422
+
+
+@pytest.mark.asyncio
+async def test_add_category(get_client):
+    response = await get_client.post(url="/api/v1/categories", json={"name": "Food", "budget_limit": 120})
+    assert response.status_code == 200
+    assert response.json() == {"id": 1, "name": "Food", "budget_limit": 120}
