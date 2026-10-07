@@ -16,6 +16,16 @@ async def test_add_items_validation_error(get_client):
 
 @pytest.mark.asyncio
 async def test_add_category(get_client):
-    response = await get_client.post(url="/api/v1/categories", json={"name": "Food", "budget_limit": 120})
+    response = await get_client.post(url="/api/v1/categories", json={"name": "food", "budget_limit": 120})
     assert response.status_code == 200
-    assert response.json() == {"id": 1, "name": "Food", "budget_limit": 120}
+    assert response.json() == {"id": 1, "name": "food", "budget_limit": 120}
+
+
+@pytest.mark.asyncio
+async def test_get_categories(get_client):
+    request = await get_client.post(url="/api/v1/categories", json={"name": "food", "budget_limit": 10})
+    response = await get_client.get(url="/api/v1/categories")
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+    assert len(response.json()) >= 1
+    assert response.json()[-1]["name"] == "food"
