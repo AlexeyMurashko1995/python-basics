@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends
 from pydantic import BaseModel, ConfigDict
 from database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 from models import Item, Category
 
 
@@ -32,6 +33,15 @@ class CategoryResponse(BaseModel):
     budget_limit: float
 
     model_config = ConfigDict(from_attributes=True)
+
+
+@app.get("/api/v1/categories", response_model=list[CategoryResponse])
+async def get_categories(session: AsyncSession = Depends(get_db)):
+    query = select(Category)
+    result = await session.execute(query)
+    all_categories = result.scalars().all()
+    return all_categories
+
 
 
 @app.post("/api/v1/categories", response_model=CategoryResponse)
