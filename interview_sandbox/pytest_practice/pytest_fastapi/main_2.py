@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from pydantic import BaseModel, ConfigDict
 from database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
-from models import Item
+from models import Item, Category
 
 
 app = FastAPI()
@@ -32,6 +32,15 @@ class CategoryResponse(BaseModel):
     budget_limit: float
 
     model_config = ConfigDict(from_attributes=True)
+
+
+@app.post("/api/v1/categories", response_model=CategoryResponse)
+async def add_category(category_data: CategoryCreate, session: AsyncSession = Depends(get_db)):
+    new_category = Category(name=category_data.name, budget_limit=category_data.budget_limit)
+    session.add(new_category)
+    await session.commit()
+    await session.refresh(new_category)
+    return new_category
 
 
 @app.post("/api/v1/items", response_model=ItemResponse)
