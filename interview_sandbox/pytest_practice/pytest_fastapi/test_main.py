@@ -39,3 +39,18 @@ async def test_get_items(get_client):
     assert isinstance(response.json(), list)
     assert len(response.json()) == 1
     assert response.json()[0]["title"] == "Phone"
+
+
+@pytest.mark.asyncio
+async def test_get_target_item_success(get_client):
+    request = await get_client.post(url="/api/v1/items", json={"title": "Keyboard", "price": 25})
+    response = await get_client.get(url="/api/v1/items/1")
+    assert response.status_code == 200
+    assert response.json() == {"id": 1, "title": "Keyboard", "price": 25}
+
+
+@pytest.mark.asyncio
+async def test_get_target_item_failure(get_client):
+    response = await get_client.get(url="/api/v1/items/999")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Item not found"}
