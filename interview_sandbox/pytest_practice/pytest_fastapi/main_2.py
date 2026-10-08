@@ -78,3 +78,15 @@ async def get_target_item(item_id: int, session: AsyncSession = Depends(get_db))
     if target_item:
         return target_item
     raise HTTPException(status_code=404, detail="Item not found")
+
+
+@app.delete("/api/v1/items/{item_id}")
+async def delete_item(item_id: int, session: AsyncSession = Depends(get_db)):
+    query = select(Item).where(Item.id == item_id)
+    result = await session.execute(query)
+    target_item = result.scalar_one_or_none()
+    if target_item:
+        await session.delete(target_item)
+        await session.commit()
+        return {"message": "Item deleted"}
+    raise HTTPException(status_code=404, detail="Item not found")
