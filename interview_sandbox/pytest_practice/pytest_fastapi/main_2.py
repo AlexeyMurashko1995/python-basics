@@ -60,3 +60,11 @@ async def add_item(item_data: ItemCreate, session: AsyncSession = Depends(get_db
     await session.commit()
     await session.refresh(new_item)
     return new_item
+
+
+@app.get("/api/v1/items", response_model=list[ItemResponse])
+async def get_items(session: AsyncSession = Depends(get_db)):
+    query = select(Item)
+    result = await session.execute(query)
+    all_items = result.scalars().all()
+    return all_items
