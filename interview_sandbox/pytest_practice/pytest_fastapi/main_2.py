@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel, ConfigDict
 from database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -68,3 +68,13 @@ async def get_items(session: AsyncSession = Depends(get_db)):
     result = await session.execute(query)
     all_items = result.scalars().all()
     return all_items
+
+
+@app.get("/api/v1/items/{item_id}", response_model=ItemResponse)
+async def get_target_item(item_id: int, session: AsyncSession = Depends(get_db)):
+    query = select(Item).where(Item.id==item_id)
+    result = await session.execute(query)
+    target_item = result.scalar_one_or_none()
+    if target_item:
+        return target_item
+    raise HTTPException(status_code=404, detail="Item not found")
