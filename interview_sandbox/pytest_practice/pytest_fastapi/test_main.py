@@ -54,3 +54,18 @@ async def test_get_target_item_failure(get_client):
     response = await get_client.get(url="/api/v1/items/999")
     assert response.status_code == 404
     assert response.json() == {"detail": "Item not found"}
+
+
+@pytest.mark.asyncio
+async def test_delete_target_item_success(get_client):
+    request = await get_client.post(url="/api/v1/items", json={"title": "Keyboard", "price": 25})
+    request_delete = await get_client.delete(url="/api/v1/items/1")
+    assert request_delete.status_code == 200
+    assert request_delete.json() == {"message": "Item deleted"}
+
+
+@pytest.mark.asyncio
+async def test_delete_target_item_failure(get_client):
+    request_delete = await get_client.delete("/api/v1/items/21321")
+    assert request_delete.status_code == 404
+    assert request_delete.json() == {"detail": "Item not found"}
