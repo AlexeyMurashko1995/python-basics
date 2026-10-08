@@ -27,8 +27,8 @@ async def test_get_categories(get_client):
     response = await get_client.get(url="/api/v1/categories")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
-    assert len(response.json()) >= 1
-    assert response.json()[-1]["name"] == "food"
+    assert len(response.json()) == 1
+    assert response.json()[0]["name"] == "food"
 
 
 @pytest.mark.asyncio
@@ -37,5 +37,5 @@ async def test_get_items(get_client):
     response = await get_client.get(url="/api/v1/items")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
-    assert len(response.json()) >= 1
-    assert response.json()[-1]["title"] == "Phone"
+    assert len(response.json()) == 1
+    assert response.json()[0]["title"] == "Phone"
