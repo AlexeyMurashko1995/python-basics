@@ -1,6 +1,6 @@
 import asyncio
 
-from sqlalchemy import ForeignKey, Integer, String, desc, select
+from sqlalchemy import ForeignKey, Integer, String, desc, select, func
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -56,7 +56,9 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
         # query = select(Student.name, Student.score).where(Student.score > 70, Student.score < 95)
-        query = select(Student.name, Student.score).order_by(desc(Student.score)).limit(3)
+        # query = select(Student.name, Student.score).order_by(desc(Student.score)).limit(3)
+        # query = select(Student.name, Student.score).where(Student.score >= 60).order_by(Student.score)
+        query = select(func.count(Student.id)).where(Student.score >= 70)
         result = await session.execute(query)
         rows = result.all()
 
