@@ -55,8 +55,8 @@ async def main():
 
     async with async_session() as session:
         await seed_data(session)
-        query = select(Student.name).where(Student.score == 85)
-
+        # query = select(Student.name, Student.score).where(Student.score > 70, Student.score < 95)
+        query = select(Student.name, Student.score).order_by(desc(Student.score)).limit(3)
         result = await session.execute(query)
         rows = result.all()
 
