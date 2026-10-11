@@ -60,7 +60,8 @@ async def main():
         # query = select(Student.name, Student.score).where(Student.score >= 60).order_by(Student.score)
         # query = select(func.count(Student.id)).where(Student.score >= 70)
         # query = select(Student.course_id, func.count(Student.id)).group_by(Student.course_id)
-        query = select(Course.title, Student.name).join(Student)
+        # query = select(Course.title, Student.name).join(Student)
+        query = select(Course.title, func.avg(Student.score)).join(Student).group_by(Course.title)
         result = await session.execute(query)
         rows = result.all()
 
