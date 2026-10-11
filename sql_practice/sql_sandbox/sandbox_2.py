@@ -1,6 +1,6 @@
 import asyncio
 
-from sqlalchemy import ForeignKey, Integer, String, desc, select, func
+from sqlalchemy import ForeignKey, Float, Integer, String, desc, select, func
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -12,40 +12,38 @@ class Base(DeclarativeBase):
     pass
 
 
-class Course(Base):
-    __tablename__ = "courses"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    title: Mapped[str] = mapped_column(String(50))
-
-    students: Mapped[list["Student"]] = relationship(back_populates="course")
-
-
-class Student(Base):
-    __tablename__ = "students"
+class User(Base):
+    __tablename__ = "users"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(50))
-    score: Mapped[int] = mapped_column(Integer)
-    course_id: Mapped[int] = mapped_column(ForeignKey("courses.id"))
+    country: Mapped[str] = mapped_column(String(10))
 
-    course: Mapped["Course"] = relationship(back_populates="students")
+    transactions: Mapped[list["Transaction"]] = relationship(back_populates="user")
+
+
+class Transaction(Base):
+    __tablename__ = "transactions"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    amount: Mapped[float] = mapped_column(Float)
+    status: Mapped[str] = mapped_column(String(20))  # 'completed', 'failed', 'pending'
+
+    user: Mapped["User"] = relationship(back_populates="transactions")
 
 
 async def seed_data(session: AsyncSession):
-    c_python = Course(title="Python Developer")
-    c_ds = Course(title="Data Science")
-    c_qa = Course(title="QA Automation")
+    u1 = User(name="Alice", country="PL")
+    u2 = User(name="Bob", country="PL")
+    u3 = User(name="Charlie", country="DE")
 
-    s1 = Student(name="Alex", score=85, course=c_python)
-    s2 = Student(name="Max", score=95, course=c_python)
-    s3 = Student(name="Olga", score=60, course=c_python)
+    t1 = Transaction(user=u1, amount=100.0, status="completed")
+    t2 = Transaction(user=u1, amount=250.0, status="failed")
+    t3 = Transaction(user=u2, amount=500.0, status="completed")
+    t4 = Transaction(user=u2, amount=50.0, status="completed")
+    t5 = Transaction(user=u3, amount=1200.0, status="failed")
+    t6 = Transaction(user=u3, amount=300.0, status="completed")
 
-    s4 = Student(name="Elena", score=90, course=c_ds)
-    s5 = Student(name="Ivan", score=70, course=c_ds)
-
-    s6 = Student(name="Dmitriy", score=50, course=c_qa)
-    s7 = Student(name="Anna", score=80, course=c_qa)
-
-    session.add_all([c_python, c_ds, c_qa, s1, s2, s3, s4, s5, s6, s7])
+    session.add_all([u1, u2, u3, t1, t2, t3, t4, t5, t6])
     await session.commit()
 
 
@@ -55,13 +53,11 @@ async def main():
 
     async with async_session() as session:
         await seed_data(session)
-        # query = select(Student.name, Student.score).where(Student.score > 70, Student.score < 95)
-        # query = select(Student.name, Student.score).order_by(desc(Student.score)).limit(3)
-        # query = select(Student.name, Student.score).where(Student.score >= 60).order_by(Student.score)
-        # query = select(func.count(Student.id)).where(Student.score >= 70)
-        # query = select(Student.course_id, func.count(Student.id)).group_by(Student.course_id)
-        # query = select(Course.title, Student.name).join(Student)
-        query = select(Course.title, func.avg(Student.score)).join(Student).group_by(Course.title)
+
+        # query = select(Transaction.id, Transaction.amount).where(Transaction.status == "failed")
+        # query = select(Transaction.user_id, Transaction.amount).where(Transaction.amount > 200).order_by(desc(Transaction.amount))
+        query = select(func.sum(Transaction.amount)).where(Transaction.status == "completed")
+
         result = await session.execute(query)
         rows = result.all()
 
