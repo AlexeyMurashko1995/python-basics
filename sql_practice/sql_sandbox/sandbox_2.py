@@ -1,6 +1,6 @@
 import asyncio
 
-from sqlalchemy import ForeignKey, Integer, String, func, select
+from sqlalchemy import ForeignKey, Integer, String, desc, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -55,27 +55,7 @@ async def main():
 
     async with async_session() as session:
         await seed_data(session)
-
-        # avg_score = select(func.avg(Student.score).label("avg_score")).scalar_subquery()
-        # query = (
-        #     select(Student.name, Student.score)
-        #     .where(Student.score > avg_score)
-        # )
-        subq = (
-            select(Student.course_id, func.min(Student.score).label("min_score"))
-            .group_by(Student.course_id)
-            .subquery()
-        )
-        query = (
-            select(Course.title, Student.name, Student.score)
-            .select_from(Student)
-            .join(Course)
-            .join(
-                subq,
-                (Course.id == subq.c.course_id) &
-                (Student.score == subq.c.min_score)
-            )
-        )
+        query = select(Student.name).where(Student.score == 85)
 
         result = await session.execute(query)
         rows = result.all()
