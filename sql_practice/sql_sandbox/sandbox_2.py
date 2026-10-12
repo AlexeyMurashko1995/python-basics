@@ -59,7 +59,8 @@ async def main():
         # query = select(func.sum(Transaction.amount)).where(Transaction.status == "completed")
         # query = select(User.name).where(User.country == "PL")
         # query = select(Transaction.id, Transaction.amount).where(Transaction.status == "failed", Transaction.amount > 200)
-        query = select(User.name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.status=="completed").group_by(User.name)
+        # query = select(User.name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.status=="completed").group_by(User.name)
+        query = select(User.country, func.sum(Transaction.amount)).join(Transaction).group_by(User.country).order_by(desc(func.sum(Transaction.amount)))
 
         result = await session.execute(query)
         rows = result.all()
