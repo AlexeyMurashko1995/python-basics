@@ -72,7 +72,8 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        query = select(Transaction.id).where(Transaction.status=="failed")
+        # query = select(Transaction.id).where(Transaction.status=="failed")
+        query = select(Transaction.id, Transaction.amount).where(Transaction.amount > 100, Transaction.status=="completed")
 
         result = await session.execute(query)
         rows = result.all()
