@@ -56,7 +56,9 @@ async def main():
         await seed_data(session)
 
         # query = select(User.name, Transaction.amount).join(Transaction).where(Transaction.status=="completed")
-        query = select(User.name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.status=="completed").group_by(User.name)
+        # query = select(User.name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.status=="completed").group_by(User.name)
+        query = select(User.name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.status=="failed").group_by(User.name).having(func.sum(Transaction.amount) > 50)
+
 
         result = await session.execute(query)
         rows = result.all()
