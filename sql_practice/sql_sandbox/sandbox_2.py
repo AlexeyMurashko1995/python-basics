@@ -21,29 +21,47 @@ class User(Base):
     transactions: Mapped[list["Transaction"]] = relationship(back_populates="user")
 
 
+class Merchant(Base):
+    __tablename__ = "merchants"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(50))
+    category: Mapped[str] = mapped_column(String(30))  # 'Groceries', 'Subscriptions', 'Fitness'
+
+    transactions: Mapped[list["Transaction"]] = relationship(back_populates="merchant")
+
+
 class Transaction(Base):
     __tablename__ = "transactions"
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    merchant_id: Mapped[int] = mapped_column(ForeignKey("merchants.id"))
     amount: Mapped[float] = mapped_column(Float)
     status: Mapped[str] = mapped_column(String(20))  # 'completed', 'failed', 'pending'
 
     user: Mapped["User"] = relationship(back_populates="transactions")
+    merchant: Mapped["Merchant"] = relationship(back_populates="transactions")
 
 
 async def seed_data(session: AsyncSession):
+
     u1 = User(name="Alice", country="PL")
     u2 = User(name="Bob", country="PL")
     u3 = User(name="Charlie", country="DE")
 
-    t1 = Transaction(user=u1, amount=100.0, status="completed")
-    t2 = Transaction(user=u1, amount=250.0, status="failed")
-    t3 = Transaction(user=u2, amount=500.0, status="completed")
-    t4 = Transaction(user=u2, amount=50.0, status="completed")
-    t5 = Transaction(user=u3, amount=1200.0, status="failed")
-    t6 = Transaction(user=u3, amount=300.0, status="completed")
+    m1 = Merchant(name="Żabka", category="Groceries")
+    m2 = Merchant(name="Biedronka", category="Groceries")
+    m3 = Merchant(name="Zdrofit", category="Fitness")
+    m4 = Merchant(name="Spotify", category="Subscriptions")
 
-    session.add_all([u1, u2, u3, t1, t2, t3, t4, t5, t6])
+    t1 = Transaction(user=u1, merchant=m1, amount=45.0, status="completed")
+    t2 = Transaction(user=u1, merchant=m3, amount=150.0, status="completed")
+    t3 = Transaction(user=u2, merchant=m2, amount=210.0, status="completed")
+    t4 = Transaction(user=u2, merchant=m4, amount=20.0, status="failed")
+    t5 = Transaction(user=u3, merchant=m1, amount=120.0, status="completed")
+    t6 = Transaction(user=u3, merchant=m3, amount=300.0, status="completed")
+    t7 = Transaction(user=u1, merchant=m2, amount=80.0, status="failed")
+
+    session.add_all([u1, u2, u3, m1, m2, m3, m4, t1, t2, t3, t4, t5, t6, t7])
     await session.commit()
 
 
@@ -54,14 +72,7 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        # query = select(Transaction.id, Transaction.amount).where(Transaction.status == "failed")
-        # query = select(Transaction.user_id, Transaction.amount).where(Transaction.amount > 200).order_by(desc(Transaction.amount))
-        # query = select(func.sum(Transaction.amount)).where(Transaction.status == "completed")
-        # query = select(User.name).where(User.country == "PL")
-        # query = select(Transaction.id, Transaction.amount).where(Transaction.status == "failed", Transaction.amount > 200)
-        # query = select(User.name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.status=="completed").group_by(User.name)
-        # query = select(User.country, func.sum(Transaction.amount)).join(Transaction).group_by(User.country).order_by(desc(func.sum(Transaction.amount)))
-        query = select(User.name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.status=="failed").group_by(User.name).having(func.sum(Transaction.amount) > 200)
+        query = select(Transaction.id).where(Transaction.status=="failed")
 
         result = await session.execute(query)
         rows = result.all()
