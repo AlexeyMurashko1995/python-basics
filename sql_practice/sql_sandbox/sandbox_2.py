@@ -59,7 +59,8 @@ async def main():
         await seed_data(session)
 
 
-        query = select(Payment.id).where(Payment.status=="completed", Payment.amount > 100)
+        # query = select(Payment.id).where(Payment.status=="completed", Payment.amount > 100)
+        query = select(func.count(Payment.id), func.sum(Payment.amount)).where(Payment.status=="completed")
 
         result = await session.execute(query)
         rows = result.all()
