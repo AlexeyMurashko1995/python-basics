@@ -59,7 +59,7 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        query = select(Payment.id, Payment.amount, Payment.currency).where(Payment.payment_type=="deposit", Payment.amount >= 100)
+        query = select(Merchant.name, func.sum(Payment.amount)).join(Payment).where(Payment.payment_type=="deposit", Payment.status=="completed").group_by(Merchant.name)
 
         result = await session.execute(query)
         rows = result.all()
