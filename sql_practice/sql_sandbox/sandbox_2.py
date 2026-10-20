@@ -12,43 +12,41 @@ class Base(DeclarativeBase):
     pass
 
 
-class Merchant(Base):
-    __tablename__ = "merchants"
+class User(Base):
+    __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(50))
-    country: Mapped[str] = mapped_column(String(10), default="PL")
+    username: Mapped[str] = mapped_column(String(50))
+    role: Mapped[str] = mapped_column(String(20), default="client")  # 'client', 'merchant', 'admin'
 
-    payments: Mapped[list["Payment"]] = relationship(back_populates="merchant")
+    orders: Mapped[list["Order"]] = relationship(back_populates="user")
 
 
-class Payment(Base):
-    __tablename__ = "payments"
+class Order(Base):
+    __tablename__ = "orders"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    merchant_id: Mapped[int] = mapped_column(ForeignKey("merchants.id"))
-    amount: Mapped[float] = mapped_column(Float)
-    currency: Mapped[str] = mapped_column(String(3), default="EUR")
-    payment_type: Mapped[str] = mapped_column(String(20), default="deposit")  # 'deposit', 'withdrawal'
-    status: Mapped[str] = mapped_column(String(20))  # 'completed', 'failed', 'pending'
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    total_amount: Mapped[float] = mapped_column(Float)
+    status: Mapped[str] = mapped_column(String(20))  # 'paid', 'pending', 'cancelled'
+    category: Mapped[str] = mapped_column(String(30))  # 'electronics', 'bikes', 'services'
 
-    merchant: Mapped["Merchant"] = relationship(back_populates="payments")
+    user: Mapped["User"] = relationship(back_populates="orders")
 
 
 async def seed_data(session: AsyncSession):
-    m1 = Merchant(name="Intel Store", country="PL")
-    m2 = Merchant(name="X2Bike", country="PL")
-    m3 = Merchant(name="Coffee Hub", country="DE")
+    u1 = User(username="alex_dev", role="client")
+    u2 = User(username="tech_shop", role="merchant")
+    u3 = User(username="bike_rental", role="merchant")
 
-    p1 = Payment(merchant=m1, amount=45.0, payment_type="deposit", status="completed")
-    p2 = Payment(merchant=m1, amount=150.0, payment_type="deposit", status="completed")
-    p3 = Payment(merchant=m2, amount=210.0, payment_type="withdrawal", status="completed")
-    p4 = Payment(merchant=m2, amount=20.0, payment_type="deposit", status="failed")
-    p5 = Payment(merchant=m3, amount=120.0, payment_type="deposit", status="completed")
-    p6 = Payment(merchant=m3, amount=300.0, payment_type="withdrawal", status="completed")
-    p7 = Payment(merchant=m1, amount=80.0, payment_type="deposit", status="failed")
+    o1 = Order(user=u1, total_amount=150.0, status="paid", category="bikes")
+    o2 = Order(user=u1, total_amount=45.0, status="pending", category="services")
+    o3 = Order(user=u2, total_amount=500.0, status="paid", category="electronics")
+    o4 = Order(user=u2, total_amount=20.0, status="cancelled", category="electronics")
+    o5 = Order(user=u3, total_amount=320.0, status="paid", category="bikes")
+    o6 = Order(user=u3, total_amount=90.0, status="pending", category="services")
 
-    session.add_all([m1, m2, m3, p1, p2, p3, p4, p5, p6, p7])
+    session.add_all([u1, u2, u3, o1, o2, o3, o4, o5, o6])
     await session.commit()
 
 
@@ -59,7 +57,7 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        query = select(Merchant.name, func.sum(Payment.amount)).join(Payment).where(Payment.payment_type=="deposit", Payment.status=="completed").group_by(Merchant.name)
+        query = select(Order.id, Order.total_amount).where(Order.status=="paid")
 
         result = await session.execute(query)
         rows = result.all()
