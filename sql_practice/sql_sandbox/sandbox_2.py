@@ -57,7 +57,8 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        query = select(User.username, func.sum(Order.total_amount)).join(Order).where(Order.status=="paid").group_by(User.username)
+        # query = select(User.username, func.sum(Order.total_amount)).join(Order).where(Order.status=="paid").group_by(User.username)
+        query = select(Order.category, func.sum(Order.total_amount)).where(Order.status=="paid").group_by(Order.category).having(func.sum(Order.total_amount) > 200)
 
         result = await session.execute(query)
         rows = result.all()
