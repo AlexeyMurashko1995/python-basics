@@ -59,7 +59,9 @@ async def main():
 
         # query = select(Account.owner_name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.tx_type=="deposit", Transaction.status=="completed").group_by(Account.owner_name)
         # query = select(Account.owner_name, func.count(Transaction.id), func.sum(Transaction.amount)).join(Transaction).where(Transaction.status=="failed").group_by(Account.owner_name)
-        query = select(Account.owner_name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.tx_type=="deposit", Transaction.status=="completed").group_by(Account.owner_name).having(func.sum(Transaction.amount) > 3000)
+        # query = select(Account.owner_name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.tx_type=="deposit", Transaction.status=="completed").group_by(Account.owner_name).having(func.sum(Transaction.amount) > 3000)
+        query = select(Account.owner_name, func.count(Transaction.id), func.sum(Transaction.amount)).join(Transaction).where(Transaction.tx_type=="withdrawal", Transaction.status=="completed").group_by(Account.owner_name)
+
 
         result = await session.execute(query)
         rows = result.all()
