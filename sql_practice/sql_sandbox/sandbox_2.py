@@ -57,7 +57,8 @@ async def main():
     async with async_session() as session:
         await seed_data(session)
 
-        query = select(Account.owner_name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.tx_type=="deposit", Transaction.status=="completed").group_by(Account.owner_name)
+        # query = select(Account.owner_name, func.sum(Transaction.amount)).join(Transaction).where(Transaction.tx_type=="deposit", Transaction.status=="completed").group_by(Account.owner_name)
+        query = select(Account.owner_name, func.count(Transaction.id), func.sum(Transaction.amount)).join(Transaction).where(Transaction.status=="failed").group_by(Account.owner_name)
 
         result = await session.execute(query)
         rows = result.all()
