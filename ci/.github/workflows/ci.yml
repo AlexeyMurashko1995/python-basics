@@ -1,0 +1,5 @@
+name: CI Practice
+
+on:
+    push:
+        branches: [ main ]
