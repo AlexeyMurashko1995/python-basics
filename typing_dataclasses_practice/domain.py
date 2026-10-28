@@ -36,3 +36,10 @@ class Account:
         if amount <= Decimal("0"):
             raise ValueError("Deposit must be positive")
         self.balance += amount
+
+    def withdraw(self, amount: Decimal) -> None:
+        if amount <= Decimal("0"):
+            raise ValueError("Withdraw must be positive")
+        if self.balance < amount:
+            raise ValueError("Insufficient funds")
+        self.balance -= amount
