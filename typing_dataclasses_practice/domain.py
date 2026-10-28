@@ -19,3 +19,20 @@ class Transaction:
         if self.status == "completed" or self.status == "failed":
             raise ValueError("Transaction is already finalized")
         self.status = "completed"
+
+
+@dataclass
+class Account:
+    id: str
+    user_id: str
+    currency: Literal["USD", "EUR", "PLN"]
+    balance: Decimal = Decimal("0")
+
+    def __post_init__(self) -> None:
+        if self.balance < Decimal("0"):
+            raise ValueError("Initial balance cannot be negative")
+
+    def deposit(self, amount: Decimal) -> None:
+        if amount <= Decimal("0"):
+            raise ValueError("Deposit must be positive")
+        self.balance += amount
