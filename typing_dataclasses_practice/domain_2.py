@@ -54,3 +54,9 @@ class Transfer:
     currency: Literal["USD", "EUR", "PLN"]
     status: Literal["pending", "completed", "failed"] = "pending"
     description: str | None = None
+
+    def __post_init__(self) -> None:
+        if self.amount <= Decimal("0"):
+            raise ValueError("Transfer amount must be positive")
+        if self.from_account_id == self.to_account_id:
+            raise ValueError("Cannot transfer to the same account")
