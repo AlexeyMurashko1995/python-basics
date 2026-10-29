@@ -20,6 +20,15 @@ class Transaction:
             raise ValueError("Transaction is already finalized")
         self.status = "completed"
 
+    def fail(self, reason: str) -> None:
+        if self.status == "completed" or self.status == "failed":
+            raise ValueError("Transaction is already finalized")
+        self.status = "failed"
+        if reason is not None:
+            if self.description is None:
+                self.description = reason
+            else:
+                self.description = self.description + f" | Failure reason: {reason}"
 
 @dataclass
 class Account:
