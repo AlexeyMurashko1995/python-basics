@@ -19,3 +19,11 @@ class Transaction:
         if self.status == "completed" or self.status == "failed":
             raise ValueError("Transaction is already finalized")
         self.status = "completed"
+
+
+@dataclass
+class Account:
+    id: str
+    user_id: str
+    currency: Literal["USD", "EUR", "PLN"]
+    balance: Decimal = Decimal("0")
