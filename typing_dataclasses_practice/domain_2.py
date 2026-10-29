@@ -60,3 +60,8 @@ class Transfer:
             raise ValueError("Transfer amount must be positive")
         if self.from_account_id == self.to_account_id:
             raise ValueError("Cannot transfer to the same account")
+
+    def complete(self) -> None:
+        if self.status == "completed" or self.status == "failed":
+            raise ValueError("Transfer is already finalized")
+        self.status = "completed"
