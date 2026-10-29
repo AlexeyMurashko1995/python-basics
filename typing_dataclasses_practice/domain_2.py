@@ -1,0 +1,12 @@
+from dataclasses import dataclass
+from typing import Literal
+from decimal import Decimal
+
+
+@dataclass
+class Transaction:
+    id: str
+    amount: Decimal
+    currency: Literal["EUR", "USD", "PLN"]
+    description: str | None = None
+    status: Literal["pending", "completed", "failed"] = "pending"
