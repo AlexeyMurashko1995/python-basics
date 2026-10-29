@@ -14,3 +14,8 @@ class Transaction:
     def __post_init__(self) -> None:
         if self.amount <= Decimal("0"):
             raise ValueError("Amount must be positive")
+
+    def complete(self) -> None:
+        if self.status == "completed" or self.status == "failed":
+            raise ValueError("Transaction is already finalized")
+        self.status = "completed"
