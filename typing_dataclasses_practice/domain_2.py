@@ -31,3 +31,8 @@ class Account:
     def __post_init__(self) -> None:
         if self.balance < Decimal("0"):
             raise ValueError("Initial balance cannot be negative")
+
+    def deposit(self, amount: Decimal) -> None:
+        if amount <= Decimal("0"):
+            raise ValueError("Deposit amount must be positive")
+        self.balance += amount
