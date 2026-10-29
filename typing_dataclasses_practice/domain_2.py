@@ -43,3 +43,14 @@ class Account:
         if amount > self.balance:
             raise ValueError("Insufficient funds")
         self.balance -= amount
+
+
+@dataclass
+class Transfer:
+    id: str
+    from_account_id: str
+    to_account_id: str
+    amount: Decimal
+    currency: Literal["USD", "EUR", "PLN"]
+    status: Literal["pending", "completed", "failed"] = "pending"
+    description: str | None = None
