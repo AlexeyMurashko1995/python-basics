@@ -27,3 +27,7 @@ class Account:
     user_id: str
     currency: Literal["USD", "EUR", "PLN"]
     balance: Decimal = Decimal("0")
+
+    def __post_init__(self) -> None:
+        if self.balance < Decimal("0"):
+            raise ValueError("Initial balance cannot be negative")
