@@ -21,3 +21,8 @@ class Invoice:
             self.status = "issued"
         else:
             raise ValueError("Only draft invoices can be issued")
+
+    def pay(self) -> None:
+        if self.status != "issued":
+            raise ValueError("Only issued invoices can be paid")
+        self.status = "paid"
