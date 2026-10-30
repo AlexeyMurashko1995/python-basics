@@ -26,3 +26,15 @@ class Invoice:
         if self.status != "issued":
             raise ValueError("Only issued invoices can be paid")
         self.status = "paid"
+
+    def cancel(self, reason: str | None = None) -> None:
+        if self.status == "paid":
+            raise ValueError("Paid invoice cannot be cancelled")
+        elif self.status == "cancelled":
+            raise ValueError("Invoice is already cancelled")
+        self.status = "cancelled"
+        if reason is not None:
+            if self.description is None:
+                self.description = f"Cancelled: {reason}"
+            else:
+                self.description = self.description + f" | Cancelled: {reason}"
