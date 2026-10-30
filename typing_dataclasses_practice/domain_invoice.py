@@ -15,3 +15,9 @@ class Invoice:
     def __post_init__(self) -> None:
         if self.amount <= Decimal("0"):
             raise ValueError("Invoice amount must be positive")
+
+    def issue(self) -> None:
+        if self.status == "draft":
+            self.status = "issued"
+        else:
+            raise ValueError("Only draft invoices can be issued")
