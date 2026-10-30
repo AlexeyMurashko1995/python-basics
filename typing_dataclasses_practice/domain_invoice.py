@@ -38,3 +38,12 @@ class Invoice:
                 self.description = f"Cancelled: {reason}"
             else:
                 self.description = self.description + f" | Cancelled: {reason}"
+
+    def apply_discount(self, discount_amount: Decimal) -> None:
+        if self.status != "draft":
+            raise ValueError("Discount can only be applied to draft invoices")
+        if discount_amount <= Decimal("0"):
+            raise ValueError("Discount amount must be positive")
+        elif discount_amount >= self.amount:
+            raise ValueError("Discount cannot exceed or equal invoice amount")
+        self.amount -= discount_amount
