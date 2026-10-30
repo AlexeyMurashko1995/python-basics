@@ -11,3 +11,7 @@ class Invoice:
     currency: Literal["USD", "EUR", "PLN"]
     status: Literal["draft", "issued", "paid", "cancelled"] = "draft"
     description: str | None = None
+
+    def __post_init__(self) -> None:
+        if self.amount <= Decimal("0"):
+            raise ValueError("Invoice amount must be positive")
