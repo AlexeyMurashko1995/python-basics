@@ -9,7 +9,7 @@ class Invoice:
     user_id: str
     amount: Decimal
     currency: Literal["USD", "EUR", "PLN"]
-    status: Literal["draft", "issued", "paid", "cancelled"] = "draft"
+    status: Literal["draft", "issued", "paid", "cancelled", "refunded"] = "draft"
     description: str | None = None
 
     def __post_init__(self) -> None:
@@ -47,3 +47,13 @@ class Invoice:
         elif discount_amount >= self.amount:
             raise ValueError("Discount cannot exceed or equal invoice amount")
         self.amount -= discount_amount
+
+    def refund(self, reason: str | None = None) -> None:
+        if self.status != "paid":
+            raise ValueError("Only paid invoices can be refunded")
+        self.status = "refunded"
+        if reason is not None:
+            if self.description is None:
+                self.description = f"Refunded: {reason}"
+            else:
+                self.description = self.description + f" | Refunded: {reason}"
