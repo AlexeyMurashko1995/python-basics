@@ -23,3 +23,8 @@ class Money:
         if self.currency != other.currency:
             raise ValueError("Two different currencies")
         return Money(self.amount + other.amount, self.currency)
+
+    def __sub__(self, other: Self) -> Self:
+        if self.currency != other.currency:
+            raise ValueError("Two different currencies")
+        return Money(self.amount - other.amount, self.currency)
