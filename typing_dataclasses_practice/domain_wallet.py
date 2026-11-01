@@ -28,3 +28,13 @@ class Money:
         if self.currency != other.currency:
             raise ValueError("Two different currencies")
         return Money(self.amount - other.amount, self.currency)
+
+    def __gt__(self, other: Self) -> bool:
+        if self.currency != other.currency:
+            raise ValueError("Two different currencies")
+        return self.amount > other.amount
+
+    def __lt__(self, other: Self) -> bool:
+        if self.currency != other.currency:
+            raise ValueError("Two different currencies")
+        return self.amount < other.amount
