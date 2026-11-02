@@ -1,4 +1,5 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from uuid import UUID, uuid4
 from decimal import Decimal
 from enum import StrEnum
 from typing import Self
@@ -66,3 +67,10 @@ class Money:
         if self.currency != other.currency:
             raise ValueError(f"Cannot operate on different currencies: {self.currency} and {other.currency}")
         return self.amount <= other.amount
+
+
+@dataclass
+class Wallet:
+    owner_id: int
+    wallet_id: UUID = field(default_factory=uuid4)
+    balances: dict[Currency, Money] = field(default_factory=dict)
