@@ -80,3 +80,10 @@ class Wallet:
             self.balances[money.currency] = money
         else:
             self.balances[money.currency] += money
+
+    def withdraw(self, money: Money) -> None:
+        if money.currency not in self.balances:
+            raise ValueError("Insufficient funds")
+        if self.balances[money.currency] < money:
+            raise ValueError("Insufficient funds")
+        self.balances[money.currency] -= money
