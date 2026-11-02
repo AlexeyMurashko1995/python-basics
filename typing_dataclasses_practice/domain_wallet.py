@@ -74,3 +74,9 @@ class Wallet:
     owner_id: int
     wallet_id: UUID = field(default_factory=uuid4)
     balances: dict[Currency, Money] = field(default_factory=dict)
+
+    def deposit(self, money: Money) -> None:
+        if money.currency not in self.balances:
+            self.balances[money.currency] = money
+        else:
+            self.balances[money.currency] += money
