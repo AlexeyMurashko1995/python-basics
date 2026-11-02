@@ -20,31 +20,49 @@ class Money:
             raise ValueError("Money amount cannot be negative")
 
     def __add__(self, other: Self) -> Self:
+        if not isinstance(other, Money):
+            return NotImplemented
+
         if self.currency != other.currency:
-            raise ValueError("Two different currencies")
+            raise ValueError(f"Cannot operate on different currencies: {self.currency} and {other.currency}")
         return Money(self.amount + other.amount, self.currency)
 
     def __sub__(self, other: Self) -> Self:
+        if not isinstance(other, Money):
+            return NotImplemented
+
         if self.currency != other.currency:
-            raise ValueError("Two different currencies")
+            raise ValueError(f"Cannot operate on different currencies: {self.currency} and {other.currency}")
         return Money(self.amount - other.amount, self.currency)
 
     def __gt__(self, other: Self) -> bool:
+        if not isinstance(other, Money):
+            return NotImplemented
+
         if self.currency != other.currency:
-            raise ValueError("Two different currencies")
+            raise ValueError(f"Cannot operate on different currencies: {self.currency} and {other.currency}")
         return self.amount > other.amount
 
     def __lt__(self, other: Self) -> bool:
+        if not isinstance(other, Money):
+            return NotImplemented
+
         if self.currency != other.currency:
-            raise ValueError("Two different currencies")
+            raise ValueError(f"Cannot operate on different currencies: {self.currency} and {other.currency}")
         return self.amount < other.amount
 
     def __ge__(self, other: Self) -> bool:
+        if not isinstance(other, Money):
+            return NotImplemented
+
         if self.currency != other.currency:
-            raise ValueError("Two different currencies")
+            raise ValueError(f"Cannot operate on different currencies: {self.currency} and {other.currency}")
         return self.amount >= other.amount
 
     def __le__(self, other: Self) -> bool:
+        if not isinstance(other, Money):
+            return NotImplemented
+
         if self.currency != other.currency:
-            raise ValueError("Two different currencies")
+            raise ValueError(f"Cannot operate on different currencies: {self.currency} and {other.currency}")
         return self.amount <= other.amount
