@@ -1,7 +1,8 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from decimal import Decimal
 from enum import StrEnum
 from typing import Self
+from uuid import uuid4, UUID
 
 
 class Unit(StrEnum):
@@ -72,3 +73,24 @@ class Weight:
             raise ValueError("The units are different")
 
         return self.weight <= other.weight
+
+
+@dataclass
+class Shipment:
+    customer_id: int
+    shipment_id: UUID = field(default_factory=uuid4)
+    cargo_manifest: dict[Unit, Weight] = field(default_factory=dict)
+
+    def add_cargo(self, weight: Weight) -> None:
+        if weight.unit not in self.cargo_manifest:
+            self.cargo_manifest[weight.unit] = weight
+        else:
+            self.cargo_manifest[weight.unit] += weight
+
+    def remove_cargo(self, weight: Weight) -> None:
+        current_weight = self.cargo_manifest.get(weight.unit)
+
+        if current_weight is None or current_weight < weight:
+            raise ValueError("Insufficient cargo weight")
+
+        self.cargo_manifest[weight.unit] -= weight
