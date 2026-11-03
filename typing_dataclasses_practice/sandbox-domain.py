@@ -36,3 +36,39 @@ class Weight:
             raise ValueError("The units are different")
 
         return Weight(self.weight - other.weight, self.unit)
+
+    def __gt__(self, other: Self) -> bool:
+        if not isinstance(other, Weight):
+            return NotImplemented
+
+        if self.unit != other.unit:
+            raise ValueError("The units are different")
+
+        return self.weight > other.weight
+
+    def __lt__(self, other: Self) -> bool:
+        if not isinstance(other, Weight):
+            return NotImplemented
+
+        if self.unit != other.unit:
+            raise ValueError("The units are different")
+
+        return self.weight < other.weight
+
+    def __ge__(self, other: Self) -> bool:
+        if not isinstance(other, Weight):
+            return NotImplemented
+
+        if self.unit != other.unit:
+            raise ValueError("The units are different")
+
+        return self.weight >= other.weight
+
+    def __le__(self, other: Self) -> bool:
+        if not isinstance(other, Weight):
+            return NotImplemented
+
+        if self.unit != other.unit:
+            raise ValueError("The units are different")
+
+        return self.weight <= other.weight
