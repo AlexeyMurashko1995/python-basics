@@ -24,3 +24,9 @@ class CargoBox:
 
     def get_info(self) -> str:
         return f"CargoBox {self.box_id}: category={self.category}, weight={self.weight} kg"
+
+
+@dataclass
+class Shipment:
+    boxes: list[CargoBox] = field(default_factory=list)
+    shipment_id: UUID = field(default_factory=uuid4)
