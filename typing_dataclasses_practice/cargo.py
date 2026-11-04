@@ -17,3 +17,7 @@ class CargoBox:
     category: CargoCategory
     is_fragile: bool
     box_id: UUID = field(default_factory=uuid4)
+
+    def __post_init__(self) -> None:
+        if self.weight <= Decimal("0"):
+            raise ValueError("Weight amount must be positive")
