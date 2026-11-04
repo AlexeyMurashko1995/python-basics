@@ -30,3 +30,12 @@ class CargoBox:
 class Shipment:
     boxes: list[CargoBox] = field(default_factory=list)
     shipment_id: UUID = field(default_factory=uuid4)
+
+    def add_box(self, box: CargoBox) -> None:
+        self.boxes.append(box)
+
+    def get_total_weight(self) -> Decimal:
+        total_weight = Decimal("0")
+        for box in self.boxes:
+            total_weight += box.weight
+        return total_weight
