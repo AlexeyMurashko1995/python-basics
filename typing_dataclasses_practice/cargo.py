@@ -21,3 +21,6 @@ class CargoBox:
     def __post_init__(self) -> None:
         if self.weight <= Decimal("0"):
             raise ValueError("Weight amount must be positive")
+
+    def get_info(self) -> str:
+        return f"CargoBox {self.box_id}: category={self.category}, weight={self.weight} kg"
