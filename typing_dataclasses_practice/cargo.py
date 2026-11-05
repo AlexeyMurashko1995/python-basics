@@ -39,3 +39,10 @@ class Shipment:
         for box in self.boxes:
             total_weight += box.weight
         return total_weight
+
+    def remove_box_by_id(self, box_id: UUID) -> CargoBox:
+        for box in self.boxes:
+            if box.box_id == box_id:
+                self.boxes.remove(box)
+                return box
+        raise ValueError(f"Box {box_id} not found")
