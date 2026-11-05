@@ -53,3 +53,9 @@ class Shipment:
             if box.category == category:
                 target_list.append(box)
         return target_list
+
+    def has_fragile_cargo(self) -> bool:
+        for box in self.boxes:
+            if box.is_fragile:
+                return True
+        return False
