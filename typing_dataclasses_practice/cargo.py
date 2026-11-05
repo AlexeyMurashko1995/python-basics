@@ -59,3 +59,10 @@ class Shipment:
             if box.is_fragile:
                 return True
         return False
+
+    def get_heaviest_box(self) -> CargoBox | None:
+        heaviest = None
+        for box in self.boxes:
+            if heaviest is None or box.weight > heaviest.weight:
+                heaviest = box
+        return heaviest
