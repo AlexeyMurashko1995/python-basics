@@ -46,3 +46,10 @@ class Shipment:
                 self.boxes.remove(box)
                 return box
         raise ValueError(f"Box {box_id} not found")
+
+    def get_boxes_by_category(self, category: CargoCategory) -> list[CargoBox]:
+        target_list = []
+        for box in self.boxes:
+            if box.category == category:
+                target_list.append(box)
+        return target_list
