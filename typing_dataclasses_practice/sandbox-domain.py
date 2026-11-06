@@ -20,6 +20,9 @@ class Weight:
         if self.weight <= Decimal("0"):
             raise ValueError("Weight must be positive")
 
+    def __str__(self) -> str:
+        return f"{self.weight} {self.unit}"
+
     def __add__(self, other: Self) -> Self:
         if not isinstance(other, Weight):
             return NotImplemented
