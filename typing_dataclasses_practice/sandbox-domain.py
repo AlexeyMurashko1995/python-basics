@@ -96,4 +96,8 @@ class Shipment:
         if current_weight is None or current_weight < weight:
             raise ValueError("Insufficient cargo weight")
 
-        self.cargo_manifest[weight.unit] -= weight
+        new_weight = current_weight - weight
+        if new_weight.weight == Decimal("0"):
+            del self.cargo_manifest[weight.unit]
+        else:
+            self.cargo_manifest[weight.unit] = new_weight
