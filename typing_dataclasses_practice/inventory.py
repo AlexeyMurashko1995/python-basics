@@ -16,3 +16,7 @@ class Product:
     category: ProductCategory
     is_available: bool
     id: UUID = field(default_factory=uuid4)
+
+    def __post_init__(self) -> None:
+        if self.price <= Decimal("0"):
+            raise ValueError("Product price must be positive")
