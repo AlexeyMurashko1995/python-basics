@@ -23,3 +23,8 @@ class Product:
 
     def product_data(self) -> str:
         return f"Product id: {self.id}; category: {self.category}; price: {self.price}"
+
+
+@dataclass
+class Inventory:
+    products_list: list[Product] = field(default_factory=list)
