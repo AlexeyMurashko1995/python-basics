@@ -20,3 +20,6 @@ class Product:
     def __post_init__(self) -> None:
         if self.price <= Decimal("0"):
             raise ValueError("Product price must be positive")
+
+    def product_data(self) -> str:
+        return f"Product id: {self.id}; category: {self.category}; price: {self.price}"
