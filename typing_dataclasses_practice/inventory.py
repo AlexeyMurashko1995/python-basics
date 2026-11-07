@@ -28,3 +28,8 @@ class Product:
 @dataclass
 class Inventory:
     products_list: list[Product] = field(default_factory=list)
+
+    def add_product(self, product: Product) -> Product:
+        if product is not None:
+            self.products_list.append(product)
+            return product
