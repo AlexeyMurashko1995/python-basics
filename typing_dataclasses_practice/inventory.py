@@ -67,3 +67,10 @@ class Inventory:
             if product.is_available:
                 available_list.append(product)
         return available_list
+
+    def filter_by_max_price(self, max_price: Decimal) -> list[Product]:
+        filter_list = []
+        for product in self.products_list:
+            if product.price <= max_price:
+                filter_list.append(product)
+        return filter_list
