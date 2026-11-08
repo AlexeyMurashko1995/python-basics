@@ -60,3 +60,10 @@ class Inventory:
             if most_expensive is None or product.price > most_expensive.price:
                 most_expensive = product
         return most_expensive
+
+    def get_available_products(self) -> list[Product]:
+        available_list = []
+        for product in self.products_list:
+            if product.is_available:
+                available_list.append(product)
+        return available_list
