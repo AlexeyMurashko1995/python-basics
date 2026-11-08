@@ -46,3 +46,10 @@ class Inventory:
                 self.products_list.remove(product)
                 return product
         raise ValueError("Product not found")
+
+    def filter_by_category(self,  category: ProductCategory) -> list[Product]:
+        target_product_list = []
+        for product in self.products_list:
+            if product.category == category:
+                target_product_list.append(product)
+        return target_product_list
