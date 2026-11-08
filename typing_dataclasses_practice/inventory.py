@@ -33,3 +33,9 @@ class Inventory:
         if product is not None:
             self.products_list.append(product)
             return product
+
+    def get_total_price(self) -> Decimal:
+        total_price = Decimal("0")
+        for product in self.products_list:
+            total_price += product.price
+        return total_price
