@@ -39,3 +39,10 @@ class Inventory:
         for product in self.products_list:
             total_price += product.price
         return total_price
+
+    def delete_by_product_id(self, product_id: UUID) -> Product:
+        for product in self.products_list:
+            if product.id == product_id:
+                self.products_list.remove(product)
+                return product
+        raise ValueError("Product not found")
