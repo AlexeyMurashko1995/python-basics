@@ -53,3 +53,10 @@ class Inventory:
             if product.category == category:
                 target_product_list.append(product)
         return target_product_list
+
+    def get_expensive_product(self) -> Product | None:
+        most_expensive = None
+        for product in self.products_list:
+            if most_expensive is None or product.price > most_expensive.price:
+                most_expensive = product
+        return most_expensive
