@@ -74,3 +74,10 @@ class Inventory:
             if product.price <= max_price:
                 filter_list.append(product)
         return filter_list
+
+    def category_count(self, category: ProductCategory) -> int:
+        total_count = 0
+        for product in self.products_list:
+            if product.category == category:
+                total_count += 1
+        return total_count
