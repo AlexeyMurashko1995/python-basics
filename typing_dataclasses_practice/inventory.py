@@ -81,3 +81,9 @@ class Inventory:
             if product.category == category:
                 total_count += 1
         return total_count
+
+    def is_not_available(self) -> bool:
+        for product in self.products_list:
+            if not product.is_available:
+                return True
+        return False
