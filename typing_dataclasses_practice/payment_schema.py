@@ -23,3 +23,13 @@ class Payment(BaseModel):
             if v.strip() == "":
                 raise ValueError("Description cannot be blank")
         return v
+
+    account_number: str | None = Field(default=None)
+
+    @field_validator("account_number")
+    @classmethod
+    def check_account_number(cls, v: str | None) -> str | None:
+        if v is not None:
+            if not v.startswith(("USD", "EUR", "PLN")):
+                raise ValueError("Invalid account currency prefix")
+        return v
