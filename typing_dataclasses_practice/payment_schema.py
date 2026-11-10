@@ -12,5 +12,6 @@ class Currency(StrEnum):
 
 class Payment(BaseModel):
     id: UUID = Field(default_factory=uuid4)
-    amount: Decimal
+    amount: Decimal = Field(gt=Decimal("0"))
     currency: Currency
+    description: str | None = Field(default=None, max_length=100)
