@@ -52,3 +52,9 @@ class Payment(BaseModel):
         if self.status == PaymentStatus.SUCCESS and self.account_number is None:
             raise ValueError("Successful payment must have an account number")
         return self
+
+    def to_dict(self) -> dict:
+        return self.model_dump()
+
+    def to_json(self) -> str:
+        return self.model_dump_json()
