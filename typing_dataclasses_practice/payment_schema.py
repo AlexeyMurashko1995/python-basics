@@ -10,6 +10,12 @@ class Currency(StrEnum):
     PLN = "PLN"
 
 
+class PaymentStatus(StrEnum):
+    PENDING = "PENDING"
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
+
+
 class Payment(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     amount: Decimal = Field(gt=Decimal("0"))
@@ -33,3 +39,7 @@ class Payment(BaseModel):
             if not v.startswith(("USD", "EUR", "PLN")):
                 raise ValueError("Invalid account currency prefix")
         return v
+
+    status: PaymentStatus = Field(default=PaymentStatus.PENDING)
+
+
