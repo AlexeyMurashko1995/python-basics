@@ -1,7 +1,8 @@
 from decimal import Decimal
 from enum import StrEnum
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 from uuid import UUID, uuid4
+from typing import Self
 
 
 class Currency(StrEnum):
@@ -45,3 +46,9 @@ class Payment(BaseModel):
     def is_successful(self) -> bool:
         return self.status == PaymentStatus.SUCCESS
 
+
+    @model_validator(mode="after")
+    def check_payment_status(self) -> Self:
+        if self.status == PaymentStatus.SUCCESS and self.account_number is None:
+            raise ValueError("Successful payment must have an account number")
+        return self
