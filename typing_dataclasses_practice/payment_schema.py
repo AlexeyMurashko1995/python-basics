@@ -42,4 +42,6 @@ class Payment(BaseModel):
 
     status: PaymentStatus = Field(default=PaymentStatus.PENDING)
 
+    def is_successful(self) -> bool:
+        return self.status == PaymentStatus.SUCCESS
 
