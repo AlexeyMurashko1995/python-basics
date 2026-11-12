@@ -1,7 +1,8 @@
 from decimal import Decimal
 from enum import StrEnum
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 from uuid import UUID, uuid4
+from typing import Self
 
 
 class Currency(StrEnum):
@@ -39,3 +40,12 @@ class MoneyTransfer(BaseModel):
             if len(v.strip()) == 0:
                 raise ValueError("Reference cannot be empty")
         return v
+
+    @model_validator(mode="after")
+    def check_money_transfer(self) -> Self:
+        if self.currency == Currency.PLN and self.recipient_iban[0:2] != "PL":
+            raise ValueError("IBAN must start with PL")
+        if self.amount > Decimal("10000"):
+            if self.reference is None:
+                raise ValueError("Reference cannot be empty")
+        return self
