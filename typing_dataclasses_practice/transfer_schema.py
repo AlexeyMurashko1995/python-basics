@@ -18,6 +18,19 @@ class TransferStatus(StrEnum):
     REJECTED = "REJECTED"
 
 
+class Sender(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
+    company_name: str = Field(min_length=2, max_length=100)
+    tax_id: str = Field(min_length=8, max_length=15)
+
+    @field_validator("company_name")
+    @classmethod
+    def check_company_name(cls, v: str) -> str:
+        if len(v.strip()) == 0:
+            raise ValueError("Company name cannot be empty")
+        return v
+
+
 class MoneyTransfer(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     amount: Decimal = Field(gt=0)
@@ -25,6 +38,7 @@ class MoneyTransfer(BaseModel):
     recipient_iban: str = Field(min_length=15, max_length=34)
     reference: str | None = Field(default=None, max_length=140)
     status: TransferStatus = Field(default=TransferStatus.CREATED)
+    sender: Sender
 
     @field_validator("recipient_iban")
     @classmethod
