@@ -1,6 +1,7 @@
 from enum import StrEnum
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 from uuid import UUID, uuid4
+from typing import Self
 
 
 class AIModel(StrEnum):
@@ -51,3 +52,11 @@ class LLMRequest(BaseModel):
             if len(v.strip()) == 0:
                 raise ValueError("System prompt cannot be empty")
         return v
+
+    @model_validator(mode="after")
+    def check_llm_model(self) -> Self:
+        if self.model == AIModel.GEMINI and self.system_prompt is not None:
+            raise ValueError("System prompt must be empty")
+        if self.priority == TaskPriority.HIGH and self.max_tokens > 2048:
+            raise ValueError("Max tokens - 2048")
+        return self
