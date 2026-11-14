@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator, computed_field
 from typing import Literal, Self
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
@@ -29,3 +29,11 @@ class ChatSession(BaseModel):
             if message.role == "system" and i != 0:
                 raise ValueError("System role can be only at first position")
         return self
+
+    @computed_field
+    @property
+    def total_tokens(self) -> int:
+        total_count = 0
+        for message in self.messages:
+            total_count += message.token_count
+        return total_count
