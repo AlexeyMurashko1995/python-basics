@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, Field, model_validator, computed_field
+from pydantic import BaseModel, ConfigDict, Field, model_validator, computed_field, ValidationError
 from typing import Literal, Self
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
@@ -37,3 +37,31 @@ class ChatSession(BaseModel):
         for message in self.messages:
             total_count += message.token_count
         return total_count
+
+
+if __name__ == "__main__":
+    valid_message_1 = ChatMessage(role="system", content="user")
+    valid_message_2 = ChatMessage(role="user", content="fun")
+    valid_session = ChatSession(messages=[valid_message_1, valid_message_2])
+
+    valid_session_to_dict = valid_session.model_dump()
+    valid_session_to_json = valid_session.model_dump_json()
+
+    print(valid_session_to_dict)
+    print(valid_session_to_json)
+
+    try:
+        invalid_message_1 = ChatMessage(role="system", content="test")
+        invalid_message_2 = ChatMessage(role="system", content="test2")
+        invalid_session = ChatSession(messages=[invalid_message_1, invalid_message_2])
+
+    except ValidationError as err:
+        print(f"Error: {err}")
+
+    try:
+        invalid_message_3 = ChatMessage(role="system", content="fun")
+        invalid_message_4 = ChatMessage(role="user", content="test")
+        invalid_session_2 = ChatSession(messages=[invalid_message_3, invalid_message_4], description="test")
+
+    except ValidationError as err:
+        print(f"Error: {err}")
