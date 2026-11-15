@@ -37,3 +37,22 @@ class PaymentTransaction(BaseModel):
     currency: Currency
     status: Literal["created", "authorized", "declined", "failed"] = Field(default="created")
     acquirer_response: AcquirerResponse | None = Field(default=None)
+
+    @model_validator(mode="after")
+    def check_payment_transaction(self) -> Self:
+        if self.status == "created":
+            if self.acquirer_response is not None:
+                raise ValueError("Acquirer response must be empty for created status")
+            return self
+
+        if self.acquirer_response is None:
+            raise ValueError("Acquirer response is required for processed transaction")
+
+        if self.status == "authorized" and self.acquirer_response.decision != "approved":
+            raise ValueError("Authorized transaction requires approved acquirer decision")
+        if self.status == "declined" and self.acquirer_response.decision != "declined":
+            raise ValueError("Declined transaction requires declined acquirer decision")
+        if self.status == "failed" and self.acquirer_response.decision != "error":
+            raise ValueError("Failed transaction requires error acquirer decision")
+
+        return self
