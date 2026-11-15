@@ -1,6 +1,14 @@
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from typing import Literal, Self
 from datetime import datetime, timezone
+from uuid import UUID, uuid4
+from enum import StrEnum
+
+
+class Currency(StrEnum):
+    USD = "USD"
+    EUR = "EUR"
+    PLN = "PLN"
 
 
 class AcquirerResponse(BaseModel):
@@ -18,3 +26,14 @@ class AcquirerResponse(BaseModel):
         if (self.decision == "declined" or self.decision == "error") and (self.response_code == "00" or self.auth_code is not None):
             raise ValueError("Error 2")
         return self
+
+
+class PaymentTransaction(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    transaction_id: UUID = Field(default_factory=uuid4)
+    merchant_id: str = Field(min_length=1)
+    amount: int = Field(gt=0)
+    currency: Currency
+    status: Literal["created", "authorized", "declined", "failed"] = Field(default="created")
+    acquirer_response: AcquirerResponse | None = Field(default=None)
