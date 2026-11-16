@@ -21,10 +21,12 @@ class AcquirerResponse(BaseModel):
 
     @model_validator(mode="after")
     def check_response_code(self) -> Self:
+        if self.auth_code is not None and not self.auth_code.isdigit():
+            raise ValueError("Auth code must contain only digits")
         if self.decision == "approved" and (self.response_code != "00" or self.auth_code is None):
-            raise ValueError("Error")
-        if (self.decision == "declined" or self.decision == "error") and (self.response_code == "00" or self.auth_code is not None):
-            raise ValueError("Error 2")
+            raise ValueError("Approved decision requires response code '00' and auth_code")
+        if self.decision in ("declined", "error") and (self.response_code == "00" or self.auth_code is not None):
+            raise ValueError("Declined or error decision cannot have response code '00' or auth_code")
         return self
 
 
