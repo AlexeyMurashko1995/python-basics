@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator, computed_field
 from typing import Literal, Self
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
@@ -58,3 +58,10 @@ class PaymentTransaction(BaseModel):
             raise ValueError("Failed transaction requires error acquirer decision")
 
         return self
+
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @computed_field
+    @property
+    def is_finalized(self) -> bool:
+        return self.status != "created"
