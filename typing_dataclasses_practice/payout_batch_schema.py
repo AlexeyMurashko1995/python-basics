@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 from enum import StrEnum
 from uuid import UUID, uuid4
 
@@ -22,5 +22,20 @@ class PayoutItem(BaseModel):
     item_id: UUID = Field(default_factory=uuid4)
     merchant_id: str = Field(min_length=1)
     iban: str
+
+    @field_validator("iban")
+    @classmethod
+    @field_validator("iban")
+    @classmethod
+    def check_iban(cls, v: str) -> str:
+        cleaned_v = v.replace(" ", "").upper()
+        if not (15 <= len(cleaned_v) <= 34):
+            raise ValueError("IBAN must be between 15 and 34 characters")
+        if not (cleaned_v.isascii() and cleaned_v.isalnum()):
+            raise ValueError("IBAN must contain only ASCII letters and digits")
+        if not (cleaned_v[:2].isalpha() and cleaned_v[2:4].isdigit()):
+            raise ValueError("IBAN must start with 2 letters followed by 2 digits")
+        return cleaned_v
+
     amount: int = Field(gt=0)
     fee: int = Field(ge=0, default=0)
