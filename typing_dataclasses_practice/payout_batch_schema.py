@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field, ConfigDict, field_validator
 from enum import StrEnum
 from uuid import UUID, uuid4
+from datetime import datetime, timezone
 
 
 class PayoutCurrency(StrEnum):
@@ -37,3 +38,14 @@ class PayoutItem(BaseModel):
 
     amount: int = Field(gt=0)
     fee: int = Field(ge=0, default=0)
+
+
+class PayoutBatch(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    batch_id: UUID = Field(default_factory=uuid4)
+    currency: PayoutCurrency
+    status: BatchStatus = Field(default=BatchStatus.DRAFT)
+    items: list[PayoutItem] = Field(min_length=1, max_length=100)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    submitted_at: datetime | None = None
