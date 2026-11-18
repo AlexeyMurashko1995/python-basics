@@ -1,7 +1,8 @@
-from pydantic import BaseModel, Field, ConfigDict, field_validator
+from pydantic import BaseModel, Field, ConfigDict, field_validator, model_validator
 from enum import StrEnum
 from uuid import UUID, uuid4
 from datetime import datetime, timezone
+from typing import Self
 
 
 class PayoutCurrency(StrEnum):
@@ -49,3 +50,23 @@ class PayoutBatch(BaseModel):
     items: list[PayoutItem] = Field(min_length=1, max_length=100)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     submitted_at: datetime | None = None
+
+    @model_validator(mode="after")
+    def validate_batch(self) -> Self:
+        seen = set()
+        for item in self.items:
+            if item.item_id in seen:
+                raise ValueError("This item already exists")
+            seen.add(item.item_id)
+        if self.status == BatchStatus.DRAFT and self.submitted_at is not None:
+            raise ValueError("Draft cannot have submitted time")
+        elif self.status != BatchStatus.DRAFT and self.submitted_at is None:
+            raise ValueError("Submitted time is necessary")
+        return self
+    @property
+    def total_amount(self) -> int:
+        return sum(item.amount for item in self.items)
+    @property
+
+    def total_fee(self) -> int:
+        return sum(item.fee for item in self.items)
