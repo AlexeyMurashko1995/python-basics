@@ -25,8 +25,6 @@ class PayoutItem(BaseModel):
 
     @field_validator("iban")
     @classmethod
-    @field_validator("iban")
-    @classmethod
     def check_iban(cls, v: str) -> str:
         cleaned_v = v.replace(" ", "").upper()
         if not (15 <= len(cleaned_v) <= 34):
