@@ -1,5 +1,6 @@
-from payout_batch_schema import PayoutBatch, BatchStatus
 from datetime import datetime, timezone
+
+from payout_batch_schema import BatchStatus, PayoutBatch
 
 
 def submit_batch(batch: PayoutBatch) -> PayoutBatch:
