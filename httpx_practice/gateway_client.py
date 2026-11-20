@@ -7,3 +7,28 @@ def check_transaction(tx_id: str, api_key: str) -> dict:
     headers = {"X-API-Key": api_key}
     response = httpx.get(url, params=params, headers=headers, timeout=5.0)
     return response.json()
+
+
+def diagnose_status(status_code: int) -> str:
+    url = f"https://postman-echo.com/status/{status_code}"
+    try:
+        response = httpx.get(url, timeout=5.0)
+    except httpx.RequestError as exc:
+        return f"Network error: {exc}"
+
+    if response.status_code == 200:
+        return "200 OK: Request succeeded"
+    if response.status_code == 401:
+        return "401 Unauthorized: Check API key"
+    if response.status_code == 403:
+        return "403 Forbidden: IP not in whitelist"
+    if response.status_code == 500:
+        return "500 Server Error: Downstream backend failed"
+    return f"Unhandled status: {response.status_code}"
+
+
+if __name__ == "__main__":
+    print(check_transaction("tx_12345", "test_secret_key"))
+    print(diagnose_status(200))
+    print(diagnose_status(403))
+    print(diagnose_status(500))
