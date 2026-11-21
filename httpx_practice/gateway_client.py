@@ -26,3 +26,10 @@ def diagnose_status(status_code: int) -> str:
     if response.status_code == 500:
         return "500 Server Error: Downstream backend failed"
     return f"Unhandled status: {response.status_code}"
+
+
+if __name__ == "__main__":
+    print(check_transaction(tx_id="123af", api_key="123.123.1231.2"))
+    print(diagnose_status(status_code=200))
+    print(diagnose_status(status_code=403))
+    print(diagnose_status(status_code=500))
