@@ -1,28 +1,28 @@
 import httpx
 
+BASE_URL = "https://postman-echo.com"
+DEFAULT_TIMEOUT = 5.0
+
 
 def fetch_echo(query: str) -> dict:
-    url = "https://postman-echo.com/get"
+    url = f"{BASE_URL}/get"
     params = {"q": query}
-    timeout = 5.0
-    response = httpx.get(url=url, params=params, timeout=timeout)
+    response = httpx.get(url, params=params, timeout=DEFAULT_TIMEOUT)
     return response.json()
 
 
 def send_echo_data(message: str, amount: float) -> dict:
-    url = "https://postman-echo.com/post"
+    url = f"{BASE_URL}/post"
     payload = {"message": message, "amount": amount}
-    timeout = 5.0
-    response = httpx.post(url=url, json=payload, timeout=timeout)
+    response = httpx.post(url, json=payload, timeout=DEFAULT_TIMEOUT)
     return response.json()
 
 
 def check_endpoint_status(status_code: int, api_key: str) -> dict:
-    url = f"https://postman-echo.com/status/{status_code}"
+    url = f"{BASE_URL}/status/{status_code}"
     headers = {"X-API-Key": api_key}
-    timeout = 5.0
     try:
-        response = httpx.get(url=url, headers=headers, timeout=timeout)
+        response = httpx.get(url, headers=headers, timeout=DEFAULT_TIMEOUT)
         response.raise_for_status()
         return {"status": response.status_code}
     except httpx.HTTPStatusError as exc:
