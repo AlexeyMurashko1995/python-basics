@@ -7,15 +7,27 @@ DEFAULT_TIMEOUT = 5.0
 def fetch_echo(query: str) -> dict:
     url = f"{BASE_URL}/get"
     params = {"q": query}
-    response = httpx.get(url, params=params, timeout=DEFAULT_TIMEOUT)
-    return response.json()
+    try:
+        response = httpx.get(url, params=params, timeout=DEFAULT_TIMEOUT)
+        response.raise_for_status()
+        return response.json()
+    except httpx.HTTPStatusError as exc:
+        return {"error": exc.response.status_code}
+    except httpx.RequestError:
+        return {"error": "network_error"}
 
 
 def send_echo_data(message: str, amount: float) -> dict:
     url = f"{BASE_URL}/post"
     payload = {"message": message, "amount": amount}
-    response = httpx.post(url, json=payload, timeout=DEFAULT_TIMEOUT)
-    return response.json()
+    try:
+        response = httpx.post(url, json=payload, timeout=DEFAULT_TIMEOUT)
+        response.raise_for_status()
+        return response.json()
+    except httpx.HTTPStatusError as exc:
+        return {"error": exc.response.status_code}
+    except httpx.RequestError:
+        return {"error": "network_error"}
 
 
 def check_endpoint_status(status_code: int, api_key: str) -> dict:
