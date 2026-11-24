@@ -13,6 +13,8 @@ def fetch_echo(query: str) -> dict:
         return response.json()
     except httpx.HTTPStatusError as exc:
         return {"error": exc.response.status_code}
+    except httpx.TimeoutException:
+        return {"error": "timeout"}
     except httpx.RequestError:
         return {"error": "network_error"}
 
@@ -26,6 +28,8 @@ def send_echo_data(message: str, amount: float) -> dict:
         return response.json()
     except httpx.HTTPStatusError as exc:
         return {"error": exc.response.status_code}
+    except httpx.TimeoutException:
+        return {"error": "timeout"}
     except httpx.RequestError:
         return {"error": "network_error"}
 
@@ -39,6 +43,8 @@ def check_endpoint_status(status_code: int, api_key: str) -> dict:
         return {"status": response.status_code}
     except httpx.HTTPStatusError as exc:
         return {"error": exc.response.status_code}
+    except httpx.TimeoutException:
+        return {"error": "timeout"}
     except httpx.RequestError:
         return {"error": "network_error"}
 
