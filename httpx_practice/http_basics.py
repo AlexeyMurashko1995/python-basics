@@ -16,6 +16,15 @@ def get_json(query: str) -> dict:
     return response.json()
 
 
+def post_request(body: str) -> dict:
+    url = "https://postman-echo.com/post"
+    timeout = 5.0
+    payload = {"message": body}
+    response = httpx.post(url=url, timeout=timeout, json=payload)
+    return response.json()
+
+
 if __name__ == "__main__":
     print(get_request())
     print(get_json(query="123"))
+    print(post_request(body="alex"))
