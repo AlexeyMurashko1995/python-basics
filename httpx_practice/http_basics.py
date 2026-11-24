@@ -8,5 +8,14 @@ def get_request() -> int:
     return response.status_code
 
 
+def get_json(query: str) -> dict:
+    url = "https://postman-echo.com/get"
+    timeout = 5.0
+    payload = {"q": query}
+    response = httpx.get(url=url, timeout=timeout, params=payload)
+    return response.json()
+
+
 if __name__ == "__main__":
     print(get_request())
+    print(get_json(query="123"))
