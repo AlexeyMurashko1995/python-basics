@@ -1,26 +1,32 @@
 import httpx
 
 
+BASE_URL = "https://postman-echo.com"
+DEFAULT_TIMEOUT = 5.0
+
+
 def get_request() -> int:
-    url = "https://postman-echo.com/get"
-    timeout = 5.0
-    response = httpx.get(url=url, timeout=timeout)
+    response = httpx.get(url=f"{BASE_URL}/get", timeout=DEFAULT_TIMEOUT)
     return response.status_code
 
 
 def get_json(query: str) -> dict:
-    url = "https://postman-echo.com/get"
-    timeout = 5.0
-    payload = {"q": query}
-    response = httpx.get(url=url, timeout=timeout, params=payload)
+    params = {"q": query}
+    response = httpx.get(
+        url=f"{BASE_URL}/get",
+        timeout=DEFAULT_TIMEOUT,
+        params=params,
+    )
     return response.json()
 
 
 def post_request(body: str) -> dict:
-    url = "https://postman-echo.com/post"
-    timeout = 5.0
     payload = {"message": body}
-    response = httpx.post(url=url, timeout=timeout, json=payload)
+    response = httpx.post(
+        url=f"{BASE_URL}/post",
+        timeout=DEFAULT_TIMEOUT,
+        json=payload,
+    )
     return response.json()
 
 
