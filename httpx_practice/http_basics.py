@@ -30,7 +30,18 @@ def post_request(body: str) -> dict:
     return response.json()
 
 
+def get_with_headers(api_key: str) -> dict:
+    headers = {"X-API-Key": api_key}
+    response = httpx.get(
+        url=f"{BASE_URL}/get",
+        timeout=DEFAULT_TIMEOUT,
+        headers=headers,
+    )
+    return response.json()
+
+
 if __name__ == "__main__":
     print(get_request())
     print(get_json(query="123"))
     print(post_request(body="alex"))
+    print(get_with_headers(api_key="test-key-123"))
