@@ -20,6 +20,17 @@ def get_json(query: str) -> dict:
     return response.json()
 
 
+def post_message(message: str) -> dict:
+    payload = {"message": message}
+    response = httpx.post(
+        url=f"{BASE_URL}/post",
+        timeout=DEFAULT_TIMEOUT,
+        json=payload,
+    )
+    return response.json()
+
+
 if __name__ == "__main__":
     print(get_status_code())
     print(get_json(query="test"))
+    print(post_message(message="hello"))
